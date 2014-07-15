@@ -1,6 +1,5 @@
 var http = require('http');
 
-var page = "batman";
 var endPoint = 'en.wikipedia.org';
 
 var queryPath = function (page) {

@@ -1,4 +1,4 @@
-var pages = require('../app/controllers/api/pages')
+var pages = require('../api/controllers/pages')
 
 module.exports = function(app) {
 

@@ -1,15 +1,35 @@
 {
-  "name"         : "WikiWash",
-  "version"      : "0.0.0",
-  "description"  : "Expose related edits on Wikipedia.",
-  "main"         : "server.js",
-  "author"       : "TWG",
-  "dependencies" : {
-    "express"    : "latest",
-    "morgan"     : "latest",
-    "body-parser": "latest",
-    "consolidate": "latest",
-    "express-partials": "latest",
-    "haml": "latest"
+  "name": "WikiWash",
+  "version": "0.0.0",
+  "description": "Expose related edits on Wikipedia.",
+  "main": "server.js",
+  "author": "TWG",
+  "dependencies": {
+    "body-parser": "~1.0.0",
+    "consolidate": "^0.10.0",
+    "express": "~4.4.5",
+    "express-partials": "^0.1.0",
+    "haml": "^0.4.3",
+    "hamljs": "^0.6.2",
+    "lodash": "^2.4.1"
+  },
+  "devDependencies": {
+    "bower": "^1.3.7",
+    "gulp": "^3.8.6",
+    "gulp-util": "^2.2.16",
+    "gulp-haml": "^0.0.8",
+    "gulp-sass": "^0.7.2",
+    "gulp-nodemon": "^1.0.4",
+    "gulp-minify-css": "^0.3.6",
+    "gulp-uglify": "^0.3.1",
+    "gulp-concat": "^2.3.3",
+    "gulp-minify-html": "^0.1.4",
+    "gulp-jshint": "^1.7.1",
+    "gulp-angular-templatecache": "^1.2.1",
+    "gulp-shell": "^0.2.8",
+    "gulp-order": "^1.1.1",
+    "gulp-autoprefixer": "0.0.8",
+    "jshint-stylish": "^0.4.0",
+    "columnify": "^1.1.0"
   }
 }

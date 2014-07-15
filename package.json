@@ -1,0 +1,15 @@
+{
+  "name"         : "WikiWash",
+  "version"      : "0.0.0",
+  "description"  : "Expose related edits on Wikipedia.",
+  "main"         : "server.js",
+  "author"       : "TWG",
+  "dependencies" : {
+    "express"    : "latest",
+    "morgan"     : "latest",
+    "body-parser": "latest",
+    "consolidate": "latest",
+    "express-partials": "latest",
+    "haml": "latest"
+  }
+}

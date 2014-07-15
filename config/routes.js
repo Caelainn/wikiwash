@@ -6,8 +6,10 @@ module.exports = function(app) {
     res.render('home/index.haml'); 
   });
 
-  app.get('/api/pages', function(req, res) {
-    res.json(pages.test); 
+  app.get('/api/pages/:id', function(req, res) {
+    pages.find(req.params.id, function (pageJson) {
+      res.json(pageJson); 
+    })
   });
   
 }

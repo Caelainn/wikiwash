@@ -23,6 +23,6 @@ app.set('views', config.root + '/public/views')
 
 routes(app);
 
-app.listen(8080);
-console.log("App listening on port 8080");
+app.listen(3000);
+console.log("App listening on port 3000");
 

@@ -153,7 +153,7 @@ gulp.task('seed', function () {
 gulp.task('routes', function () {
   var columnify = require('columnify')
     , routes = []
-    , app = require('./api/app')
+    , app = require('./server')
 
   app._router.stack.forEach(function (route) {
     if (route.route) {

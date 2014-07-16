@@ -41,7 +41,7 @@ var bowerImageDependencies = [
 var paths = {
   scripts: ['app/scripts/**/*.js'],
   styles: ['app/styles/**/*.scss'],
-  html: ['app/views/**/*'],
+  views: ['app/views/**/*'],
   public: ['app/public/**/*'],
   assets: 'api/assets'
 }
@@ -51,12 +51,14 @@ gulp.task('html-public', function () {
     .pipe(gulp.dest('./public'))
 })
 
-gulp.task('html-view', function () {
-  return gulp.src(paths.html)
-    .pipe(gulp.dest('./public/views'))
-})
+// Get and render all .haml files recursively 
+gulp.task('haml-view', function () {
+  gulp.src(paths.views)
+    .pipe(haml())
+    .pipe(gulp.dest('./public/views'));
+});
 
-gulp.task('html-template', ['html-view'], function () {
+gulp.task('html-template', ['haml-view'], function () {
   return gulp.src('./public/views/**/*')
     .pipe(minifyHTML({
       quotes: true
@@ -113,7 +115,7 @@ gulp.task('clean', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(paths.html, ['html-view', 'html-template'])
+  gulp.watch(paths.html, ['haml-view', 'html-template'])
   gulp.watch(paths.public, ['html-public'])
   gulp.watch(paths.scripts, ['scripts'])
   gulp.watch(paths.styles, ['styles'])
@@ -139,7 +141,7 @@ gulp.task('nodemon', function () {
     })
 })
 
-gulp.task('build', ['html-public', 'html-view', 'html-template', 'scripts', 'styles', 'vendor-scripts', 'vendor-styles', 'vendor-images'])
+gulp.task('build', ['html-public', 'haml-view', 'html-template', 'scripts', 'styles', 'vendor-scripts', 'vendor-styles', 'vendor-images'])
 gulp.task('default', ['nodemon', 'build', 'watch'])
 
 

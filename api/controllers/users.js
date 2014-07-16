@@ -1,27 +1,32 @@
-var http = require('http');
+var http = require('q-io/http');
+var Q = require('Q');
 
 var endPoint = 'en.wikipedia.org';
 
 var queryPath = function (page) {
-  var path = "/w/api.php?" +
-             "action=query&" +
-             "prop=info%7Crevisions&" +
-             "format=json&" +
-             "inprop=protection%7Curl&" +
-             "rvprop=ids%7Cuser%7Cuserid%7Ccomment&" +
-             "rvlimit=500&" +
-             "titles=" + page
-
-  return path
+  return  "/w/api.php?" +
+          "action=query&" +
+          "prop=info%7Crevisions&" +
+          "format=json&" +
+          "inprop=protection%7Curl&" +
+          "rvprop=ids%7Cuser%7Cuserid%7Ccomment&" +
+          "rvlimit=500&" +
+          "titles=" + page
 }
 
-module.exports.index = function (page, req, res) {
+module.exports.index = function (req, res) {
   var options = {
+    method: 'GET',
     host: endPoint,
-    path: queryPath(page)
+    path: queryPath(req.params.id)
   };
+  
+  http.request(options)
+  .then(function (response) {
+    response.body.read()
+    .then(function (body) {
+      res.json(JSON.parse(body));
+    })
+  });                                                                    
 
-  http.get(options, function(resp) {
-    resp.pipe(res);
-  });
 };

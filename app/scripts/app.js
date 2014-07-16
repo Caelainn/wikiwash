@@ -1,4 +1,6 @@
 var wikiwash = {}
 
-angular.module('wikiwash', []);
+angular.module('wikiwash', [
+  'btford.socket-io'
+]);
 

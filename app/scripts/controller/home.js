@@ -1,5 +1,7 @@
-angular.module('wikiwash').controller('HomeController', ['$scope', 'mediawikiApi', 
-  function($scope, mediawikiApi) {
+angular.module('wikiwash').controller('HomeController', ['$scope', 'socket', 'mediawikiApi', 
+  function($scope, socket, mediawikiApi) {
+    
+    debugger;
   
     $scope.pageName = "";
     $scope.pageData = "";

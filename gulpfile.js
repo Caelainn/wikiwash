@@ -40,7 +40,7 @@ var bowerImageDependencies = [
 
 var paths = {
   scripts: ['app/scripts/**/*.js'],
-  styles: ['app/styles/**/*.scss'],
+  styles: ['app/styles/**/*.sass'],
   views: ['app/views/**/*'],
   public: ['app/public/**/*'],
   assets: 'api/assets'

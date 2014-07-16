@@ -1,6 +1,5 @@
 var express    = require('express');
 var bodyParser = require('body-parser');
-var engines    = require('consolidate');
 var partials   = require('express-partials');
 var path       = require('path');
 

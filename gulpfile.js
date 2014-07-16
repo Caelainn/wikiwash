@@ -1,6 +1,6 @@
 var path = require('path')
   , gulp = require('gulp')
-  , haml = require('gulp-haml')
+  , jade = require('gulp-jade')
   , nodemon = require('gulp-nodemon')
   , sass = require('gulp-sass')
   , minifycss = require('gulp-minify-css')
@@ -51,14 +51,13 @@ gulp.task('html-public', function () {
     .pipe(gulp.dest('./public'))
 })
 
-// Get and render all .haml files recursively 
-gulp.task('haml-view', function () {
+gulp.task('jade-view', function () {
   gulp.src(paths.views)
-    .pipe(haml())
+    .pipe(jade())
     .pipe(gulp.dest('./public/views'));
 });
 
-gulp.task('html-template', ['haml-view'], function () {
+gulp.task('html-template', ['jade-view'], function () {
   return gulp.src('./public/views/**/*')
     .pipe(minifyHTML({
       quotes: true
@@ -115,7 +114,7 @@ gulp.task('clean', function () {
 })
 
 gulp.task('watch', function () {
-  gulp.watch(paths.html, ['haml-view', 'html-template'])
+  gulp.watch(paths.views, ['jade-view', 'html-template'])
   gulp.watch(paths.public, ['html-public'])
   gulp.watch(paths.scripts, ['scripts'])
   gulp.watch(paths.styles, ['styles'])
@@ -141,7 +140,7 @@ gulp.task('nodemon', function () {
     })
 })
 
-gulp.task('build', ['html-public', 'haml-view', 'html-template', 'scripts', 'styles', 'vendor-scripts', 'vendor-styles', 'vendor-images'])
+gulp.task('build', ['html-public', 'jade-view', 'html-template', 'scripts', 'styles', 'vendor-scripts', 'vendor-styles', 'vendor-images'])
 gulp.task('default', ['nodemon', 'build', 'watch'])
 
 

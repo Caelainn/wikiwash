@@ -1,13 +1,11 @@
 var path = require('path');
 
-var pages = require('../api/controllers/pages');
+var users = require('../api/controllers/users');
 
 module.exports = function(app) {
 
   app.get('/api/pages/:id', function(req, res) {
-    pages.find(req.params.id, function (pageJson) {
-      res.json(pageJson); 
-    })
+    users.index(req.params.id, req, res);
   });
 
   app.all('*', function (req, res, next) {

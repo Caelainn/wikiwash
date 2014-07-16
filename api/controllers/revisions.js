@@ -12,7 +12,8 @@ module.exports.find = function (id, callback) {
 
   var options = {
     host: endPoint,
-    path: queryPath(id)
+    path: queryPath(id),
+    action: 'query'
   };
 
   http.get(options, function(resp) {

@@ -17,5 +17,12 @@ html(lang="en")
     .header WikiWash
       
     .content(ng-controller='HomeController')
-      ul
-        {{revisions}}
+      .search
+        input(type="text" ng-model='pageName')
+        input(type='submit' value='submit' ng-click='searchWiki()')
+
+        input(type="text" ng-model='test')
+        input(type='submit' value='submit' ng-click='testEmit()')
+        
+      {{pageData}}
+      {{resp}}

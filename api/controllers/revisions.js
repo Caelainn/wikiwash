@@ -1,35 +1,34 @@
-var http = require('http');
+var http = require('q-io/http');
+var Q = require('Q');
+
+var events = require('../../config/events');
 
 var endPoint = 'en.wikipedia.org';
 
-var queryPath = function (id) {
-  "/w/api.php?action=query&prop=revisions&format=json&rvprop=ids%7Ctimestamp%7Ccontent%7Cuser&prop=extracts&revids=******revision"
-  var path = "/w/api.php?action=query&prop=revisions&rvprop=content&format=json&titles="
-  return path + page
+var queryPath = function (page) {
+  return  "/w/api.php?" +
+          "action=query&" +
+          "prop=info%7Crevisions&" +
+          "format=json&" +
+          "inprop=protection%7Curl&" +
+          "rvprop=ids%7Cuser%7Cuserid%7Ccomment&" +
+          "rvlimit=500&" +
+          "titles=" + page
 }
 
-module.exports.find = function (id, callback) {
-
+module.exports.index = function (io) {
   var options = {
+    method: 'GET',
     host: endPoint,
-    path: queryPath(id),
-    action: 'query'
+    path: queryPath(req.params.id)
   };
-
-  http.get(options, function(resp) {
-    var output = '';
-
-    resp.on('data', function(chunk) {
-      output += chunk;
-    });
-    
-    resp.on('end', function () {
-      callback(JSON.parse(output));
-    });
-    
-    resp.on('error', function(e) {
-      callback({error: "Error: " + e.message});
-    });
-  });
+  
+  http.request(options)
+  .then(function (response) {
+    response.body.read()
+    .then(function (body) {
+      res.json(JSON.parse(body));
+    })
+  });                                                                    
 
 };

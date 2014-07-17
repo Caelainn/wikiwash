@@ -2,10 +2,10 @@ var express    = require('express');
 var bodyParser = require('body-parser');
 var partials   = require('express-partials');
 var path       = require('path');
-var io         = require('socket.io')(require('http').Server(app));
 
 var config   = require('./config/config');
 var routes   = require('./config/routes');
+var events   = require('./config/events');
 
 var app = require('express')();
 var http = require('http').Server(app);
@@ -25,12 +25,9 @@ app.use(partials());
 app.set('views', config.root + '/public/views')
 
 routes(app);
+events(io);
 
-io.on('connection', function(socket){
-  socket.on('event', function(data){});
-  socket.on('disconnect', function(){});
+http.listen(3000, function(){
+  console.log('listening on *:3000');
 });
-
-app.listen(3000);
-console.log("App listening on port 3000");
 

@@ -1,28 +1,14 @@
-angular.module('wikiwash').controller('HomeController', ['$scope', 'socket', 'mediawikiApi', 
-  function($scope, socket, mediawikiApi) {
+angular.module('wikiwash').controller('HomeController', ['$scope', '$window', 
+  function($scope, $window, mediawikiApi) {
     
-    window.socket = socket;
-  
     $scope.pageName = "";
     $scope.pageData = "";
-    $scope.resp = "";
 
     $scope.test = "";
 
-    $scope.searchWiki = function() {
-      mediawikiApi.getPage($scope.pageName, function (data) {
-        $scope.pageData = data;
-      })
+    $scope.submit = function() {
+      $window.location.href = "/" + $scope.pageName;
     };
-
-    $scope.testEmit = function() {
-      socket.emit('test message', $scope.test);
-      $scope.test = "";
-    };   
-    
-    socket.on("here", function (m) {
-      $scope.resp = m;
-    });
     
   }
 

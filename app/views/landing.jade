@@ -19,10 +19,7 @@ html(lang="en")
     .content(ng-controller='HomeController')
       .search
         input(type="text" ng-model='pageName')
-        input(type='submit' value='submit' ng-click='searchWiki()')
-
-        input(type="text" ng-model='test')
-        input(type='submit' value='submit' ng-click='testEmit()')
+        input(type='submit' value='submit' ng-click='submit()')
         
       {{pageData}}
       {{resp}}

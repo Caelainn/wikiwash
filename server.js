@@ -5,7 +5,6 @@ var path       = require('path');
 
 var config   = require('./config/config');
 var routes   = require('./config/routes');
-var events   = require('./config/events');
 
 var app = require('express')();
 var http = require('http').Server(app);

@@ -1,22 +1,16 @@
-var users = require('../api/controllers/users');
+var revisions = require('../api/controllers/revisions');
 
-module.exports = function(io, data) {
+module.exports = function(io, page) {
   io.on('connection', function(socket) {
     console.log('a user connected');
     
     setInterval(function () {
-      socket.emit('new revisions', 'test');
+      revisions.index(page).then(function (body) {
+        console.log(JSON.parse(body));
+        socket.emit('new revisions', JSON.parse(body));
+      })
     }, 1000);
 
-    socket.on('test message', function(message) {
-      console.log(message);
-
-      socket.emit('here', message);
-    }); 
-
-    socket.on('disconnect', function() {
-      console.log('user disconnected');
-    }); 
   });
 };
 

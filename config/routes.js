@@ -15,7 +15,7 @@ module.exports = function(app, io) {
   })
   
   app.all('/:page', function (req, res) {
-    events(io);
+    events(io, req.params.id);
     res.sendfile('index.html', { root: root })
   })
   

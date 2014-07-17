@@ -18,4 +18,5 @@ html(lang="en")
       
     .content(ng-controller='RevisionsController')
       ul
-        {{revisions}}
+        li(ng-repeat='revision in revisions track by $index')
+          {{revision}}

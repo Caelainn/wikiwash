@@ -2,7 +2,6 @@ var path = require('path');
 var root = path.join(__dirname, '..', 'public/views')
 
 var events = require('./events');
-var revisions = require('../api/controllers/revisions');
 
 module.exports = function(app, io) {
 

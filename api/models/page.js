@@ -3,7 +3,7 @@ var page = require('../models/page')
 
 var endPoint = 'en.wikipedia.org';
 
-var queryPath = function (pageName, lastRevisionId) {
+var queryPath = function (pageName, minRevisionId) {
   path = "/w/api.php?" +
           "action=query&" +
           "prop=info%7Crevisions&" +
@@ -13,33 +13,39 @@ var queryPath = function (pageName, lastRevisionId) {
           "rvlimit=10&" +
           "titles=" + pageName
   
-  if (lastRevisionId) {
-    path += ("&rvstartid=" + lastRevisionId);
+  if (minRevisionId) {
+    path += ("&rvstartid=" + minRevisionId);
   };
+  
+  return path;
 }
 
 var pageData = function (body) {
   // only one page returned
-  var queryResPages = body['query']['pages'];
-  var queryResPage = queryResPages[Object.keys(pagesQueryRes)[0]];
+  
+  var json = JSON.parse(body);
+  var queryResPages = json['query']['pages'];
+  var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
 
   return {
     title: queryResPage["title"],
-    lastRevisedId: queryResPage["lastrevid"],
+    lastRevisionId: queryResPage["lastrevid"],
     revisions: queryResPage["revisions"]
   }
 };
 
-module.exports.findRevisions = function (pageName, lastRevisionId) {
+module.exports.findRevisions = function (pageName, lastRevisionId, callback) {
   var options = {
     method: 'GET',
     host: endPoint,
     path: queryPath(pageName, lastRevisionId)
   };
   
-  return http.request(options).then(function (response) {
-    return response.body.read().then(function (body) {
-      return pageData(body);
+  console.log(options);
+  
+  http.request(options).then(function (response) {
+    response.body.read().then(function (body) {
+      callback(pageData(body));
     });
   });
 };

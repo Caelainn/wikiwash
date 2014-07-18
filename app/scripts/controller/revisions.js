@@ -4,7 +4,7 @@ angular.module('wikiwash').controller('RevisionsController', ['$scope', 'socket'
     $scope.revisions = [];
 
     socket.on("new revisions", function (revisions) {
-      $scope.revisions.unshift(revisions + $scope.revisions.length);
+      $scope.revisions.unshift(revisions.revisions);
     });
     
   }

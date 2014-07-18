@@ -1,6 +1,6 @@
 var wikiwash = {}
 
 angular.module('wikiwash', [
-  'btford.socket-io'
+  'btford.socket-io',
 ]);
 

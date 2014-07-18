@@ -4,21 +4,120 @@
 }
 
 .wrapper {
-  width: 960px;
+  width: 1280px;
   background-color: #FFF;
   margin-left:auto;
   margin-right:auto;
 }
 
+.wrapper:after {
+    content:'';
+    display:block;
+    clear: both;
+}
+
 .content-left {
   float: left;
-  width:300px;
-  background-color: #E6E2F0;
+  width:350px;
+  background-color: #FAFAFA;
+}
+
+.content-left ul{
+  list-style: none;
+  background-color: #EBEBEB;
 }
 
 .content-right {
   float: left;
-  width: 660px;
-  background-color: #C9CCF5;
-  height: 500px;
+  width: 930px;
 }
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+table, th, td {
+  border: 1px solid black;
+}
+
+td{
+  padding: 5px;
+  max-width: 200px;
+  word-wrap: break-word;
+}
+
+del.diffchange.diffchange-inline {
+  background-color: #F87C7C;
+}
+
+ins.diffchange.diffchange-inline {
+  background-color: #60EE66;
+}
+/* ===============================wikinizer================================= */
+
+div.wikidiff {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+div.wikidiff p {
+  padding-top: 40px;
+  margin: 0;
+}
+
+table.metadata.plainlinks.ambox.ambox-content.ambox-multiple_issues.compact-ambox {
+  display: none;
+}
+
+table.infobox.vevent {
+  max-width: 22em;
+  border: 1px solid #aaa;
+  padding: 0.2em;
+  text-align: left;
+  font-size: 88%;
+  line-height: 1.5em;
+}
+
+h3.page_title {
+  font-family: "Times New Roman";
+  font-size: 35px;
+}
+
+div.wikidiff table, th, td {
+  background-color: #FAFAFA;
+  border: 1px solid #C5C5C5 !important;
+  padding: 5px;
+}
+
+div.wikidiff {
+  padding: 10px 60px;
+}
+
+div#toc {
+  background-color: #FAFAFA;
+}
+
+div#toc ul {
+  list-style: none;
+}
+
+.revisions:after {
+    content:'';
+    display:block;
+    clear: both;
+}
+
+div.timestamp p {
+  margin: 0;
+  padding: 40px 0;
+}
+div.timestamp {
+  float: left;
+  width: 100px;
+}
+
+div.user_comment {
+  float: right;
+  width: 250px;
+}
+

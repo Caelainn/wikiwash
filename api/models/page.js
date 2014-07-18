@@ -1,18 +1,17 @@
 var http = require('q-io/http');
-var page = require('../models/page')
 
 var endPoint = 'en.wikipedia.org';
 
+var revisionRequestLimit = 30;
+
 var queryPath = function (pageName) {
-  path = "/w/api.php?" +
-          "action=query&" +
-          "prop=info|revisions&" +
-          "format=json&" +
-          "rvprop=ids|user|userid|comment|timestamp|size&" +
-          "rvlimit=10&" +
-          "titles=" + pageName
-  
-  return path;
+  return "/w/api.php?" +
+         "action=query&" +
+         "prop=info|revisions&" +
+         "format=json&" +
+         "rvprop=ids|user|userid|comment|timestamp|size&" +
+         "rvlimit=" + revisionRequestLimit + "&" +
+         "titles=" + pageName
 }
 
 // there is an api option to return revisions starting at a given id:

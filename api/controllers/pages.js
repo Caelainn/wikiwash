@@ -6,7 +6,6 @@ var lastRevisionIds = [];
 module.exports.show = function (pageName, callback) {
   console.log("TOTAL REVISIONS =============> ", lastRevisionIds.length)
   page.findRevisions(pageName, lastRevisionIds, function (pageData) {
-    // console.log("PAGEDATA ====> ", pageData);
 
     console.log(pageData);
     if (pageData.revisions.length) {

@@ -1,55 +1,25 @@
-var http = require('q-io/http');
-var page = require('../models/page')
+var page = require('../models/page');
 
-var endPoint = 'en.wikipedia.org';
+// move this to the page model?
+var lastRevisionIds = []; 
 
-var queryPath = function (page, lastRevisionId) {
-  path = "/w/api.php?" +
-          "action=query&" +
-          "prop=info%7Crevisions&" +
-          "format=json&" +
-          "inprop=protection%7Curl&" +
-          "rvprop=ids%7Cuser%7Cuserid%7Ccomment&" +
-          "rvlimit=10&" +
-          "titles=" + page
-  
-  if (lastRevisionId) {
-    path += ("&rvstartid=" + lastRevisionId);
-  };
-}
+module.exports.show = function (pageName, callback) {
+  console.log("TOTAL REVISIONS =============> ", lastRevisionIds.length)
+  page.findRevisions(pageName, lastRevisionIds, function (pageData) {
+    // console.log("PAGEDATA ====> ", pageData);
 
-var setLastRevisionIds = function (pages) {
-  var ids = [];
-  for (page in pages.keys) {
-    ids.push(page[page].lastrevid)
-  }
-  
-  module.exports.lastRevisionIds = ids;
+    console.log(pageData);
+    if (pageData.revisions.length) {
+      callback(pageData);
+
+      // move this to page model
+      var ids = pageData.revisions.map(function (revision) {
+        return revision.revid;
+      }); 
+
+      lastRevisionIds = lastRevisionIds.concat(ids);
+    };
+  })
 };
 
-module.exports.index = function (page, lastRevisionId) {
-  var options = {
-    method: 'GET',
-    host: endPoint,
-    path: queryPath(page, lastRevisionId)
-  };
-  
-  return http.request(options).then(function (response) {
-    return response.body.read().then(function (body) {
-      return revisions(body);
-    });
-  });
-};
-
-module.exports.revisions = function (body) {
-  var pages = body['query']['pages'];
-
-  setLastRevisionIds(pages);
-
-  for (page in pages.keys) {
-    ids.push(page[page].lastrevid)
-  }
-
-  return pages[]
-};
 

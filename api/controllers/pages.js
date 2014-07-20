@@ -1,23 +1,39 @@
 var page = require('../models/page');
 
-// move this to the page model?
-module.exports.lastRevisionIds = []; 
+function PagesController() {
+  this.currentRevisionIds = [];
+};
 
-module.exports.show = function (pageName, callback) {
-  console.log("TOTAL REVISIONS =============> ", module.exports.lastRevisionIds.length)
-  page.findRevisions(pageName, module.exports.lastRevisionIds, function (pageData) {
+PagesController.prototype.show = function (pageName, callback) {
+  console.log("TOTAL REVISIONS =============>", this.currentRevisionIds.length);
 
-    console.log(pageData);
+  var _this = this;
+
+  page.findRevisions(pageName, this.currentRevisionIds, function (pageData) {
+
+    // console.log(pageData);
     if (pageData.revisions.length) {
-      // move this to page model
+
       var ids = pageData.revisions.map(function (revision) {
         return revision.revid;
       }); 
 
-      module.exports.lastRevisionIds = module.exports.lastRevisionIds.concat(ids);
+      _this.currentRevisionIds = _this.currentRevisionIds.concat(ids);
 
       callback(pageData);
     };
-  })
+  });
 };
+
+PagesController.prototype.previousRevisionId = function (id) {
+  var index = _.indexOf(this.currentRevisionIds, id);
+  
+  if (index >= 0 && index < this.currentRevisionIds.length) {
+    return pages.currentRevisionIds[index + 1];
+  } else {
+    return -1;
+  };
+};
+
+module.exports = PagesController;
 

@@ -22,4 +22,4 @@ html(lang="en")
           a(href="#" ng-click="getDiff(revision.revid)") {{revision}}
           
     .col-right(ng-controller='DiffController')
-      {{revisionDiffHtml}}
+      div(ng-bind-html="revisionDiffHtml")

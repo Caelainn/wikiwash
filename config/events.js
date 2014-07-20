@@ -1,11 +1,15 @@
 var _ = require('lodash');
 
-var pages = require('../api/controllers/pages');
+var PagesController = require('../api/controllers/pages');
 var revisions = require('../api/controllers/revisions');
+
 var delay = 5000;
 
 module.exports = function(io, pageName) {
   io.on('connection', function(socket) {
+    
+    var pages = new PagesController();
+
     console.log('a user connected');
     
     function emitPageData() {
@@ -20,15 +24,16 @@ module.exports = function(io, pageName) {
     
     emitPageData();
     
-    socket.on('revision diff', function (params) {
+    socket.on('get revision diff', function (params) {
       var id = params.id;
-      var previousRevisionIndex = _.indexOf(revisions.previousRevisionIds, id) - 1;
       
-      if (previousRevisionIndex >= 0) {
-        var previousRevisionId = revisions.previousRevisionIds[previousRevisionIndex];
+      if (pages.previousRevisionId > 0) {
 
+        var previousRevisionId = pages.currentRevisionIds[previousRevisionIndex];
+        
         revisions.diffShow(id, previousRevisionId, function (diffHtml) {
-          socket.emit(diffHtml);
+          console.log('~~~~~~~~~~~~~~~');
+          socket.emit('revision diff', diffHtml);
         });
       };
     });

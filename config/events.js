@@ -1,4 +1,7 @@
+var _ = require('lodash');
+
 var pages = require('../api/controllers/pages');
+var revisions = require('../api/controllers/revisions');
 var delay = 5000;
 
 module.exports = function(io, pageName) {
@@ -15,7 +18,17 @@ module.exports = function(io, pageName) {
       }, delay);
     };
     
-    emitPageData();
+    // emitPageData();
+    
+    socket.on('revision diff', function (params) {
+      var id = params.id;
+      var previousRevisionIndex = _.indexOf(revisions.previousRevisionIds, id) - 1;
+      var previousRevisionId = revisions.previousRevisionIds[previousRevisionIndex];
+
+      revisions.diffShow(id, previousRevisionId, function (diffHtml) {
+        socket.emit(diffHtml);
+      });
+    });
   });
 };
 

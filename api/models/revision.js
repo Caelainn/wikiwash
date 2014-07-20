@@ -1,5 +1,6 @@
 var http = require('q-io/http');
 var diff = require('diff');
+var _ = require('lodash');
 
 var endPoint = 'en.wikipedia.org';
 
@@ -16,13 +17,18 @@ var queryPath = function (revisionId, previousRevisionId) {
 var revisionDiffHtml = function (json, revisionId, previousRevisionId) {
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
+
+  var revisionHtml = _.find(queryResPage.revisions, function (r) {
+    return r.revid == revisionId;
+  })['*'];
   
-  var revisionHtml = queryResPage[revisionId]['*'];
-  var previousHtml = queryResPage[previousRevisionId]['*'];
+  var previousHtml = _.find(queryResPage.revisions, function (r) {
+    return r.revid == previousRevisionId;
+  })['*'];
   
   var result = "";
-  var diffParts = diff.diffWords(oldStr, newStr);
-  
+  var diffParts = diff.diffWords(previousHtml, revisionHtml);
+
   diffParts.forEach(function (part) {
     if (part.added) {
       result = result + '<span style="color: green;">' + part.value + '</span>';
@@ -32,13 +38,15 @@ var revisionDiffHtml = function (json, revisionId, previousRevisionId) {
       result += part.value;
     }
   });
+
+  return result;
 };
 
-module.exports.findRevisions = function (revisionId, previousRevisionId, callback) {
+module.exports.getRevisionDiff = function (revisionId, previousRevisionId, callback) {
   var options = {
     method: 'GET',
     host: endPoint,
-    path: queryPath(pageName)
+    path: queryPath(revisionId, previousRevisionId)
   };
   
   console.log(options);
@@ -46,7 +54,11 @@ module.exports.findRevisions = function (revisionId, previousRevisionId, callbac
   http.request(options).then(function (response) {
     response.body.read().then(function (body) {
       var json = JSON.parse(body);
-      callback(revisionDiffHtml(json, revisionId, previousRevisionId));
+      var rDiff = revisionDiffHtml(json, revisionId, previousRevisionId);
+      callback(rDiff);
     });
+  })
+  .catch(function (error) {
+    console.log("ERROR", error);
   });
 };

@@ -18,16 +18,19 @@ module.exports = function(io, pageName) {
       }, delay);
     };
     
-    // emitPageData();
+    emitPageData();
     
     socket.on('revision diff', function (params) {
       var id = params.id;
       var previousRevisionIndex = _.indexOf(revisions.previousRevisionIds, id) - 1;
-      var previousRevisionId = revisions.previousRevisionIds[previousRevisionIndex];
+      
+      if (previousRevisionIndex >= 0) {
+        var previousRevisionId = revisions.previousRevisionIds[previousRevisionIndex];
 
-      revisions.diffShow(id, previousRevisionId, function (diffHtml) {
-        socket.emit(diffHtml);
-      });
+        revisions.diffShow(id, previousRevisionId, function (diffHtml) {
+          socket.emit(diffHtml);
+        });
+      };
     });
   });
 };

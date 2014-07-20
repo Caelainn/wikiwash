@@ -4,8 +4,8 @@ var page = require('../models/page');
 module.exports.lastRevisionIds = []; 
 
 module.exports.show = function (pageName, callback) {
-  console.log("TOTAL REVISIONS =============> ", lastRevisionIds.length)
-  page.findRevisions(pageName, lastRevisionIds, function (pageData) {
+  console.log("TOTAL REVISIONS =============> ", module.exports.lastRevisionIds.length)
+  page.findRevisions(pageName, module.exports.lastRevisionIds, function (pageData) {
 
     console.log(pageData);
     if (pageData.revisions.length) {

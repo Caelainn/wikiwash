@@ -1,3 +1,5 @@
+var _ = require('lodash');
+
 var page = require('../models/page');
 
 function PagesController() {
@@ -5,7 +7,7 @@ function PagesController() {
 };
 
 PagesController.prototype.show = function (pageName, callback) {
-  console.log("TOTAL REVISIONS =============>", this.currentRevisionIds.length);
+  console.log("TOTAL REVISIONS", pageName, "=============>", this.currentRevisionIds.length);
 
   var _this = this;
 

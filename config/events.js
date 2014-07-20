@@ -1,5 +1,3 @@
-var _ = require('lodash');
-
 var PagesController = require('../api/controllers/pages');
 var revisions = require('../api/controllers/revisions');
 
@@ -26,11 +24,9 @@ module.exports = function(io, pageName) {
     
     socket.on('get revision diff', function (params) {
       var id = params.id;
+      var previousRevisionId = pages.previousRevisionId(id);
       
-      if (pages.previousRevisionId > 0) {
-
-        var previousRevisionId = pages.currentRevisionIds[previousRevisionIndex];
-        
+      if (previousRevisionId > 0) {
         revisions.diffShow(id, previousRevisionId, function (diffHtml) {
           console.log('~~~~~~~~~~~~~~~');
           socket.emit('revision diff', diffHtml);

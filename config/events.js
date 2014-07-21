@@ -16,6 +16,7 @@ function emitPageData(pageName, pages, socket) {
 module.exports = function(io) {
   io.on('connection', function(socket) {
     console.log('a user connected');
+    console.log('total connections: ', io.sockets.sockets.length);
     
     var pages = new PagesController();
 

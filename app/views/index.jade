@@ -39,6 +39,9 @@ html(lang="en")
               |+{{revision.size}}
             p.removed
               |-{{revision.size}}
+        .footer
+            P
+              |content
 
       .content-right(ng-controller='DiffController')
         .wikidiff(ng-bind-html="revisionDiffHtml")

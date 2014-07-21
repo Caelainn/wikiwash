@@ -1,3 +1,6 @@
+* {
+  font-family: 'Source Sans Pro', sans-serif;
+}
 .header {
   background: #ccc;
   text-align: center;
@@ -56,10 +59,6 @@ ins.diffchange.diffchange-inline {
 }
 /* ===============================wikinizer================================= */
 
-div.wikidiff {
-  font-family: 'Source Sans Pro', sans-serif;
-}
-
 div.wikidiff p {
   padding-top: 40px;
   margin: 0;
@@ -101,6 +100,12 @@ div#toc ul {
   list-style: none;
 }
 
+.revisions {
+  border-bottom: 1px solid #CFCFCF;
+  padding: 5px 0;
+  display: table;
+}
+
 .revisions:after {
     content:'';
     display:block;
@@ -109,15 +114,17 @@ div#toc ul {
 
 div.timestamp p {
   margin: 0;
-  padding: 40px 0;
 }
+
 div.timestamp {
-  float: left;
   width: 100px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 div.user_comment {
-  float: right;
   width: 250px;
+  display: table-cell;
+  vertical-align: middle;
 }
 

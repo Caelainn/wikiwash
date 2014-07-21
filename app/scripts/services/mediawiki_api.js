@@ -3,7 +3,7 @@ angular.module('wikiwash').factory('mediawikiApi', ['$http', function($http) {
   return {
     getPage: function (page, func) {
 
-      var url = "api/pages/" + page
+      var url = "api/pages/" + page;
 
       $http({
         method: 'GET', 
@@ -18,6 +18,6 @@ angular.module('wikiwash').factory('mediawikiApi', ['$http', function($http) {
       });
     }
 
-  }
+  };
 
 }]);

@@ -1,42 +1,40 @@
-var http = require('http');
+var _ = require('lodash');
 
-var endPoint = 'en.wikipedia.org';
+var page = require('../models/page');
 
-var queryPath = function (page) {
-  var path = "/w/api.php?" +
-             "action=query&" +
-             "prop=info%7Crevisions&" +
-             "format=json&" +
-             "inprop=protection%7Curl&" +
-             "rvprop=ids%7Cuser%7Cuserid%7Ccomment&" +
-             "rvlimit=500&" +
-             "titles=" + page
+function PagesController() {
+  this.currentRevisionIds = [];
+};
 
-  return path
-}
+PagesController.prototype.show = function (pageName, callback) {
+  console.log("TOTAL REVISIONS", pageName, "=============>", this.currentRevisionIds.length);
 
-module.exports.find = function (page, callback) {
-  var options = {
-    host: endPoint,
-    path: queryPath(page),
-    params: {
-      action: 'query'
-    }
-  };
+  var _this = this;
 
-  http.get(options, function(resp) {
-    var output = '';
+  page.findRevisions(pageName, this.currentRevisionIds, function (pageData) {
 
-    resp.on('data', function(chunk) {
-      output += chunk;
-    });
-    
-    resp.on('end', function () {
-      callback(JSON.parse(output));
-    });
-    
-    resp.on('error', function(e) {
-      callback({error: "Error: " + e.message});
-    });
+    if (pageData.revisions.length) {
+
+      var ids = pageData.revisions.map(function (revision) {
+        return revision.revid;
+      }); 
+
+      _this.currentRevisionIds = _this.currentRevisionIds.concat(ids);
+
+      callback(pageData);
+    };
   });
 };
+
+PagesController.prototype.previousRevisionId = function (id) {
+  var index = _.indexOf(this.currentRevisionIds, id);
+  
+  if (index >= 0 && index < this.currentRevisionIds.length) {
+    return this.currentRevisionIds[index + 1];
+  } else {
+    return -1;
+  };
+};
+
+module.exports = PagesController;
+

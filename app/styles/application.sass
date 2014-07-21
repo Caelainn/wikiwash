@@ -27,13 +27,106 @@
 
 .content-left ul{
   list-style: none;
-  background-color: #EBEBEB;
+  background-color: #E9EFF2;
+}
+
+.content-left div {
+  padding: 10px;
+}
+
+.content-left p {
+  margin: 0;
 }
 
 .content-right {
   float: left;
   width: 930px;
 }
+
+.revisions {
+  border-bottom: 1px solid #CFCFCF;
+  padding: 5px 0;
+  display: table;
+}
+
+.revisions:after {
+  content:'';
+  display:block;
+  clear: both;
+}
+
+.revisions:hover {
+  background-color: #DFE7EA;
+}
+
+.revisions:hover div.data p.added {
+  color: #06C673;
+}
+
+.revisions:hover div.data p.removed {
+  color: #FF6050;
+}
+
+.revisions a {
+  text-decoration: none;
+}
+
+.revisions a p:hover {
+  color: #00A7CE !important;
+}
+
+.revisions p {
+  word-break: break-word;
+  color: #9CAFB5;
+  font-size: 12px;
+}
+
+div.timestamp {
+  width: 85px;
+  display: table-cell;
+  vertical-align: top;
+}
+
+div.timestamp p {
+  margin: 0;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+div.timestamp p.time {
+  margin: 0;
+  font-weight: 300;
+}
+
+div.user_comment {
+  width: 200px;
+  display: table-cell;
+}
+
+div.user_comment p.username{
+  font-size: 14px;
+  color: #000000;
+  font-weight: 600;
+  margin-bottom: 0;
+}
+
+div.data{
+  width: 65px
+}
+
+div.data p.added{
+  color: #68E2A8;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+div.data p.removed{
+  color: #FF8A7E;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
 
 table {
   border-collapse: collapse;
@@ -57,6 +150,7 @@ del.diffchange.diffchange-inline {
 ins.diffchange.diffchange-inline {
   background-color: #60EE66;
 }
+
 /* ===============================wikinizer================================= */
 
 div.wikidiff p {
@@ -100,31 +194,4 @@ div#toc ul {
   list-style: none;
 }
 
-.revisions {
-  border-bottom: 1px solid #CFCFCF;
-  padding: 5px 0;
-  display: table;
-}
-
-.revisions:after {
-    content:'';
-    display:block;
-    clear: both;
-}
-
-div.timestamp p {
-  margin: 0;
-}
-
-div.timestamp {
-  width: 100px;
-  display: table-cell;
-  vertical-align: middle;
-}
-
-div.user_comment {
-  width: 250px;
-  display: table-cell;
-  vertical-align: middle;
-}
 

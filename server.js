@@ -3,8 +3,9 @@ var bodyParser = require('body-parser');
 var partials   = require('express-partials');
 var path       = require('path');
 
-var config   = require('./config/config');
-var routes   = require('./config/routes');
+var config = require('./config/config');
+var routes = require('./config/routes');
+var events = require('./config/events');
 
 var app = require('express')();
 var http = require('http').Server(app);
@@ -23,7 +24,8 @@ app.use(partials());
 
 app.set('views', config.root + '/public/views')
 
-routes(app, io);
+routes(app);
+events(io);
 
 http.listen(3000, function(){
   console.log('listening on *:3000');

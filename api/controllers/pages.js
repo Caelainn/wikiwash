@@ -13,7 +13,6 @@ PagesController.prototype.show = function (pageName, callback) {
 
   page.findRevisions(pageName, this.currentRevisionIds, function (pageData) {
 
-    // console.log(pageData);
     if (pageData.revisions.length) {
 
       var ids = pageData.revisions.map(function (revision) {
@@ -31,7 +30,7 @@ PagesController.prototype.previousRevisionId = function (id) {
   var index = _.indexOf(this.currentRevisionIds, id);
   
   if (index >= 0 && index < this.currentRevisionIds.length) {
-    return pages.currentRevisionIds[index + 1];
+    return this.currentRevisionIds[index + 1];
   } else {
     return -1;
   };

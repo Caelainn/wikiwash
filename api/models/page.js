@@ -2,7 +2,7 @@ var http = require('q-io/http');
 
 var endPoint = 'en.wikipedia.org';
 
-var revisionRequestLimit = 30;
+var revisionRequestLimit = 5;
 
 var queryPath = function (pageName) {
   return "/w/api.php?" +
@@ -15,7 +15,7 @@ var queryPath = function (pageName) {
 }
 
 // there is an api option to return revisions starting at a given id:
-// **rvstartid** but it seems to be broken. 
+// *rvstartid* but it seems to be broken. 
 var rmPreviousRevisions = function (current, lastRevisionIds) {
   var newRevisions = current.filter(function (revision) {
     var lastContainedInCurrent = lastRevisionIds.some(function (lastId) {
@@ -48,8 +48,8 @@ module.exports.findRevisions = function (pageName, lastRevisionIds, callback) {
     path: queryPath(pageName)
   };
   
-  console.log(options);
-  
+  // console.log(options);
+
   http.request(options).then(function (response) {
     response.body.read().then(function (body) {
       callback(pageData(body, lastRevisionIds));

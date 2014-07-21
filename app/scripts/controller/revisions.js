@@ -1,5 +1,8 @@
-angular.module('wikiwash').controller('RevisionsController', ['$scope', 'socket', 
-  function($scope, socket) {
+angular.module('wikiwash').controller('RevisionsController', ['$scope', '$window', 'socket', 
+  function($scope, $window, socket) {
+    
+    // change this to set pageName from express route
+    socket.emit('cycle page data', {page: $window.location.pathname.replace('/', '')});
     
     $scope.revisions = [];
     

@@ -1,8 +1,6 @@
 var path = require('path');
 var root = path.join(__dirname, '..', 'public/views');
 
-var events = require('./events');
-
 var revisions = require('../api/controllers/revisions');
 
 module.exports = function(app, io) {
@@ -14,12 +12,11 @@ module.exports = function(app, io) {
   });
   
   app.all('/', function (req, res) {
-    res.sendfile('landing.html', { root: root })
+    res.sendfile('landing.html', { root: root });
   });
   
   app.all('/:page', function (req, res) {
-    events(io, req.params.page);
-    res.sendfile('index.html', { root: root })
+    res.sendfile('index.html', { root: root });
   });
   
 };

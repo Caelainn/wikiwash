@@ -1,6 +1,7 @@
 var http = require('q-io/http');
-var diff = require('diff');
+var gdiff = require('googlediff');
 var _ = require('lodash');
+var fs = require('fs');
 
 var endPoint = 'en.wikipedia.org';
 
@@ -25,24 +26,26 @@ var revisionDiffHtml = function (json, revisionId, previousRevisionId) {
   var previousHtml = _.find(queryResPage.revisions, function (r) {
     return r.revid == previousRevisionId;
   })['*'];
-
+  
   var result = "";
   
   try {
-    var diffParts = diff.diffWords(previousHtml, revisionHtml);
+    var diff = new gdiff();
+
+    var diffParts = diff.diff_main(previousHtml, revisionHtml);
     diffParts.forEach(function (part) {
-      if (part.added) {
-        result = result + '<span style="color: green;">' + part.value + '</span>';
-      } else if (part.removed) {
-        result = result + '<span style="color: red;">' + part.value + '</span>';
+      if (part[0] > 0) {
+        result = result + '<span style="color: green;">' + part[1] + '</span>';
+      } else if (part[0] < 0) {
+        result = result + '<span style="color: red;">' + part[1] + '</span>';
       } else {
-        result += part.value;
+        result += part[1];
       }
     });
   } catch (err) {
     result = 'Diff unavailable';
   };
-
+  
   return result;
 };
 

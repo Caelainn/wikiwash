@@ -4,10 +4,13 @@ var revisions = require('../api/controllers/revisions');
 var delay = 5000;
 
 function emitPageData(pageName, pages, socket) {
+  if (!socket.connected)
+    return;
+
   pages.show(pageName, function (pageData) {
     socket.emit('new revisions', pageData);
   });
-
+  
   setTimeout(function () {
     emitPageData(pageName, pages, socket); 
   }, delay);
@@ -16,7 +19,7 @@ function emitPageData(pageName, pages, socket) {
 module.exports = function(io) {
   io.on('connection', function(socket) {
     console.log('a user connected');
-    console.log('total connections: ', io.sockets.sockets.length);
+    // console.log('total connections', io.sockets.sockets.length);
     
     var pages = new PagesController();
 

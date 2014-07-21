@@ -6,8 +6,8 @@ angular.module('wikiwash').controller('RevisionsController', ['$scope', '$window
     
     $scope.revisions = [];
     
-    $scope.getDiff = function (id) {
-      socket.emit('get revision diff', {id: id});
+    $scope.getDiff = function (revision) {
+      socket.emit('get revision diff', {id: revision.revid, parentid: revision.parentid});
     };
 
     socket.on("new revisions", function (res) {

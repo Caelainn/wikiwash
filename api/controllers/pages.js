@@ -26,15 +26,5 @@ PagesController.prototype.show = function (pageName, callback) {
   });
 };
 
-PagesController.prototype.previousRevisionId = function (id) {
-  var index = _.indexOf(this.currentRevisionIds, id);
-  
-  if (index >= 0 && index < this.currentRevisionIds.length) {
-    return this.currentRevisionIds[index + 1];
-  } else {
-    return -1;
-  };
-};
-
 module.exports = PagesController;
 

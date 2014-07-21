@@ -29,7 +29,7 @@ module.exports = function(io) {
     
     socket.on('get revision diff', function (params) {
       var id = params.id;
-      var previousRevisionId = pages.previousRevisionId(id);
+      var previousRevisionId = params.parentid; // pages.previousRevisionId(id);
       
       if (previousRevisionId > 0) {
 

@@ -10,8 +10,8 @@ var queryPath = function (revisionId, previousRevisionId) {
          "action=query&" + 
          "prop=revisions&" + 
          "format=json&" + 
-         "rvprop=ids%7Cuser%7Cuserid%7Ccomment%7Ccontent" +
-         "&rvparse&" +
+         "rvprop=ids%7Cuser%7Cuserid%7Ccomment%7Ccontent&" +
+         "rvparse&" +
          "revids=" + revisionId + "|" + previousRevisionId
 }
 

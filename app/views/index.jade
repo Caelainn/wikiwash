@@ -19,7 +19,7 @@ html(lang="en")
     .col-left(ng-controller='RevisionsController')
       ul
         li(ng-repeat='revision in revisions track by $index')
-          a(href="#" ng-click="getDiff(revision.revid)") {{revision}}
+          a(href="#" ng-click="getDiff(revision)") {{revision}}
           
     .col-right(ng-controller='DiffController')
       div(ng-bind-html="revisionDiffHtml")

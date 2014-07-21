@@ -1,6 +1,6 @@
-angular.module('wikiwash').controller('PagesController', ['$scope', '$window', 'socket', 
-  function($scope, $window, socket) {
-    console.log("Pages");
+angular.module('wikiwash').controller('PagesController', ['$scope', '$routeParams', 'socket', 
+  function($scope, $routeParams, socket) {
+    socket.emit('cycle page data', {page: $routeParams.page});
   }
 
 ]);

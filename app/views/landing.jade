@@ -14,12 +14,9 @@ html(lang="en")
     script(src="/js/templatescache.js" type="text/javascript")
     
   body(ng-app='wikiwash')
+
     .header WikiWash
-      
-    .content(ng-controller='HomeController')
-      .search
-        input(type="text" ng-model='pageName')
-        input(type='submit' value='submit' ng-click='submit()')
+
+    .content
+      div(ng-view)
         
-      {{pageData}}
-      {{resp}}

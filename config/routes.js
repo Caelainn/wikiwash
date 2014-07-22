@@ -8,6 +8,8 @@ module.exports = function(app, io) {
   app.get('/api/revisions/:id', function(req, res) {
     var revisionId = req.params.id;
     
+    console.log("================================================")
+    
     if (req.query.diff)
       revisionId = [revisionId, req.query.diff];
       
@@ -19,7 +21,7 @@ module.exports = function(app, io) {
   app.get('/', function (req, res) {
     res.sendfile('index.html', { root: root });
   });
-  
+
   app.all('/*', function (req, res) {
     res.redirect('/#!' + req.path);
   });

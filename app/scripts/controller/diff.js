@@ -1,16 +1,11 @@
-angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', 'socket', 'revision',
-  function($scope, $sce, socket, revision) {
-
+angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '$routeParams', 'socket', 'revision',
+  function($scope, $sce, $routeParams, socket, revision) {
+    debugger;
     $scope.revisionBody = $sce.trustAsHtml(revision.data); 
-    
-    $scope.getDiff = function (revision) {
-      socket.emit('get revision diff', {id: revision.revid, parentid: revision.parentid});
-    };
-    
-    socket.on('revision diff', function (html) {
-      // relying on wikipedia being safe from injection attacks
-      $scope.revisionDiffHtml = $sce.trustAsHtml(html);
-    });
+
+    if (!$scope.$parent.cycling) {
+      socket.emit('cycle page data', {page: $scope.$parent.pageName});
+    }
 
   }
 

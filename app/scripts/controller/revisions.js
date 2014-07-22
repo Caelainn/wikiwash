@@ -2,8 +2,6 @@ var injections = ['$scope', 'socket', controllerFunc];
 angular.module('wikiwash').controller('RevisionsController', injections);
 
 function controllerFunc($scope, socket) {
-  debugger; 
-
   $scope.revisions = [];
   
   $scope.getDiff = function (revision) {

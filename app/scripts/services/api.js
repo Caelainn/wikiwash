@@ -6,7 +6,6 @@ angular.module('wikiwash').factory('api', ['$http', function($http) {
       url: url,
     }).
     success(function (data, status, headers, config) {
-      console.log("SUCCESS", status, data);
       return data;
     }).
     error(function (data, status, headers, config) {
@@ -15,12 +14,16 @@ angular.module('wikiwash').factory('api', ['$http', function($http) {
   }
   
   return {
-    getRevisionDiff: function (revId, diffId) {
-      var url = "/api/revisions/" + revId + "?diff=" + diffId;
-      return getRequestPromise(url);
-    },
     getRevision: function (revId) {
-      var url = "/api/revisions/" + revId;
+      var revIds = revId.split("-");
+
+      var url = "/api/revisions/" + revIds[0];
+
+      if (revIds.length > 1)
+        url = url + "?diff=" + revIds[1];
+      
+      debugger
+
       return getRequestPromise(url);
     }
   };

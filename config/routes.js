@@ -12,10 +12,6 @@ module.exports = function(app, io) {
   });
   
   app.all('/', function (req, res) {
-    res.sendfile('landing.html', { root: root });
-  });
-  
-  app.all('/:page', function (req, res) {
     res.sendfile('index.html', { root: root });
   });
   

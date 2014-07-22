@@ -4,6 +4,7 @@ var page = require('../models/page');
 
 function PagesController() {
   this.currentRevisionIds = [];
+  this.cycling = true;
 };
 
 PagesController.prototype.show = function (pageName, callback) {

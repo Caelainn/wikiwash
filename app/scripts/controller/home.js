@@ -1,8 +1,12 @@
-angular.module('wikiwash').controller('HomeController', ['$scope', '$window', 
-  function($scope, $window, mediawikiApi) {
+angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 
+  function($scope, $location, mediawikiApi) {
+    
+    $scope.pageName = '';
+    $scope.revisions = [];
+
     
     $scope.submit = function() {
-      $window.location.href = "/" + $scope.pageName;
+      $location.path($scope.pageName);
     };
     
   }

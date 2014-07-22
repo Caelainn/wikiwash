@@ -8,6 +8,6 @@ angular.module('wikiwash').config(['$routeProvider',
       .when('/:page', {
         templateUrl: 'views/partials/page-revisions.html',
         controller: 'PagesController'
-      })
+      });
   }
 ]);

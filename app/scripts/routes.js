@@ -1,5 +1,8 @@
-angular.module('wikiwash').config(['$routeProvider',
-  function($routeProvider) {
+angular.module('wikiwash').config(['$routeProvider', '$locationProvider',
+  function($routeProvider, $locationProvider) {
+
+    $locationProvider.html5Mode(true);
+
     $routeProvider.
       when('/', {
         templateUrl: 'views/partials/search.html',
@@ -8,6 +11,11 @@ angular.module('wikiwash').config(['$routeProvider',
       .when('/:page', {
         templateUrl: 'views/partials/page-revisions.html',
         controller: 'PagesController'
+      })
+      .when('/:page/:revisionId', {
+        controller: 'RevisionsController'
       });
+
   }
 ]);
+

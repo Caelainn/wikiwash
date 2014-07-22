@@ -11,9 +11,14 @@ module.exports = function(app, io) {
     });
   });
   
-  app.all('/', function (req, res) {
+  app.get('/', function (req, res) {
     res.sendfile('index.html', { root: root });
   });
+  
+  app.all('*', function (req, res) {
+    res.redirect('/#' + req.path);
+  });
+
   
 };
 

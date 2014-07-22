@@ -1,14 +1,17 @@
-angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', 'socket', 
-  function($scope, $sce, socket) {
+angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '$routeParams', 'socket', 
+  function($scope, $sce, $routeParams, socket) {
     
     $scope.revisionDiffHtml = "";
+
+    $scope.getDiff = function (revision) {
+      socket.emit('get revision diff', {id: revision.revid, parentid: revision.parentid});
+    };
     
     socket.on('revision diff', function (html) {
-
-      // if wikipedia is safe from injection attacks, so are we
+      // relying on wikipedia being safe from injection attacks
       $scope.revisionDiffHtml = $sce.trustAsHtml(html);
-
     });
+
   }
 
 ]);

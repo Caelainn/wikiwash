@@ -4,8 +4,6 @@ angular.module('wikiwash').controller('RevisionsController', injections);
 function controllerFunc($scope, socket) {
   $scope.revisions = [];
   
-  debugger;
-
   $scope.getDiff = function (revision) {
     socket.emit('get revision diff', {id: revision.revid, parentid: revision.parentid});
   };
@@ -14,4 +12,3 @@ function controllerFunc($scope, socket) {
     $scope.revisions = res.revisions.concat($scope.revisions);
   });
 }
-

@@ -16,9 +16,8 @@ module.exports = function(app, io) {
   });
   
   app.all('*', function (req, res) {
-    res.redirect('/#' + req.path);
+    res.redirect('/#!' + req.path);
   });
 
-  
 };
 

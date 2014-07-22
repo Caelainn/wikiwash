@@ -48,8 +48,6 @@ module.exports.findRevisions = function (pageName, lastRevisionIds, callback) {
     path: queryPath(pageName)
   };
   
-  // console.log(options);
-
   http.request(options).then(function (response) {
     response.body.read().then(function (body) {
       callback(pageData(body, lastRevisionIds));

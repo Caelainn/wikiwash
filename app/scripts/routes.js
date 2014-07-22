@@ -1,7 +1,7 @@
 angular.module('wikiwash').config(['$routeProvider', '$locationProvider',
   function($routeProvider, $locationProvider) {
 
-    $locationProvider.html5Mode(true);
+    $locationProvider.html5Mode(true).hashPrefix('!');
 
     $routeProvider.
       when('/', {
@@ -13,7 +13,8 @@ angular.module('wikiwash').config(['$routeProvider', '$locationProvider',
         controller: 'PagesController'
       })
       .when('/:page/:revisionId', {
-        controller: 'RevisionsController'
+        template: " ",
+        controller: 'DiffController'
       });
 
   }

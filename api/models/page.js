@@ -2,7 +2,7 @@ var http = require('q-io/http');
 
 var endPoint = 'en.wikipedia.org';
 
-var revisionRequestLimit = 10;
+var revisionRequestLimit = 50;
 
 var queryPath = function (pageName) {
   return "/w/api.php?" +

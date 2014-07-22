@@ -20,6 +20,7 @@
   margin-left:auto;
   margin-right:auto;
   position: relative;
+  border-bottom: 2px solid #CFCFCF;
 }
 
 .wrapper:after {
@@ -40,21 +41,19 @@
     background-color: #E9EFF2;
   }
 
-  .content-left div {
-    padding: 10px;
-  }
-
   .content-left p {
     margin: 0;
   }
-  .revisions {
-    border-bottom: 1px solid #CFCFCF;
-    padding: 5px 0;
-    display: table;
+
+  .collection{
+    overflow: scroll;
+    padding: 0;
   }
 
-  .content-left > .revisions:last-of-type {
-    padding-bottom: 60px;
+  .revisions {
+    border-bottom: 1px solid #CFCFCF;
+    padding: 20px;
+    display: table;
   }
 
   .revisions:after {
@@ -126,26 +125,66 @@
     color: #68E2A8;
     font-size: 14px;
     font-weight: 700;
+    text-align: center;
   }
 
   div.data p.removed{
     color: #FF8A7E;
     font-size: 14px;
     font-weight: 700;
+    text-align: center;
   }
+
+  .active-revision{
+    background-color: white;
+  }
+
+  .active-revision p,
+    .active-revision a {
+    color: #000000;
+  }
+
   .footer {
-    height:60px;
-    position:fixed;
+    height:80px;
+    padding: 10px 20px;
     bottom:0;
-    background:#ee5;
+    background:#9CAFB5;
     width: inherit;
   }
+
+  .footer .top-stats p{
+    font-size: 12px;
+    font-weight: 400;
+    color: #63797C;
+  }
+
+  .footer .bottom-stats{
+    display: table;
+    width: inherit;
+  }
+
+  .footer .edits-per-user,
+    .footer .time-between-edits {
+    display: table-cell ;
+    font-size: 12px;
+    font-weight: 400;
+    color: white;
+    width: 50%;
+  }
+
+  .footer .number {
+    font-size: 18px;
+    font-weight: 700;
+  }
+
 
   /* ===============================right content================================= */
 
   .content-right {
     float: left;
-    width: 930px;
+    width: 928px;
+    overflow: scroll;
+    padding:0;
   }
 
   /* ===============================wikinizer================================= */

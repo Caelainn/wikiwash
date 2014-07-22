@@ -29,15 +29,15 @@ module.exports = function(io) {
       });
     });
     
-    socket.on('get revision diff', function (params) {
-      var id = params.id;
-      var previousRevisionId = params.parentid;
+    // socket.on('get revision diff', function (params) {
+    //   var id = params.id;
+    //   var previousRevisionId = params.parentid;
       
-      revisions.diffShow(id, previousRevisionId, function (diffHtml) {
-        console.log('~~~~~~~~~~~~~~~');
-        socket.emit('revision diff', diffHtml);
-      });
-    });
+    //   revisions.diffShow(id, previousRevisionId, function (diffHtml) {
+    //     console.log('~~~~~~~~~~~~~~~');
+    //     socket.emit('revision diff', diffHtml);
+    //   });
+    // });
     
     socket.on('disconnect', function () {
       console.log("user disconnected");

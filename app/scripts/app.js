@@ -3,5 +3,7 @@ var wikiwash = {};
 angular.module('wikiwash', [
   'btford.socket-io',
   'ngSanitize',
-  'ngRoute'
+  'ngRoute',
+  'route-segment', 
+  'view-segment'
 ]);

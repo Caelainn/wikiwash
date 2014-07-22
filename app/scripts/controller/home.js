@@ -1,6 +1,8 @@
 angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 
   function($scope, $location, mediawikiApi) {
     
+    debugger;
+    
     $scope.pageName = '';
     $scope.revisions = [];
 

@@ -28,6 +28,7 @@ var bowerJsDependencies = [
   './bower_components/angular-loading-bar/build/loading-bar.js',
   './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
   './bower_components/angular-socket-io/socket.js',
+  './bower_components/angular-route-segment/build/angular-route-segment.js',
   './bower_components/socket.io-client/socket.io.js'
 ]
 

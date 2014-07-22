@@ -47,7 +47,6 @@ var revisionDiffHtml = function (json, revHtml, prevHtml) {
       }
     });
   } catch (err) {
-    console.log("================== NOPE");
     result = 'Diff unavailable';
   };
   

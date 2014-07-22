@@ -1,8 +1,8 @@
-angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '$routeParams', 'socket', 
-  function($scope, $sce, $routeParams, socket) {
-    
-    $scope.revisionDiffHtml = "";
+angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', 'socket', 'revision',
+  function($scope, $sce, socket, revision) {
 
+    $scope.revisionBody = $sce.trustAsHtml(revision.data); 
+    
     $scope.getDiff = function (revision) {
       socket.emit('get revision diff', {id: revision.revid, parentid: revision.parentid});
     };

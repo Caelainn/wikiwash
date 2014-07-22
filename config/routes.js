@@ -20,7 +20,7 @@ module.exports = function(app, io) {
     res.sendfile('index.html', { root: root });
   });
   
-  app.all('*', function (req, res) {
+  app.all('/*', function (req, res) {
     res.redirect('/#!' + req.path);
   });
 

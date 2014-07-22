@@ -18,10 +18,22 @@ html(lang="en")
     .wrapper
       .header
         .logo
-        .export-session
+          p
+            |WW  WIKIWASH
+        a.export-session(href="#" ng-click="getDiff(revision.revid)")
+            |Export Session
         .empty
         .search
+          input.bar(type="text" ng-model='pageName')
+          input.send(type='submit' value='submit' ng-click='submit()')
         .navigation
+          p
+            |Show:
+          a.removed
+            |Removed
+          a.added
+            |Added
+
 
 
 

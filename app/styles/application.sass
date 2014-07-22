@@ -7,11 +7,90 @@
 /* ===============================Header================================= */
 
 .header {
+  width: inherit;
+  display: table;
   background: #9CAFB5;
   text-align: center;
   height: 60px;
+  padding: 15px 0;
 }
 
+.header .logo {
+  display: table-cell;
+  width: 230px;
+}
+
+.header a.export-session:hover {
+  background-color: #63797C;
+}
+
+.header a.export-session {
+  color: white;
+  text-decoration: none;
+  display: table-cell;
+  width: 120px;
+  height: 30px;
+  background-color: #7C959B;
+  vertical-align: middle;
+}
+
+.header .empty{
+  display: table-cell;
+  width: 180px;
+}
+
+.header .search {
+  display: table-cell;
+  width: 460px;
+}
+
+.header .search input.bar {
+  width: 400px;
+}
+
+.header .search input.send {
+  width: 60px;
+}
+
+.header .navigation{
+  display: table;
+  margin-left: 20px;
+}
+
+.header .navigation p {
+  display: table-cell;
+  width: 50px;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.header .navigation a {
+  display: table-cell;
+  width: 50px;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.header .navigation a.removed {
+  height: 10px;
+  width: 30px;
+  background-color: #F1BCBC;
+  padding: 3px 8px;
+  color: #63797C;
+  margin-right: 10px;
+}
+
+.header .navigation a.added {
+  height: 10px;
+  width: 30px;
+  background-color: #B8E9D2;
+  padding: 3px 8px;
+  color: #63797C;
+  font-weight: 500;
+  margin-right: 10px;
+}
 /* ===============================main content================================= */
 
 .wrapper {
@@ -21,6 +100,7 @@
   margin-right:auto;
   position: relative;
   border-bottom: 2px solid #CFCFCF;
+  font-weight: 500;
 }
 
 .wrapper:after {

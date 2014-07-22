@@ -5,26 +5,27 @@ var fs = require('fs');
 
 var endPoint = 'en.wikipedia.org';
 
-var queryPath = function (revisionId, previousRevisionId) {
-  path = "/w/api.php?" + 
+var queryPath = function (revisionId) {
+  if (_.isArray(revisionId)) {
+    var revids = revisionId.join("|");
+  } else { 
+    var revids = revisionId;
+  };
+
+  return "/w/api.php?" + 
          "action=query&" + 
          "prop=revisions&" + 
          "format=json&" + 
          "rvprop=ids%7Cuser%7Cuserid%7Ccomment%7Ccontent&" +
          "rvparse&" +
-         "revids=" + revisionId
-  
-  if (previousRevisionId)
-    path = path + "|" + previousRevisionId;
-  
-  return path;
+         "revids=" + revids;
 }
 
-var revisionHtml(json, revId) {
+var revisionHtml = function (json, revId) {
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
-
-  var revisionHtml = _.find(queryResPage.revisions, function (r) {
+  
+  return _.find(queryResPage.revisions, function (r) {
     return r.revid == revId;
   })['*'];
 };
@@ -34,8 +35,8 @@ var revisionDiffHtml = function (json, revHtml, prevHtml) {
   
   try {
     var diff = new gdiff();
-
-    var diffParts = diff.diff_main(preHtml, revHtml);
+    
+    var diffParts = diff.diff_main(prevHtml, revHtml);
     diffParts.forEach(function (part) {
       if (part[0] > 0) {
         result = result + '<span style="color: green;">' + part[1] + '</span>';
@@ -46,32 +47,45 @@ var revisionDiffHtml = function (json, revHtml, prevHtml) {
       }
     });
   } catch (err) {
+    console.log("================== NOPE");
     result = 'Diff unavailable';
   };
   
   return result;
 };
 
-module.exports.getRevisionDiff = function (revisionId, previousRevisionId, callback) {
+var getRevision = function (revisionId, callback) {
   var options = {
     method: 'GET',
     host: endPoint,
-    path: queryPath(revisionId, previousRevisionId)
+    path: queryPath(revisionId)
   };
   
   console.log(options);
   
   http.request(options).then(function (response) {
     response.body.read().then(function (body) {
-      var json = JSON.parse(body);
-      var revisionHtml = revisionHtml(revisionId);
-      var previousHtml = revisionHtml(previousRevisionId);
-      var rDiff = revisionDiffHtml(json, revisionHtml, previousHtml);
-
-      callback(rDiff);
+      callback(JSON.parse(body));
     });
   })
   .catch(function (error) {
     console.log("ERROR", error);
   });
 };
+
+module.exports.find = function (revisionId, callback) {
+  getRevision(revisionId, function (json) {
+    var html = "";
+    
+    if (_.isArray(revisionId)) {
+      var prevHtml = revisionHtml(json, revisionId[1]);
+      var revHtml = revisionHtml(json, revisionId[0]);
+      html = revisionDiffHtml(json, revHtml, prevHtml);
+    } else {
+      html = revisionHtml(json, revisionId);
+    };
+
+    callback(html);
+  });
+};
+

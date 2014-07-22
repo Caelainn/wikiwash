@@ -5,9 +5,14 @@ var revisions = require('../api/controllers/revisions');
 
 module.exports = function(app, io) {
 
-  app.get('/api/revisions/:id/diff/:diffRevisionId', function(req, res) {
-    revisions.diffShow(req.params.id, req.params.diffRevisionId, function (diffHtml) {
-      res.send(diffHtml);
+  app.get('/api/revisions/:id', function(req, res) {
+    var revisionId = req.params.id;
+    
+    if (req.query.diff)
+      revisionId = [revisionId, req.query.diff];
+      
+    revisions.show(revisionId, function (html) {
+      res.send(html);
     });
   });
   

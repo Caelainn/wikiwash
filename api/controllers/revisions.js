@@ -1,7 +1,7 @@
 var revision = require('../models/revision');
 
-module.exports.diffShow = function (revisionId, previousId, callback) {
-  revision.getRevisionDiff(revisionId, previousId, function (diffHtml) {
-    callback(diffHtml);
+module.exports.show = function (revisionId, callback) {
+  revision.find(revisionId, function (html) {
+    callback(html);
   });
 };

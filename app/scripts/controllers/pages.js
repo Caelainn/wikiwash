@@ -10,7 +10,9 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.getDiff = function (revision) {
       var params = {page: $scope.pageName, revId: revision.revid + "-" + revision.parentid};
       $location.path($routeSegment.getSegmentUrl('p.revision', params));
-      $routeSegment.chain[1].reload();
+      
+      if ($routeSegment.chain.length > 1)
+        $routeSegment.chain[1].reload();
     };
 
     socketService.socket.on("new revisions", function (res) {

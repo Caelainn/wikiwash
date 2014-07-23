@@ -1,2 +1,4 @@
 .content-right
-  .wikidiff(ng-bind-html="revisionBody")
+  .wikidiff
+    {{pageTitle}}
+    .content(ng-bind-html="revisionBody")

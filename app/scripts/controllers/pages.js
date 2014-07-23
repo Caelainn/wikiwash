@@ -5,6 +5,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.loading = true;
     $scope.revisionBody = "";
     $scope.pageName = $routeParams.page;
+    $scope.pageTitle = $scope.pageName.split("_").join(" ");
 
     if ($routeParams.revId) {
       $scope.currentRevId = $routeParams.revId.split('-')[0];

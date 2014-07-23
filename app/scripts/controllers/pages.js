@@ -4,6 +4,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.revisions = [];
     $scope.loading = true;
     $scope.revisionBody = "";
+    $scope.pageName = $routeParams.page;
     
     socketService.socket.emit('cycle page data', {page: $routeParams.page});
     socketService.cycling = true;
@@ -17,14 +18,10 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
       }
     });
     
-    $scope.getDiff = function (revision) {
-      $scope.loading = true;
-      var params = {page: $routeParams.page, revId: revision.revid + "-" + revision.parentid};
-      $location.path($routeSegment.getSegmentUrl('p.revision', params));
-      
+    $scope.$on('$routeChangeSuccess', function(next, current) { 
       if ($routeSegment.chain.length > 1)
         $routeSegment.chain[1].reload();
-    };
+    });
 
     socketService.socket.on("new revisions", function (res) {
       $scope.revisions = res.revisions.concat($scope.revisions);

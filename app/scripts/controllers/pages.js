@@ -1,14 +1,25 @@
 angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'socketService', 
   function($scope, $location, $routeParams, $routeSegment, socketService) {
 
-    $scope.pageName = $routeParams.page;
     $scope.revisions = [];
-
+    $scope.loading = true;
+    $scope.revisionBody = "";
+    
     socketService.socket.emit('cycle page data', {page: $routeParams.page});
     socketService.cycling = true;
     
+    $scope.$watch('loading', function () {
+      if ($scope.loading) {
+        $scope.revisionBody = "LOADING...";
+        console.log("loading");
+      } else {
+        console.log("not loading");
+      }
+    });
+    
     $scope.getDiff = function (revision) {
-      var params = {page: $scope.pageName, revId: revision.revid + "-" + revision.parentid};
+      $scope.loading = true;
+      var params = {page: $routeParams.page, revId: revision.revid + "-" + revision.parentid};
       $location.path($routeSegment.getSegmentUrl('p.revision', params));
       
       if ($routeSegment.chain.length > 1)

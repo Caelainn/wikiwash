@@ -39,13 +39,9 @@ var revisionDiffHtml = function (json, revHtml, prevHtml) {
     var diffParts = diff.diff_main(prevHtml, revHtml);
     diffParts.forEach(function (part) {
       if (part[0] > 0) {
-        result = result + 
-                 '<span style="background-color: #B8E9D2 !important;">' + 
-                 part[1] + '</span>';
+        result = result + '<span class="additions">' + part[1] + '</span>';
       } else if (part[0] < 0) {
-        result = result + 
-                 '<span style="background-color: #F1BCBC !important;">' + 
-                 part[1] + '</span>';
+        result = result + '<span class="subtractions">' + part[1] + '</span>';
       } else {
         result += part[1];
       }

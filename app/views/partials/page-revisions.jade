@@ -1,4 +1,4 @@
-.content-left(ng-controller='RevisionsController')
+.content-left
   .collection(leftHeight ng-style="styleleft()")
     .revisions(ng-repeat='revision in revisions track by $index'
       ng-class="{ 'active-revision': $index == selectedIndex }"
@@ -10,10 +10,10 @@
         p.time
           {{revision.timestamp | date:'shortTime'}}
       .user_comment
-        a(href="#" ng-click="getDiff(revision)")
+        a(href="" ng-click="getDiff(revision)")
           p.username
             {{revision.user}}
-        a(href="#" ng-click="getDiff(revision)")
+        a(href="" ng-click="getDiff(revision)")
           p.comment(ng-if="revision.comment.length > 0")
             {{revision.comment}}
           p.comment(ng-if="revision.comment.length <= 0")

@@ -5,22 +5,25 @@ var revisions = require('../api/controllers/revisions');
 
 module.exports = function(app, io) {
 
-  app.get('/api/revisions/:id/diff/:diffRevisionId', function(req, res) {
-    revisions.diffShow(req.params.id, req.params.diffRevisionId, function (diffHtml) {
-      res.send(diffHtml);
+  app.get('/api/revisions/:id', function(req, res) {
+    var revisionId = req.params.id;
+    
+    if (req.query.diff)
+      revisionId = [revisionId, req.query.diff];
+      
+    revisions.show(revisionId, function (html) {
+      res.send(html);
     });
   });
 
-  app.all('/', function (req, res) {
-    res.sendfile('landing.html', { root: root })
-  })
-
-  app.all('/temp', function (req, res) {
-    res.sendfile('index_temp.html', { root: root })
-  })
-
-  app.all('/:page', function (req, res) {
+  app.get('/', function (req, res) {
     res.sendfile('index.html', { root: root });
   });
+
+  app.all('/*', function (req, res) {
+    res.redirect('/#!' + req.path);
+  });
+
+};
 
 };

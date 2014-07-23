@@ -4,6 +4,7 @@ var page = require('../models/page');
 
 function PagesController() {
   this.currentRevisionIds = [];
+  this.cycling = true;
 };
 
 PagesController.prototype.show = function (pageName, callback) {
@@ -24,16 +25,6 @@ PagesController.prototype.show = function (pageName, callback) {
       callback(pageData);
     };
   });
-};
-
-PagesController.prototype.previousRevisionId = function (id) {
-  var index = _.indexOf(this.currentRevisionIds, id);
-  
-  if (index >= 0 && index < this.currentRevisionIds.length) {
-    return this.currentRevisionIds[index + 1];
-  } else {
-    return -1;
-  };
 };
 
 module.exports = PagesController;

@@ -9,7 +9,7 @@
         p.time
           {{revision.timestamp | date:'shortTime'}}
       .user_comment
-        a(href="/User:{{revision.user}}")
+        a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
           p.username
             {{revision.user}}
         a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")

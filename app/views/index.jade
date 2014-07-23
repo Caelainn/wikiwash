@@ -25,13 +25,16 @@ html(lang="en")
         .empty
         .search
           input.bar(type="text" ng-model='pageName')
-          input.send(type='submit' value='submit' ng-click='submit()')
         .navigation
           p
             |Show:
-          a.removed
-            |Removed
-          a.added
-            |Added
+          .removed
+            input(type="checkbox",name="removed", id="removed", checked)
+            label(for="removed")
+              |Removed
+          .added
+            input(type="checkbox",name="added", id="added", checked)
+            label(for="added")
+              |Added
 
       .content(app-view-segment="0")

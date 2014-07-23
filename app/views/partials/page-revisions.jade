@@ -1,3 +1,25 @@
+.header
+  .logo
+    p
+      |WW  WIKIWASH
+  a.export-session(href="#" ng-click="getDiff(revision.revid)")
+      |Export Session
+  .empty
+  .search
+    input.bar(type="text" ng-model='pageName')
+  .navigation
+    p
+      |Show:
+    .removed
+      input(type="checkbox",name="removed", id="removed", checked)
+      label(for="removed")
+        |Removed
+    .added
+      input(type="checkbox",name="added", id="added", checked)
+      label(for="added")
+        |Added
+
+
 .content-left
   .collection(leftHeight ng-style="styleleft()")
     .revisions(ng-repeat='revision in revisions track by $index'

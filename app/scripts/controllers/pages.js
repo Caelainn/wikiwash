@@ -23,10 +23,27 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     });
     
     $scope.$on('$routeChangeSuccess', function(next, current) { 
-      $scope.currentRevId = $routeParams.revId.split('-')[0];
+      if ($routeParams.revId) {
 
-      if ($routeSegment.chain.length > 1)
-        $routeSegment.chain[1].reload();
+        // want to allow clicking relative links to other wikipedia pages
+        // links look like: '/wiki/thing'
+        // edge case is the page for "wiki"
+        // revisions for that page look like '/wiki/1111-2222'
+        if ($routeParams.page == 'wiki' && $routeParams.revId) {
+          if (!parseInt($routeParams.revId.split('-')[0])) {
+            socketService.socket.emit('stop cycle');
+            $routeParams.page = $routeParams.revId;
+            $location.path($routeParams.revId)
+            $routeSegment.chain[0].reload();
+            return;
+          }
+        };
+
+        $scope.currentRevId = $routeParams.revId.split('-')[0];
+
+        if ($routeSegment.chain.length > 1)
+          $routeSegment.chain[1].reload();
+      }
     });
     
     $scope.$on('$routeChangeStart', function(next, current) { 

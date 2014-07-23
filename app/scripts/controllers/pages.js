@@ -5,6 +5,8 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.loading = true;
     $scope.revisionBody = "";
     $scope.pageName = $routeParams.page;
+    $scope.showAdded = true;
+    $scope.showRemoved = true;
 
     if ($routeParams.revId) {
       $scope.currentRevId = $routeParams.revId.split('-')[0];
@@ -19,6 +21,22 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
         console.log("loading");
       } else {
         console.log("not loading");
+      }
+    });
+    
+    $scope.$watch('showRemoved', function () {
+      if ($scope.showRemoved) {
+        $('.subtractions').css('display', 'inline');
+      } else {
+        $('.subtractions').css('display', 'none');
+      }
+    });
+    
+    $scope.$watch('showAdded', function () {
+      if ($scope.showAdded) {
+        $('.additions').css('display', 'inline');
+      } else {
+        $('.additions').css('display', 'none');
       }
     });
     

@@ -11,11 +11,11 @@
     p
       |Show:
     .removed
-      input(type="checkbox",name="removed", id="removed", checked)
+      input(type="checkbox" name="removed" id="removed" ng-model="showRemoved")
       label(for="removed")
         |Removed
     .added
-      input(type="checkbox",name="added", id="added", checked)
+      input(type="checkbox" name="added" id="added" ng-model="showAdded")
       label(for="added")
         |Added
 

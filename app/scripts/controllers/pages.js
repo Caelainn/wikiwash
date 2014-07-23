@@ -15,7 +15,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
 
     $scope.$watch('loading', function () {
       if ($scope.loading) {
-        $scope.revisionBody = "LOADING...";
+        $scope.revisionBody = "";
         console.log("loading");
       } else {
         console.log("not loading");
@@ -52,6 +52,12 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
 
     socketService.socket.on("new revisions", function (res) {
       $scope.revisions = res.revisions.concat($scope.revisions);
+      
+      if (!$routeParams.revId) {
+        var revId = $scope.revisions[0].revid + "-" + $scope.revisions[0].parentid; 
+        var params = {page: $routeParams.page, revId: revId};
+        $location.path($routeSegment.getSegmentUrl('p.revision', params));
+      };
     });
 
   }

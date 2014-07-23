@@ -5,6 +5,10 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.loading = true;
     $scope.revisionBody = "";
     $scope.pageName = $routeParams.page;
+
+    if ($routeParams.revId) {
+      $scope.currentRevId = $routeParams.revId.split('-')[0];
+    }
     
     socketService.socket.emit('cycle page data', {page: $routeParams.page});
     socketService.cycling = true;
@@ -19,6 +23,9 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     });
     
     $scope.$on('$routeChangeSuccess', function(next, current) { 
+      $scope.loading = true;
+      $scope.currentRevId = $routeParams.revId.split('-')[0];
+
       if ($routeSegment.chain.length > 1)
         $routeSegment.chain[1].reload();
     });
@@ -26,11 +33,6 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     socketService.socket.on("new revisions", function (res) {
       $scope.revisions = res.revisions.concat($scope.revisions);
     });
-
-    $scope.selectedIndex = 0; // Whatever the default selected index is, use -1 for no selection
-    $scope.itemClicked = function ($index) {
-      $scope.selectedIndex = $index;
-    };
 
   }
 ]);

@@ -1,8 +1,7 @@
 .content-left
   .collection(leftHeight ng-style="styleleft()")
     .revisions(ng-repeat='revision in revisions track by $index'
-      ng-class="{ 'active-revision': $index == selectedIndex }"
-        ng-click="itemClicked($index)")
+      ng-class="{ 'active-revision': currentRevId == revision.revid }")
 
       .timestamp
         p

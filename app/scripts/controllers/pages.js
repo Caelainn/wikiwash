@@ -29,7 +29,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
         // links look like: '/wiki/thing'
         // edge case is the page for "wiki"
         // revisions for that page look like '/wiki/1111-2222'
-        if ($routeParams.page == 'wiki' && $routeParams.revId) {
+        if ($routeParams.page == 'wiki') {
           if (!parseInt($routeParams.revId.split('-')[0])) {
             socketService.socket.emit('stop cycle');
             $routeParams.page = $routeParams.revId;

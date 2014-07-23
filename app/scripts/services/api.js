@@ -22,8 +22,6 @@ angular.module('wikiwash').factory('api', ['$http', function($http) {
       if (revIds.length > 1)
         url = url + "?diff=" + revIds[1];
       
-      debugger
-
       return getRequestPromise(url);
     }
   };

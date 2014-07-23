@@ -23,11 +23,14 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     });
     
     $scope.$on('$routeChangeSuccess', function(next, current) { 
-      $scope.loading = true;
       $scope.currentRevId = $routeParams.revId.split('-')[0];
 
       if ($routeSegment.chain.length > 1)
         $routeSegment.chain[1].reload();
+    });
+    
+    $scope.$on('$routeChangeStart', function(next, current) { 
+      $scope.loading = true;
     });
 
     socketService.socket.on("new revisions", function (res) {

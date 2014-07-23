@@ -36,7 +36,7 @@
 
 .header .empty{
   display: table-cell;
-  width: 60px;
+  width: 100px;
 }
 
 .header .search {
@@ -45,7 +45,7 @@
 }
 
 .header .search input.bar {
-  width: 600px;
+  width: 460px;
 }
 
 .header .search input.send {
@@ -53,16 +53,17 @@
 }
 
 .header .navigation{
-  display: table;
-  margin-left: 20px;
+  padding-left: 20px;
+  display: table-cell;
+  vertical-align: middle;
 }
 
 .header .navigation p {
-  display: table-cell;
   width: 50px;
   color: white;
   font-size: 14px;
   font-weight: 700;
+  float: left;
 }
 
 .header .navigation a {
@@ -85,6 +86,7 @@
   padding: 3px 8px;
   color: #63797C;
   margin-right: 10px;
+  float: left;
 }
 
 .header .navigation .added {
@@ -93,7 +95,17 @@
   color: #63797C;
   font-weight: 500;
   margin-right: 10px;
-  display: table-cell;
+  float: left;
+}
+
+.header .navigation .prev-next{
+  color: white;
+  background-color: #7C959B;
+  width: 50px;
+  padding-right: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  float: left;
 }
 /* ===============================main content================================= */
 
@@ -272,9 +284,39 @@
   }
 
   /* ===============================wikinizer================================= */
+  .mw-editsection {
+    display: none;
+  }
+
+  div.wikidiff {
+    margin-left: 100px;
+    width: 730px;
+  }
+
+  div.wikidiff h1, h2, h3, .mw-headline {
+    font-family: 'Roboto Slab', serif;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0;
+    padding: 24px 0;
+  }
+
+  div.wikidiff h3.title {
+    font-size: 32px;
+    line-height: 38px;
+    padding: 34px 0;
+    margin: 0 0 34px 0;
+    border-bottom: 1px solid #E8E8E8;
+  }
+
+  div.wikidiff .content {
+    width: 530px;
+  }
 
   div.wikidiff p {
-    padding-top: 40px;
+    font-size: 16px;
+    padding: 24px 0;
+    font-weight: 400;
     margin: 0;
   }
 
@@ -293,7 +335,7 @@
   }
 
   table.infobox.vevent {
-    max-width: 22em;
+    width: 100%;
     border: 1px solid #aaa;
     padding: 0.2em;
     text-align: left;
@@ -307,21 +349,36 @@
   }
 
   div.wikidiff table, th, td {
-    background-color: #FAFAFA;
-    border: 1px solid #C5C5C5 !important;
+    background-color: #F9F9F9;
+    border: 1px solid #E8E8E8 !important;
     padding: 5px;
   }
 
-  div.wikidiff {
-    padding: 10px 60px;
+  div.wikidiff table{
+    padding: 24px 0;
   }
 
   div#toc {
-    background-color: #FAFAFA;
+    background-color: #F9F9F9;
+    padding: 24px 0;
+  }
+
+  div#toctitle h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+    padding-bottom: 24px;
   }
 
   div#toc ul {
     list-style: none;
+    padding-left: 30px;
   }
+
+  div#toc ul li {
+    padding-bottom: 10px;
+  }
+
 
 

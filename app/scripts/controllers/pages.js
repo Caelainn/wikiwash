@@ -70,8 +70,8 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     });
 
     $scope.$watch('revisions', function (revisions) {
-      //This is not permanent, will fix soon
-      if (revisions.length > 0 && revisions.length != 50) {
+      // This is not permanent, will fix soon
+      if (revisions.length > 50) {
         new WOW().init();
       }
     });

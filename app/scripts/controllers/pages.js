@@ -10,7 +10,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.pageTitle = $scope.pageName.split("_").join(" ");
     $scope.currentRevId = locationParams.getCurrentRevId();
 
-    socketService.socket.emit('cycle page data', {page: $routeParams.page});
+    socketService.socket.emit('cycle page data', {page: $scope.pageName});
     socketService.cycling = true;
 
     $scope.$watch('loading', function () {
@@ -81,7 +81,6 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.getNewPage = function () {
       socketService.socket.emit('stop cycle');
       var params = {page: $scope.pageName.replace(/ /g, '_')}
-      debugger;
       $location.path($routeSegment.getSegmentUrl('p', params));
       $routeSegment.chain[0].reload();
     };

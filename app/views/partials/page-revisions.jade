@@ -39,15 +39,14 @@
           p.removed -{{revision.size}}
     .footer
       .top-stats
-        p 500 edits by 16 people since Feb 22 2014
+        p {{revisions.length}} edits by {{totalUsers}} people since {{ revisions[0].timestamp | date: 'mediumDate'}}
       .bottom-stats
         .edits-per-user
           p Edits per user
-          p.number 3.9
+          p.number {{editsPerUser}}
         .time-between-edits
           p Time between edits
-          p.number 0.9 Days
-
+          p.number {{timeBetweenEdits}} Hours
 
   .ww-loading(ng-show="loading")
     img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")

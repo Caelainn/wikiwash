@@ -18,6 +18,7 @@ var path = require('path')
 //-- Bower Dependencies -----------------------------------------------------
 var bowerJsDependencies = [
   './bower_components/jquery/dist/jquery.js',
+  './bower_components/underscore/underscore.js',
   './bower_components/bootstrap-sass-official/vendor/assets/javascripts/bootstrap.js',
   './bower_components/angular/angular.js',
   './bower_components/angular-resource/angular-resource.js',
@@ -31,9 +32,9 @@ var bowerJsDependencies = [
   './bower_components/angular-route-segment/build/angular-route-segment.js',
   './bower_components/angular-animate/angular-animate.js',
   './bower_components/socket.io-client/socket.io.js',
-  './bower_components/WOW/dist/wow.min.js'
-
-
+  './bower_components/WOW/dist/wow.min.js',
+  './bower_components/angular-underscore/angular-underscore.js',
+  './bower_components/angular-underscore-module/angular-underscore-module.js'
 ]
 
 var bowerCssDependencies = [

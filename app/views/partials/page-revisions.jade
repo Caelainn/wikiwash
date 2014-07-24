@@ -35,8 +35,8 @@
             p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}
             p.comment(ng-if="revision.comment.length <= 0") Comment was not entered.
         .data
-          p.added +{{revision.size}}
-          p.removed -{{revision.size}}
+          p.added {{revision.added ? "+" + revision.added : ''}}
+          p.removed {{revision.removed ? "-" + revision.removed : ''}}
     .footer
       .top-stats
         p {{revisions.length}} edits by {{totalUsers}} people since {{ revisions[0].timestamp | date: 'mediumDate'}}

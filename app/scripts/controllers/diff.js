@@ -1,8 +1,21 @@
-angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '$routeParams', 'revision',
-  function($scope, $sce, $routeParams, revision) {
+angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '_', 'revision',
+  function($scope, $sce, _, revision) {
     $scope.$parent.loading = false;
-    $scope.$parent.revisionBody = $sce.trustAsHtml(revision.data); 
+    $scope.$parent.revisionBody = $sce.trustAsHtml(revision.data.content); 
     $scope.$parent.showAdded = true;
     $scope.$parent.showRemoved = true;
+    
+    var updateCurrentRevisionStats = function () {
+      var currentRev = _.find($scope.$parent.revisions, function (rev) {
+        return rev.revid == $scope.$parent.currentRevId;
+      });
+      
+      if (currentRev) {
+        currentRev.added = revision.data.added;
+        currentRev.removed = revision.data.removed;
+      }
+    };
+    
+    updateCurrentRevisionStats();
   }
 ]);

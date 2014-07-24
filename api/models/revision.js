@@ -30,33 +30,37 @@ var revisionHtml = function (json, revId) {
   })['*'];
 };
 
-var revisionDiffHtml = function (json, revHtml, prevHtml) {
-  var result = "";
-  
+var revisionDiffData = function (json, revHtml, prevHtml) {
+  var content = "";
+
   try {
     var diff = new gdiff();
     
     var diffParts = diff.diff_main(prevHtml, revHtml);
     var editCount = 0;
+    var totalAdded = 0;
+    var totalRemoved = 0;
     diffParts.forEach(function (part, index) {
       if (part[0] > 0) {
-       result = result + '<span class="ww-edit additions" id=edit-' + 
+       content = content + '<span class="ww-edit added" id=edit-' + 
                  editCount + '>' + part[1] + '</span>';
         editCount++;
+        totalAdded++
       } else if (part[0] < 0) {
-        result = result + '<span class="ww-edit subtractions" id=edit-' + 
+        content = content + '<span class="ww-edit removed" id=edit-' + 
                  editCount + '>' + part[1] + '</span>';
         editCount++;
+        totalRemoved++;
       } else {
-        result += part[1];
+        content += part[1];
       }
 
     });
   } catch (err) {
-    result = 'Diff unavailable';
+    content = 'Diff unavailable';
   };
   
-  return result;
+  return {content: content, added: totalAdded, removed: totalRemoved};
 };
 
 var getRevision = function (revisionId, callback) {
@@ -80,16 +84,16 @@ var getRevision = function (revisionId, callback) {
 
 module.exports.find = function (revisionId, callback) {
   getRevision(revisionId, function (json) {
-    var html = "";
+    var data = {};
     
     if (_.isArray(revisionId)) {
       var prevHtml = revisionHtml(json, revisionId[1]);
       var revHtml = revisionHtml(json, revisionId[0]);
-      html = revisionDiffHtml(json, revHtml, prevHtml);
+      data = revisionDiffData(json, revHtml, prevHtml);
     } else {
-      html = revisionHtml(json, revisionId);
+      data = {content: revisionHtml(json, revisionId), added: 0, removed: 0};
     };
 
-    callback(html);
+    callback(data);
   });
 };

@@ -11,8 +11,8 @@ module.exports = function(app, io) {
     if (req.query.diff)
       revisionId = [revisionId, req.query.diff];
       
-    revisions.show(revisionId, function (html) {
-      res.send(html);
+    revisions.show(revisionId, function (data) {
+      res.json(data);
     });
   });
 

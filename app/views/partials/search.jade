@@ -1,14 +1,15 @@
-.logo-splash
-  img(src="/img/WIKIWASH-Logo-HomeScreen%402x.png")
-.modo
-  p Track Wikipedia edits in real time.
-  p Follow breaking stories as they are written.
-.search
-  input(type="text" ng-model='pageName')
-  input(type='submit' value='submit' ng-click='submit()')
-.about
-  a(href="") ABOUT
-.trdmrk
-  p © Wikiwash 2014
+.wrapper-splash
+  .logo-splash
+    img(src="/img/WIKIWASH-Logo-HomeScreen%402x.png")
+  .modo
+    p Track Wikipedia edits in real time.
+    p Follow breaking stories as they are written.
+  .search-splash
+    input.bar(type="text" placeholder="Paste a Wikipedia URL to wash" ng-model='pageName')
+    input.button(type='submit' value='WASH' ng-click='submit()')
+  .about
+    a(href="") ABOUT
+  .trdmrk
+    p © Wikiwash 2014
 
 

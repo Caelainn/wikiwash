@@ -7,8 +7,13 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.pageName = locationParams.getPage();
     $scope.showAdded = true;
     $scope.showRemoved = true;
-    
-    socketService.socket.emit('cycle page data', {page: $scope.pageName});
+    $scope.pageTitle = $scope.pageName.split("_").join(" ");
+
+    if ($routeParams.revId) {
+      $scope.currentRevId = $routeParams.revId.split('-')[0];
+    }
+
+    socketService.socket.emit('cycle page data', {page: $routeParams.page});
     socketService.cycling = true;
 
     $scope.currentRevId = locationParams.getCurrentRevId();

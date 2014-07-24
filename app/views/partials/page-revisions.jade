@@ -14,6 +14,11 @@
     .added
       input(type="checkbox" name="added" id="added" ng-model="showAdded")
       label(for="added") Added
+    p.prev-next(ng-click="getDiff(revision.revid)")
+      |Prev
+    p.prev-next(ng-click="getDiff(revision.revid)")
+      |Next
+
 
 
 .content-left

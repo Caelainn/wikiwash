@@ -1,54 +1,57 @@
-.header
-  .logo
-    p WW  WIKIWASH
-  a.export-session(href="#" ng-click="getDiff(revision.revid)") Export Session
-  .empty
-  .search
-    form(ng-submit="getNewPage()")
-      input.bar(type="text" ng-model="pageName")
-  .navigation
-    p Show:
-    .removed
-      input(type="checkbox" name="removed" id="removed" ng-model="showRemoved")
-      label(for="removed") Removed
-    .added
-      input(type="checkbox" name="added" id="added" ng-model="showAdded")
-      label(for="added") Added
-    p.prev-next(ng-click="getDiff(revision.revid)") Prev
-    p.prev-next(ng-click="getDiff(revision.revid)") Next
+.wrapper
+  .header
+    .logo
+      img(src="/img/WW-Logo-Header%402x.png")
+      img(src="/img/WIKIWASH-Logo-Header%402x.png")
+    a.export-session(href="#" ng-click="getDiff(revision.revid)") Export Session
+    .empty
+    .search
+      form(ng-submit="getNewPage()")
+        input.bar(type="text" ng-model="pageName")
+    .navigation
+      p Show:
+      .removed
+        input(type="checkbox" name="removed" id="removed" ng-model="showRemoved")
+        label(for="removed") Removed
+      .added
+        input(type="checkbox" name="added" id="added" ng-model="showAdded")
+        label(for="added") Added
+      p.prev-next(ng-click="getDiff(revision.revid)") Prev
+      p.prev-next(ng-click="getDiff(revision.revid)") Next
 
-.content-left
-  .collection(leftHeight ng-style="styleleft()")
-    .revisions(ng-repeat='revision in revisions track by $index'
-      ng-class="{ 'active-revision': currentRevId == revision.revid }" 
-      class="animate-repeat")
+  .content-left
+    .collection(leftHeight ng-style="styleleft()")
+      .revisions(ng-repeat='revision in revisions track by $index'
+        ng-class="{ 'active-revision': currentRevId == revision.revid }"
+        class="{{$index == 0 ? 'wow fadeInDown' : ''}}")
 
-      .timestamp
-        p {{revision.timestamp | date:'mediumDate'}}
-        p.time {{revision.timestamp | date:'shortTime'}}
-      .user_comment
-        a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
-          p.username {{revision.user}}
-        a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
-          p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}
-          p.comment(ng-if="revision.comment.length <= 0") Comment was not entered.
-      .data
-        p.added +{{revision.size}}
-        p.removed -{{revision.size}}
-  .footer
-    .top-stats
-      p 500 edits by 16 people since Feb 22 2014
-    .bottom-stats
-      .edits-per-user
-        p Edits per user
-        p.number 3.9
-      .time-between-edits
-        p Time between edits
-        p.number 0.9 Days
+        .timestamp
+          p {{revision.timestamp | date:'shortTime'}}
+          p.date {{revision.timestamp | date:'mediumDate'}}
+        .user_comment
+          a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
+            p.username {{revision.user}}
+          a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
+            p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}
+            p.comment(ng-if="revision.comment.length <= 0") Comment was not entered.
+        .data
+          p.added +{{revision.size}}
+          p.removed -{{revision.size}}
+    .footer
+      .top-stats
+        p 500 edits by 16 people since Feb 22 2014
+      .bottom-stats
+        .edits-per-user
+          p Edits per user
+          p.number 3.9
+        .time-between-edits
+          p Time between edits
+          p.number 0.9 Days
 
 
-ww-loading(ng-show="loading").
-  Loading...
+  .ww-loading(ng-show="loading")
+    img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")
+    img.animated-infinite.zoomOutLeft(src="/img/WIKIWASH-W2-Loading%402x.png")
 
-.content-right(app-view-segment="1" rightHeight ng-style="styleright()")
+  .content-right(app-view-segment="1" rightHeight ng-style="styleright()")
 

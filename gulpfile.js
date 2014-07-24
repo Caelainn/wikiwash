@@ -30,12 +30,16 @@ var bowerJsDependencies = [
   './bower_components/angular-socket-io/socket.js',
   './bower_components/angular-route-segment/build/angular-route-segment.js',
   './bower_components/angular-animate/angular-animate.js',
-  './bower_components/socket.io-client/socket.io.js'
+  './bower_components/socket.io-client/socket.io.js',
+  './bower_components/WOW/dist/wow.min.js'
+
+
 ]
 
 var bowerCssDependencies = [
   './bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss',
-  './bower_components/angular-loading-bar/build/loading-bar.css'
+  './bower_components/angular-loading-bar/build/loading-bar.css',
+  './bower_components/animate.css/animate.css'
 ]
 
 var bowerImageDependencies = [

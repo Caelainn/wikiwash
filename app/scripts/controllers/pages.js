@@ -1,33 +1,17 @@
-angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'socketService',
-  function($scope, $location, $routeParams, $routeSegment, socketService) {
+angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'locationParams', 'socketService',
+  function($scope, $location, $routeParams, $routeSegment, locationParams, socketService) {
 
-    var getCurrentRevId = function () {
-      if ($location.path().split("/").length > 2) {
-        return $location.path().split("/")[2].split("-")[0];
-      } else {
-        return null;
-      }
-    };
-    
-    var getPage = function () {
-      if ($location.path().split("/").length > 1) {
-        return $location.path().split("/")[1];
-      } else {
-        return null;
-      }
-    };
-    
     $scope.revisions = [];
     $scope.loading = true;
     $scope.revisionBody = "";
-    $scope.pageName = getPage();
+    $scope.pageName = locationParams.getPage();
     $scope.showAdded = true;
     $scope.showRemoved = true;
     
     socketService.socket.emit('cycle page data', {page: $scope.pageName});
     socketService.cycling = true;
 
-    $scope.currentRevId = getCurrentRevId();
+    $scope.currentRevId = locationParams.getCurrentRevId();
 
     $scope.$watch('loading', function () {
       if ($scope.loading) {
@@ -55,7 +39,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
           }
         }
         
-        $scope.currentRevId = getCurrentRevId();
+        $scope.currentRevId = locationParams.getCurrentRevId();
         
         if ($routeSegment.chain.length > 1) 
           $routeSegment.chain[1].reload();

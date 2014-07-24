@@ -1,5 +1,21 @@
-angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'locationParams', 'socketService',
-  function($scope, $location, $routeParams, $routeSegment, locationParams, socketService) {
+angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'locationParams', 'socketService', '_',
+  function($scope, $location, $routeParams, $routeSegment, locationParams, socketService, _) {
+    
+    var updateStats = function () {
+      var users = _.keys(_.groupBy($scope.revisions, function (revision) {
+        return revision.user;
+      }));
+      
+      $scope.totalUsers = users.length;
+      $scope.editsPerUser = Math.round(10*($scope.revisions.length / users.length))/10;
+      
+      var end = new Date($scope.revisions[0].timestamp);
+      var start = new Date(_.last($scope.revisions).timestamp);
+
+      var diffHours = (((end - start) / 1000) / 3600);
+      
+      $scope.timeBetweenEdits = Math.round(10*(diffHours / $scope.revisions.length))/10;
+    };
 
     $scope.revisions = [];
     $scope.loading = true;
@@ -9,6 +25,9 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.showRemoved = true;
     $scope.pageTitle = $scope.pageName.split("_").join(" ");
     $scope.currentRevId = locationParams.getCurrentRevId();
+    $scope.editsPerUser = 0;
+    $scope.totalUsers = 0;
+    $scope.timeBetweenEdits = 0;
 
     socketService.socket.emit('cycle page data', {page: $scope.pageName});
     socketService.cycling = true;
@@ -60,6 +79,8 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
         var params = {page: $routeParams.page, revId: revId};
         $location.path($routeSegment.getSegmentUrl('p.revision', params));
       }
+      
+      updateStats();
     });
     
     $scope.$watch('showRemoved', function () {

@@ -37,7 +37,7 @@
         p.removed -{{revision.size}}
   .footer
     .top-stats
-      p {{revisions.length}} edits by 16 people since Feb 22 2014
+      p {{revisions.length}} edits by {{totalUsers}} people since {{ revisions[0].timestamp | date: 'mediumDate'}}
     .bottom-stats
       .edits-per-user
         p Edits per user

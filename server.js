@@ -12,6 +12,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
 app.use(express.static(__dirname + '/public'));
+app.use("/app/assets", express.static(__dirname + "/app/assets"));
 app.use('/js', express.static(path.join(__dirname, 'public', 'js')))
 app.use('/css', express.static(path.join(__dirname, 'public', 'css')))
 app.use('/views', express.static(path.join(__dirname, 'public', 'views')))

@@ -6,5 +6,6 @@ angular.module('wikiwash', [
   'ngRoute',
   'route-segment', 
   'view-segment',
-  'ngAnimate'
+  'ngAnimate',
+  'underscore'
 ]);

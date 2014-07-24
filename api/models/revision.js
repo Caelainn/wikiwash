@@ -37,14 +37,20 @@ var revisionDiffHtml = function (json, revHtml, prevHtml) {
     var diff = new gdiff();
     
     var diffParts = diff.diff_main(prevHtml, revHtml);
-    diffParts.forEach(function (part) {
+    var editCount = 0;
+    diffParts.forEach(function (part, index) {
       if (part[0] > 0) {
-        result = result + '<span class="ww-edit additions">' + part[1] + '</span>';
+       result = result + '<span class="ww-edit additions" id=edit-' + 
+                 editCount + '>' + part[1] + '</span>';
+        editCount++;
       } else if (part[0] < 0) {
-        result = result + '<span class="ww-edit subtractions">' + part[1] + '</span>';
+        result = result + '<span class="ww-edit subtractions" id=edit-' + 
+                 editCount + '>' + part[1] + '</span>';
+        editCount++;
       } else {
         result += part[1];
       }
+
     });
   } catch (err) {
     result = 'Diff unavailable';

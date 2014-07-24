@@ -39,15 +39,9 @@ var revisionDiffHtml = function (json, revHtml, prevHtml) {
     var diffParts = diff.diff_main(prevHtml, revHtml);
     diffParts.forEach(function (part) {
       if (part[0] > 0) {
-        result = result + 
-                 '<span ng-show="showAdded" class="ww-edit additions">' + 
-                 part[1] + 
-                 '</span>';
+        result = result + '<span class="ww-edit additions">' + part[1] + '</span>';
       } else if (part[0] < 0) {
-        result = result + 
-                 '<span ng-show="showRemoved" class="ww-edit subtractions">' + 
-                 part[1] + 
-                 '</span>';
+        result = result + '<span class="ww-edit subtractions">' + part[1] + '</span>';
       } else {
         result += part[1];
       }

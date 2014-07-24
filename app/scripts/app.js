@@ -5,5 +5,6 @@ angular.module('wikiwash', [
   'ngSanitize',
   'ngRoute',
   'route-segment', 
-  'view-segment'
+  'view-segment',
+  'ngAnimate'
 ]);

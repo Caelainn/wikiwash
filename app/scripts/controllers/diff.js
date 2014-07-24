@@ -4,7 +4,5 @@ angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '$rou
     $scope.$parent.revisionBody = $sce.trustAsHtml(revision.data); 
     $scope.$parent.showAdded = true;
     $scope.$parent.showRemoved = true;
-
-
   }
 ]);

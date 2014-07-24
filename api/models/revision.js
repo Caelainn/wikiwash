@@ -42,12 +42,12 @@ var revisionDiffData = function (json, revHtml, prevHtml) {
     var totalRemoved = 0;
     diffParts.forEach(function (part, index) {
       if (part[0] > 0) {
-       content = content + '<span class="ww-edit added" id=edit-' + 
+       content = content + '<span class="ww-edit additions" id=edit-' + 
                  editCount + '>' + part[1] + '</span>';
         editCount++;
         totalAdded++
       } else if (part[0] < 0) {
-        content = content + '<span class="ww-edit removed" id=edit-' + 
+        content = content + '<span class="ww-edit subtractions" id=edit-' + 
                  editCount + '>' + part[1] + '</span>';
         editCount++;
         totalRemoved++;

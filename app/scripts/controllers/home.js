@@ -4,7 +4,7 @@ angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 
     $scope.revisions = [];
 
     $scope.submit = function() {
-      $location.path($scope.pageName);
+      $location.path($scope.pageName.replace(/ /g, '_'));
     };
     
     if (socketService.cycling) {

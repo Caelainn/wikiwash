@@ -8,15 +8,10 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.showAdded = true;
     $scope.showRemoved = true;
     $scope.pageTitle = $scope.pageName.split("_").join(" ");
-
-    if ($routeParams.revId) {
-      $scope.currentRevId = $routeParams.revId.split('-')[0];
-    }
+    $scope.currentRevId = locationParams.getCurrentRevId();
 
     socketService.socket.emit('cycle page data', {page: $routeParams.page});
     socketService.cycling = true;
-
-    $scope.currentRevId = locationParams.getCurrentRevId();
 
     $scope.$watch('loading', function () {
       if ($scope.loading) {
@@ -85,7 +80,9 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
 
     $scope.getNewPage = function () {
       socketService.socket.emit('stop cycle');
-      $location.path($routeSegment.getSegmentUrl('p', {page: $scope.pageName}));
+      var params = {page: $scope.pageName.replace(/ /g, '_')}
+      debugger;
+      $location.path($routeSegment.getSegmentUrl('p', params));
       $routeSegment.chain[0].reload();
     };
     

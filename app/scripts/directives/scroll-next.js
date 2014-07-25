@@ -2,10 +2,6 @@ angular.module('wikiwash')
   .directive('scrollNext', ['SmoothScroll', function(SmoothScroll) {
     return {
       restrict: "E",
-      scope: {
-        editCount: "=",
-        nextEdit: "="
-      },
       link: function(scope, element, attr) {
         var _scope = scope;
         var _element = element;
@@ -15,9 +11,9 @@ angular.module('wikiwash')
           if (_scope.nextEdit >= _scope.editCount) {
             _scope.nextEdit = 0;
           } else {
-            _scope.nextEdit++;
+            _scope.nextEdit();
           }
-          console.log("=========>", _scope.editCount);
+          console.log("=========>", _scope.nextEdit);
           
         });
       },

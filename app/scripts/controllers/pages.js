@@ -42,6 +42,18 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
         console.log("not loading");
       }
     });
+    
+    $scope.incNextEdit = function () {
+      if (!($scope.nextEdit >= $scope.editCount)) {
+        $scope.nextEdit++;
+      }
+    };
+
+    $scope.decNextEdit = function () {
+      if (!($scope.nextEdit <= 0)) {
+        $scope.nextEdit--;
+      }
+    };
 
     $scope.$on('$routeChangeSuccess', function(next, current) {
       if ($routeParams.revId) {

@@ -17,8 +17,10 @@
         input(type="checkbox" name="added" id="added" ng-model="showAdded")
         label(for="added") Added
 
-      scroll-prev.prev-next(edit-count="editCount" next-edit="nextEdit")
-      scroll-next.prev-next(edit-count="editCount" next-edit="nextEdit")
+      {{editCount}}
+      {{nextEdit}}
+      a.prev-next(href="" ng-click="decNextEdit()") Prev
+      a.prev-next(href="" ng-click="incNextEdit()") Next
 
   .content-left
     .collection(leftHeight ng-style="styleleft()")

@@ -5,6 +5,7 @@ angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '_', 
     $scope.$parent.showAdded = true;
     $scope.$parent.showRemoved = true;
     $scope.$parent.editCount = revision.data.editCount;
+    $scope.$parent.nextEdit = 0;
     
     var updateCurrentRevisionStats = function () {
       var currentRev = _.find($scope.$parent.revisions, function (rev) {

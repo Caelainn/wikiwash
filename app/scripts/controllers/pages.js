@@ -1,5 +1,5 @@
-angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'locationParams', 'socketService', '_',
-  function($scope, $location, $routeParams, $routeSegment, locationParams, socketService, _) {
+angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'locationParams', 'socketService', '_', 'pageParser',
+  function($scope, $location, $routeParams, $routeSegment, locationParams, socketService, _, pageParser) {
     
     var updateStats = function () {
       var users = _.keys(_.groupBy($scope.revisions, function (revision) {
@@ -43,18 +43,6 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
       }
     });
     
-    $scope.incNextEdit = function () {
-      if (!($scope.nextEdit >= $scope.editCount)) {
-        $scope.nextEdit++;
-      }
-    };
-
-    $scope.decNextEdit = function () {
-      if (!($scope.nextEdit <= 0)) {
-        $scope.nextEdit--;
-      }
-    };
-
     $scope.$on('$routeChangeSuccess', function(next, current) {
       if ($routeParams.revId) {
 
@@ -122,10 +110,24 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
 
     $scope.getNewPage = function () {
       socketService.socket.emit('stop cycle');
-      var params = {page: $scope.pageName.replace(/ /g, '_')};
+
+      var params = {page: pageParser.getPageName($scope.pageName)};
       $location.path($routeSegment.getSegmentUrl('p', params));
       $routeSegment.chain[0].reload();
     };
+
+    $scope.incNextEdit = function () {
+      if (!($scope.nextEdit >= $scope.editCount)) {
+        $scope.nextEdit++;
+      }
+    };
+
+    $scope.decNextEdit = function () {
+      if (!($scope.nextEdit <= 0)) {
+        $scope.nextEdit--;
+      }
+    };
+
 
   }
 ]);

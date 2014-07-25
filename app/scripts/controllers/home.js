@@ -1,10 +1,10 @@
-angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 'socketService',
-  function($scope, $location, socketService) {
+angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 'socketService', 'pageParser',
+  function($scope, $location, socketService, pageParser) {
     $scope.pageName = '';
     $scope.revisions = [];
 
     $scope.submit = function() {
-      $location.path($scope.pageName.replace(/ /g, '_'));
+      $location.path(pageParser.getPageName($scope.pageName));
     };
     
     if (socketService.cycling) {

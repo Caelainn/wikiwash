@@ -16,8 +16,9 @@
       .added
         input(type="checkbox" name="added" id="added" ng-model="showAdded")
         label(for="added") Added
-      p.prev-next(ng-click="getDiff(revision.revid)") Prev
-      p.prev-next(ng-click="getDiff(revision.revid)") Next
+
+      scroll-prev.prev-next(edit-count="editCount" next-edit="nextEdit")
+      scroll-next.prev-next(edit-count="editCount" next-edit="nextEdit")
 
   .content-left
     .collection(leftHeight ng-style="styleleft()")
@@ -52,5 +53,5 @@
     img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")
     img.animated-infinite.zoomOutLeft(src="/img/WIKIWASH-W2-Loading%402x.png")
 
-  .content-right(app-view-segment="1" rightHeight ng-style="styleright()")
+  .content-right(app-view-segment="1" rightHeight ng-style="styleright()" ww-scroll)
 

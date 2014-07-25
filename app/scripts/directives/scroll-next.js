@@ -1,13 +1,27 @@
 angular.module('wikiwash')
-  .directive('scrollNext', ['$location', '$anchorScroll', function($location, $anchorScroll) {
-    return function(scope, element, attr) {
-      
-      element.on('click', function(event) {
-        event.preventDefault();
+  .directive('scrollNext', ['SmoothScroll', function(SmoothScroll) {
+    return {
+      restrict: "E",
+      scope: {
+        editCount: "=",
+        nextEdit: "="
+      },
+      link: function(scope, element, attr) {
+        var _scope = scope;
+        var _element = element;
 
-        console.log("click");
-        $location.hash('');
-      });
-
-    };
+        element.on('click', function(event, t) {
+          event.preventDefault();
+          if (_scope.nextEdit >= _scope.editCount) {
+            _scope.nextEdit = 0;
+          } else {
+            _scope.nextEdit++;
+          }
+          console.log("=========>", _scope.editCount);
+          
+        });
+      },
+      template: '<a href="" class="prev-next">Next</a>'
+    }
+    
   }]);

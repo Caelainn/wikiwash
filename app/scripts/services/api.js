@@ -19,7 +19,7 @@ angular.module('wikiwash').factory('api', ['$http', function($http) {
 
       var url = "/api/revisions/" + revIds[0];
 
-      if (revIds.length > 1)
+      if (revIds.length > 1 && revIds[1] !== '0')
         url = url + "?diff=" + revIds[1];
       
       return getRequestPromise(url);

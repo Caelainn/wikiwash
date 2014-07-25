@@ -34,6 +34,7 @@ var bowerJsDependencies = [
   './bower_components/socket.io-client/socket.io.js',
   './bower_components/WOW/dist/wow.min.js',
   './bower_components/angular-underscore/angular-underscore.js',
+  './bower_components/angular-smooth-scroll/build/ng-smoothscroll.js',
   './bower_components/angular-underscore-module/angular-underscore-module.js'
 ]
 

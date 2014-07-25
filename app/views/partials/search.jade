@@ -8,8 +8,20 @@
     input.bar(type="text" placeholder="Paste a Wikipedia URL to wash" ng-model='pageName')
     input.button(type='submit' value='WASH' ng-click='submit()')
   .about
-    a(href="") ABOUT
+    a(href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block'") ABOUT
   .trdmrk
     p © Wikiwash 2014
+
+.about-popup(id="light")
+  .popup-header
+    .title.clearfix
+      p Why Wikiwash?
+    .close.clearfix
+      a(href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none'") X
+  .content
+    p Lorem ipsum dolor sit amet, oratio percipit delicatissimi vel ut. Prima mandamus conclusionemque at mea, an putent ornatus suscipit his, mentitum referrentur cum ea. Mei at partem ancillae tincidunt. Ut eum simul aperiri, te populo mucius utroque quo, tantas blandit te usu. At vim elitr ludus perpetua, duo no recteque dignissim elaboraret. Vel epicuri adipiscing ut, ad quo vivendo fuisset. Vis ut enim dicit ancillae, et modo accusamus sed.
+  .images
+    img.metro-logo(src="/img/Wikiwash-Metro-Logo%402x.png")
+    img.twg-logo(src="/img/Wikiwash-TWG-Logo%402x.png")
 
 

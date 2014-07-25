@@ -1,8 +1,10 @@
 .wrapper
   .header
     .logo
-      img(src="/img/WW-Logo-Header%402x.png")
-      img(src="/img/WIKIWASH-Logo-Header%402x.png")
+      a(href="/")
+        img(src="/img/WW-Logo-Header%402x.png")
+      a(href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block'")
+        img(src="/img/WIKIWASH-Logo-Header%402x.png")
     a.export-session(href="#" ng-click="getDiff(revision.revid)") Export Session
     .empty
     .search
@@ -55,3 +57,14 @@
 
   .content-right(app-view-segment="1" rightHeight ng-style="styleright()" ww-scroll)
 
+.about-popup(id="light")
+  .popup-header
+    .title.clearfix
+      p Why Wikiwash?
+    .close.clearfix
+      a(href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none'") X
+  .content
+    p Lorem ipsum dolor sit amet, oratio percipit delicatissimi vel ut. Prima mandamus conclusionemque at mea, an putent ornatus suscipit his, mentitum referrentur cum ea. Mei at partem ancillae tincidunt. Ut eum simul aperiri, te populo mucius utroque quo, tantas blandit te usu. At vim elitr ludus perpetua, duo no recteque dignissim elaboraret. Vel epicuri adipiscing ut, ad quo vivendo fuisset. Vis ut enim dicit ancillae, et modo accusamus sed.
+  .images
+    img.metro-logo(src="/img/Wikiwash-Metro-Logo%402x.png")
+    img.twg-logo(src="/img/Wikiwash-TWG-Logo%402x.png")

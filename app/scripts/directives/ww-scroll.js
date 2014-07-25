@@ -7,9 +7,13 @@ angular.module('wikiwash')
           var edit = $('#edit-' + last);
 
           if (edit.length > 0) {
-            element.animate({
-              scrollTop: edit.offset().top - element.offset().top + element.scrollTop()
-            });
+            $('.ww-edit').css('text-decoration', 'none');
+            edit.css('text-decoration', 'underline');
+            setTimeout(function () {
+              element.animate({
+                scrollTop: edit.offset().top - element.offset().top + element.scrollTop()
+              });
+            }, 500);
           }
           
           console.log("ww-sroll");

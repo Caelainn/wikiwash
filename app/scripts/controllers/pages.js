@@ -122,13 +122,13 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     };
 
     $scope.incNextEdit = function () {
-      if (!($scope.nextEdit >= $scope.editCount)) {
+      if (!($scope.nextEdit > $scope.editCount)) {
         $scope.nextEdit++;
       }
     };
 
     $scope.decNextEdit = function () {
-      if (!($scope.nextEdit <= 0)) {
+      if (!($scope.nextEdit < 0)) {
         $scope.nextEdit--;
       }
     };

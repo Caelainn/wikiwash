@@ -5,7 +5,7 @@ angular.module('wikiwash')
         var prevEdit = null;
 
         scope.$watch('nextEdit', function (current, last) {
-          var edit = $('#edit-' + last);
+          var edit = $('#edit-' + current);
           
           if (prevEdit) {
             if (prevEdit.hasClass('additions')) {

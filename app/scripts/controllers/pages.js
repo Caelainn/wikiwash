@@ -15,6 +15,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
       var diffHours = (((end - start) / 1000) / 3600);
       
       $scope.timeBetweenEdits = Math.round(10*(diffHours / $scope.revisions.length))/10;
+      $scope.firstEditDate = _.last($scope.revisions).timestamp;
     };
 
     $scope.revisions = [];
@@ -41,6 +42,10 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
       } else {
         console.log("not loading");
       }
+    });
+
+    $scope.$on('$locationChangeSuccess', function(next, current) {
+      $routeSegment.chain[0].reload();
     });
     
     $scope.$on('$routeChangeSuccess', function(next, current) {

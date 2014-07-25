@@ -7,5 +7,6 @@ angular.module('wikiwash', [
   'route-segment', 
   'view-segment',
   'ngAnimate',
-  'underscore'
+  'underscore',
+  'SmoothScroll'
 ]);

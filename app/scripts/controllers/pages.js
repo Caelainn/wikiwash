@@ -27,7 +27,9 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     $scope.currentRevId = locationParams.getCurrentRevId();
     $scope.editsPerUser = 0;
     $scope.totalUsers = 0;
+    $scope.editCount = 0;
     $scope.timeBetweenEdits = 0;
+    $scope.nextEdit = 0;
 
     socketService.socket.emit('cycle page data', {page: $scope.pageName});
     socketService.cycling = true;
@@ -108,7 +110,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
 
     $scope.getNewPage = function () {
       socketService.socket.emit('stop cycle');
-      var params = {page: $scope.pageName.replace(/ /g, '_')}
+      var params = {page: $scope.pageName.replace(/ /g, '_')};
       $location.path($routeSegment.getSegmentUrl('p', params));
       $routeSegment.chain[0].reload();
     };

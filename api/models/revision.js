@@ -44,13 +44,13 @@ var revisionDiffData = function (json, revHtml, prevHtml) {
       if (part[0] > 0) {
        content = content + '<span class="ww-edit additions" id=edit-' + 
                  editCount + '>' + part[1] + '</span>';
+        totalAdded += part[1].length;
         editCount++;
-        totalAdded++
       } else if (part[0] < 0) {
         content = content + '<span class="ww-edit subtractions" id=edit-' + 
                  editCount + '>' + part[1] + '</span>';
+        totalRemoved += part[1].length;
         editCount++;
-        totalRemoved++;
       } else {
         content += part[1];
       }
@@ -60,7 +60,7 @@ var revisionDiffData = function (json, revHtml, prevHtml) {
     content = 'Diff unavailable';
   };
   
-  return {content: content, added: totalAdded, removed: totalRemoved};
+  return {content: content, added: totalAdded, removed: totalRemoved, editCount: editCount};
 };
 
 var getRevision = function (revisionId, callback) {

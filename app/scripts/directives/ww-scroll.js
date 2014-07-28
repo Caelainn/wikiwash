@@ -13,7 +13,7 @@ angular.module('wikiwash')
             } else if (prevEdit.hasClass('subtractions')) {
               prevEdit.css('background-color', '#F1BCBC');
             }
-          };
+          }
 
           if (edit.length > 0) {
             if (edit.hasClass('additions')) {
@@ -33,6 +33,6 @@ angular.module('wikiwash')
           console.log("ww-sroll");
         });
       }
-    }
+    };
     
   }]);

@@ -44,10 +44,6 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
       }
     });
 
-    $scope.$on('$locationChangeSuccess', function(next, current) {
-      $routeSegment.chain[0].reload();
-    });
-    
     $scope.$on('$routeChangeSuccess', function(next, current) {
       if ($routeParams.revId) {
 

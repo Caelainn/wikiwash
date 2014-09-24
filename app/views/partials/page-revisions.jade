@@ -23,7 +23,7 @@
       a.prev-next(href="" ng-click="incNextEdit()") Next
 
   .content-left
-    .collection(leftHeight ng-style="styleleft()")
+    .collection(fixed-height offset="140")
       .revisions(ng-repeat='revision in revisions track by $index'
         ng-class="{ 'active-revision': currentRevId == revision.revid }"
         class="{{$index == 0 ? 'wow fadeInDown' : ''}}")
@@ -55,7 +55,7 @@
     img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")
     img.animated-infinite.zoomOutLeft(src="/img/WIKIWASH-W2-Loading%402x.png")
 
-  .content-right(app-view-segment="1" rightHeight ng-style="styleright()" ww-scroll)
+  .content-right(app-view-segment="1" fixed-height offset="60" ww-scroll)
 
 .about-popup(id="light")
   .popup-header

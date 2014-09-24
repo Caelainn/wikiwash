@@ -6,5 +6,5 @@ angular.module('wikiwash').directive('fixedHeight', function ($window) {
     link: function (scope, element) {
       element.height($window.innerHeight - scope.offset);
     }
-  }
-})
+  };
+});

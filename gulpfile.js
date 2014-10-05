@@ -35,7 +35,8 @@ var bowerJsDependencies = [
   './bower_components/WOW/dist/wow.min.js',
   './bower_components/angular-underscore/angular-underscore.js',
   './bower_components/angular-smooth-scroll/build/ng-smoothscroll.js',
-  './bower_components/angular-underscore-module/angular-underscore-module.js'
+  './bower_components/angular-underscore-module/angular-underscore-module.js',
+  './bower_components/ng-csv/build/ng-csv.min.js'
 ]
 
 var bowerCssDependencies = [
@@ -150,7 +151,17 @@ gulp.task('nodemon', function () {
     })
 })
 
-gulp.task('build', ['html-public', 'jade-view', 'html-template', 'scripts', 'styles', 'vendor-scripts', 'vendor-styles', 'vendor-images'])
+gulp.task('build', [
+  'html-public',
+  'jade-view',
+  'html-template',
+  'scripts',
+  'styles',
+  'vendor-scripts',
+  'vendor-styles',
+  'vendor-images'
+])
+
 gulp.task('default', ['nodemon', 'build', 'watch'])
 
 

@@ -15,15 +15,13 @@ PagesController.prototype.show = function (pageName, callback) {
   page.findRevisions(pageName, this.currentRevisionIds, function (pageData) {
 
     if (pageData.revisions.length) {
-
       var ids = pageData.revisions.map(function (revision) {
         return revision.revid;
       }); 
-
       _this.currentRevisionIds = _this.currentRevisionIds.concat(ids);
-
       callback(pageData);
     };
+
   });
 };
 

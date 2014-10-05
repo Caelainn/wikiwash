@@ -8,5 +8,6 @@ angular.module('wikiwash', [
   'view-segment',
   'ngAnimate',
   'underscore',
-  'SmoothScroll'
+  'SmoothScroll',
+  'ngCsv'
 ]);

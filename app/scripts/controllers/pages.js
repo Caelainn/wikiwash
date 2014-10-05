@@ -1,19 +1,37 @@
-angular.module('wikiwash').controller('PagesController', ['$scope', '$location', '$routeParams', '$routeSegment', 'locationParams', 'socketService', '_', 'pageParser',
-  function($scope, $location, $routeParams, $routeSegment, locationParams, socketService, _, pageParser) {
-    
+angular.module('wikiwash').controller('PagesController', [
+  '$scope',
+  '$location',
+  '$routeParams',
+  '$routeSegment',
+  '$http',
+  'locationParams',
+  'socketService',
+  '_',
+  'pageParser',
+  function(
+    $scope,
+    $location,
+    $routeParams,
+    $routeSegment,
+    $http,
+    locationParams,
+    socketService,
+    _,
+    pageParser) {
+
     var updateStats = function () {
       var users = _.keys(_.groupBy($scope.revisions, function (revision) {
         return revision.user;
       }));
-      
+
       $scope.totalUsers = users.length;
       $scope.editsPerUser = Math.round(10*($scope.revisions.length / users.length))/10;
-      
+
       var end = new Date($scope.revisions[0].timestamp);
       var start = new Date(_.last($scope.revisions).timestamp);
 
       var diffHours = (((end - start) / 1000) / 3600);
-      
+
       $scope.timeBetweenEdits = Math.round(10*(diffHours / $scope.revisions.length))/10;
       $scope.firstEditDate = _.last($scope.revisions).timestamp;
     };
@@ -118,7 +136,7 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
     };
 
     $scope.incNextEdit = function () {
-      if ($scope.nextEdit < $scope.editCount) {
+      if ($scope.nextEdit < $scope.editCount - 1) {
         $scope.nextEdit++;
       }
     };
@@ -128,7 +146,25 @@ angular.module('wikiwash').controller('PagesController', ['$scope', '$location',
         $scope.nextEdit--;
       }
     };
+    
+    $scope.sessionCsv = function () {
+      var csv = [
+        ['Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Comment']
+      ]
+      
+      $scope.revisions.forEach(function (rev) {
+        csv.push([
+          rev.revid,
+          rev.user,
+          rev.minor,
+          rev.timestamp,
+          rev.size,
+          rev.comment
+        ])
+      })
 
-
+      return csv
+    }
+    
   }
 ]);

@@ -3,9 +3,14 @@
     .logo
       a(href="/")
         img(src="/img/WW-Logo-Header%402x.png")
-      a(href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='block'")
+      a(href="" ng-click="showModal = !showModal")
         img(src="/img/WIKIWASH-Logo-Header%402x.png")
-    a.export-session(href="#" ng-click="getDiff(revision.revid)") Export Session
+
+    a.export-session(
+      href=""
+      ng-csv="sessionCsv()"
+      filename="wikiwash-session.csv") Export Session
+
     .empty
     .search
       form(ng-submit="getNewPage()")
@@ -57,12 +62,12 @@
 
   .content-right(app-view-segment="1" fixed-height offset="60" ww-scroll)
 
-.about-popup(id="light")
+.about-popup#light(ng-show="showModal")
   .popup-header
     .title.clearfix
       p Why Wikiwash?
     .close.clearfix
-      a(href = "javascript:void(0)" onclick = "document.getElementById('light').style.display='none'") X
+      a(href="" ng-click="showModal = !showModal") X
   .content
     p Lorem ipsum dolor sit amet, oratio percipit delicatissimi vel ut. Prima mandamus conclusionemque at mea, an putent ornatus suscipit his, mentitum referrentur cum ea. Mei at partem ancillae tincidunt. Ut eum simul aperiri, te populo mucius utroque quo, tantas blandit te usu. At vim elitr ludus perpetua, duo no recteque dignissim elaboraret. Vel epicuri adipiscing ut, ad quo vivendo fuisset. Vis ut enim dicit ancillae, et modo accusamus sed.
   .images

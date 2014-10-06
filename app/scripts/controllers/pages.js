@@ -146,12 +146,12 @@ angular.module('wikiwash').controller('PagesController', [
         $scope.nextEdit--;
       }
     };
-    
+
     $scope.sessionCsv = function () {
       var csv = [
         ['Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Comment']
       ]
-      
+
       $scope.revisions.forEach(function (rev) {
         csv.push([
           rev.revid,
@@ -165,6 +165,6 @@ angular.module('wikiwash').controller('PagesController', [
 
       return csv
     }
-    
+
   }
 ]);

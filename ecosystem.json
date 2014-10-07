@@ -22,10 +22,10 @@
     },
     "production" : {
       "user" : "deploy",
-      "host" : "homewood-origin.twg.ca",
+      "host" : "104.131.64.163",
       "ref"  : "origin/production",
-      "repo" : "git@github.com:twg/homewood-web.git",
-      "path" : "/home/deploy/homewood-origin.twg.ca",
+      "repo" : "git@github.com:twg/wikiwash.git",
+      "path" : "/home/deploy/wikiwash",
       "post-deploy" : "npm install && bower install && npm run build && pm2 startOrRestart ecosystem.json --env production"
     }
   }

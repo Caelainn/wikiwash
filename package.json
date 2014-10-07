@@ -4,6 +4,9 @@
   "description": "Expose related edits on Wikipedia.",
   "main": "server.js",
   "author": "TWG",
+  "scripts": {
+    "build": "./node_modules/.bin/gulp build"
+  },
   "dependencies": {
     "body-parser": "~1.0.0",
     "event-stream": "^3.1.5",

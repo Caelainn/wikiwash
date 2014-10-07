@@ -1,0 +1,32 @@
+{
+  "apps" : [{
+    "name"      : "app",
+    "script"    : "server.js",
+    "env_staging": {
+      "NODE_ENV": "staging",
+      "PORT": "80"
+    },
+    "env_production": {
+      "NODE_ENV": "production",
+      "PORT": "80"
+    }
+  }],
+  "deploy" : {
+    "staging" : {
+      "user" : "deploy",
+      "host" : "staging1931.twg.ca",
+      "ref"  : "origin/staging",
+      "repo" : "git@github.com:twg/wikiwash.git",
+      "path" : "/web/wikiwash",
+      "post-deploy" : "npm install && bower install && npm run build && pm2 startOrRestart ecosystem.json --env staging"
+    },
+    "production" : {
+      "user" : "deploy",
+      "host" : "homewood-origin.twg.ca",
+      "ref"  : "origin/production",
+      "repo" : "git@github.com:twg/homewood-web.git",
+      "path" : "/home/deploy/homewood-origin.twg.ca",
+      "post-deploy" : "npm install && bower install && npm run build && pm2 startOrRestart ecosystem.json --env production"
+    }
+  }
+}

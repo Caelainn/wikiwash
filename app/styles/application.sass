@@ -1,5 +1,8 @@
 /* ===============================global css================================= */
 
+@import "bourbon";
+@import "font-awesome";
+
 * {
   font-family: 'Source Sans Pro', sans-serif;
 }
@@ -311,7 +314,7 @@ body {
   font-size: 14px;
   font-weight: 700;
   float: left;
-  padding-top: 3px;
+  padding-top: 7px;
 }
 
 .header .navigation a {
@@ -366,6 +369,7 @@ body {
   position: relative;
   border-bottom: 2px solid #CFCFCF;
   font-weight: 500;
+  margin-bottom: 30px
 }
 
 .wrapper:after {
@@ -373,11 +377,18 @@ body {
     display:block;
     clear: both;
 }
-  /* ===============================left content================================= */
+
+.content-wrapper{
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===============================left content================================= */
 
   .content-left {
     float: left;
     width:350px;
+    height: 100%;
     background-color: #FAFAFA;
   }
 
@@ -391,7 +402,7 @@ body {
   }
 
   .collection{
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 0;
   }
 
@@ -528,7 +539,6 @@ body {
   .content-right {
     float: left;
     width: 928px;
-    overflow: scroll;
     padding:0;
   }
 
@@ -708,4 +718,58 @@ body {
 .bounceInLeft {
     -webkit-animation-name: bounceInLeft;
     animation-name: bounceInLeft;
+}
+
+// Checkboxes
+input[type=checkbox], input[type=radio] {
+  display: none;
+  + label {
+    @include user-select(none);
+    @extend .fa-check;
+    cursor: pointer;
+    position: relative;
+    padding: 3px 0 3px 35px;
+    &:hover {
+      &:after {
+        border-color: #63797c;
+      }
+    }
+    //check icon
+    &:before {
+      @extend .fa;
+      transition: all 0.2s ease-in-out;
+      transform: scale(2);
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      margin-top: -8px;
+      z-index: 2;
+      color: color("main-green");
+      opacity: 0;
+    }
+    //checkbox
+    &:after {
+      border: 1px solid #63797c;
+      transition: all 0.2s ease-in-out;
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      left: 0;
+      top: 50%;
+      margin-top: -13px;
+      background: white;
+      z-index: 1;
+    }
+  }
+  //checked state
+  &:checked {
+    + label {
+      //check icon
+      &:before {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+    }
+  }
 }

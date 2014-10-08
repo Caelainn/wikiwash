@@ -150,7 +150,7 @@ angular.module('wikiwash').controller('PagesController', [
     $scope.sessionCsv = function () {
       var csv = [
         ['Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Comment']
-      ]
+      ];
 
       $scope.revisions.forEach(function (rev) {
         csv.push([
@@ -160,11 +160,11 @@ angular.module('wikiwash').controller('PagesController', [
           rev.timestamp,
           rev.size,
           rev.comment
-        ])
-      })
+        ]);
+      });
 
-      return csv
-    }
+      return csv;
+    };
 
   }
 ]);

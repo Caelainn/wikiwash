@@ -1,6 +1,6 @@
 {
   "apps" : [{
-    "name"      : "app",
+    "name"      : "server",
     "script"    : "server.js",
     "env_staging": {
       "NODE_ENV": "staging",

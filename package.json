@@ -4,6 +4,9 @@
   "description": "Expose related edits on Wikipedia.",
   "main": "server.js",
   "author": "TWG",
+  "scripts": {
+    "build": "./node_modules/.bin/gulp build"
+  },
   "dependencies": {
     "body-parser": "~1.0.0",
     "event-stream": "^3.1.5",
@@ -16,7 +19,7 @@
     "lodash": "^2.4.1",
     "q": "^1.0.1",
     "q-io": "^1.11.3",
-    "socket.io": "^1.0.6"
+    "socket.io": "1.1.0"
   },
   "devDependencies": {
     "bower": "^1.3.7",

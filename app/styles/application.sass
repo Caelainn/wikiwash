@@ -8,6 +8,9 @@
   box-sizing: border-box;
 }
 
+html{
+  position: relative;
+}
 
 body {
   background: url('/img/Design-BG.png');
@@ -137,6 +140,14 @@ body {
   padding-right: 30px;
 }
   /* ===============================splash about popup================================= */
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 15;
+}
 
 .about-popup {
   padding: 46px;
@@ -208,6 +219,11 @@ body {
   padding-right: 30px;
   padding-top: 20px
 }
+
+.about-popup .content a{
+  color:#00A7CE;
+}
+
 .about-popup .content ul{
   font-size: 18px;
   line-height: 120%;

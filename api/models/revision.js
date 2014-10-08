@@ -8,14 +8,14 @@ var endPoint = 'en.wikipedia.org';
 var queryPath = function (revisionId) {
   if (_.isArray(revisionId)) {
     var revids = revisionId.join("|");
-  } else { 
+  } else {
     var revids = revisionId;
   };
 
-  return "/w/api.php?" + 
-         "action=query&" + 
-         "prop=revisions&" + 
-         "format=json&" + 
+  return "/w/api.php?" +
+         "action=query&" +
+         "prop=revisions&" +
+         "format=json&" +
          "rvprop=ids|user|userid|comment|content&" +
          "rvparse&" +
          "revids=" + revids;
@@ -24,7 +24,7 @@ var queryPath = function (revisionId) {
 var revisionHtml = function (json, revId) {
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
-  
+
   return _.find(queryResPage.revisions, function (r) {
     return r.revid == revId;
   })['*'];
@@ -35,19 +35,19 @@ var revisionDiffData = function (json, revHtml, prevHtml) {
 
   try {
     var diff = new gdiff();
-    
+
     var diffParts = diff.diff_main(prevHtml, revHtml);
     var editCount = 0;
     var totalAdded = 0;
     var totalRemoved = 0;
     diffParts.forEach(function (part, index) {
       if (part[0] > 0) {
-       content = content + '<span class="ww-edit additions" id=edit-' + 
+       content = content + '<span class="ww-edit additions" id=edit-' +
                  editCount + '>' + part[1] + '</span>';
         totalAdded += part[1].length;
         editCount++;
       } else if (part[0] < 0) {
-        content = content + '<span class="ww-edit subtractions" id=edit-' + 
+        content = content + '<span class="ww-edit subtractions" id=edit-' +
                  editCount + '>' + part[1] + '</span>';
         totalRemoved += part[1].length;
         editCount++;
@@ -59,7 +59,7 @@ var revisionDiffData = function (json, revHtml, prevHtml) {
   } catch (err) {
     content = 'Diff unavailable';
   };
-  
+
   return {content: content, added: totalAdded, removed: totalRemoved, editCount: editCount};
 };
 
@@ -69,9 +69,9 @@ var getRevision = function (revisionId, callback) {
     host: endPoint,
     path: queryPath(revisionId)
   };
-  
+
   console.log(options);
-  
+
   http.request(options).then(function (response) {
     response.body.read().then(function (body) {
       callback(JSON.parse(body));
@@ -85,7 +85,7 @@ var getRevision = function (revisionId, callback) {
 module.exports.find = function (revisionId, callback) {
   getRevision(revisionId, function (json) {
     var data = {};
-    
+
     if (_.isArray(revisionId)) {
       var prevHtml = revisionHtml(json, revisionId[1]);
       var revHtml = revisionHtml(json, revisionId[0]);

@@ -30,7 +30,6 @@ angular.module('wikiwash')
           }
           
           prevEdit = edit;
-          console.log("ww-sroll");
         });
       }
     };

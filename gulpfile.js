@@ -5,7 +5,9 @@ var path = require('path')
   , sass = require('gulp-sass')
   , minifycss = require('gulp-minify-css')
   , uglify = require('gulp-uglify')
+  , autoprefixer = require('gulp-autoprefixer')
   , concat = require('gulp-concat')
+  , rename = require('gulp-rename')
   , minifyHTML = require('gulp-minify-html')
   , templateCache = require('gulp-angular-templatecache')
   , jshint = require('gulp-jshint')
@@ -41,6 +43,7 @@ var bowerJsDependencies = [
 var bowerCssDependencies = [
   './bower_components/bootstrap-sass-official/vendor/assets/stylesheets/bootstrap.scss',
   './bower_components/angular-loading-bar/build/loading-bar.css',
+  './bower_components/font-awesome/css/font-awesome.css',
   './bower_components/animate.css/animate.css'
 ]
 
@@ -72,7 +75,11 @@ gulp.task('html-template', ['jade-view'], function () {
     .pipe(minifyHTML({
       quotes: true
     }))
-    .pipe(templateCache('templatescache.js', { module: 'replanAppTemplatesCaches', standalone: true, root: './views/' }))
+    .pipe(templateCache('templatescache.js', {
+      module: 'replanAppTemplatesCaches',
+      standalone: true,
+      root: './views/'
+    }))
     .pipe(gulp.dest('public/js'))
 })
 
@@ -89,9 +96,22 @@ gulp.task('scripts', function () {
     .pipe(gulp.dest('./public/js'))
 })
 
+// Fonts
+gulp.task('fonts', function() {
+  return gulp.src(['bower_components/font-awesome/fonts/fontawesome-webfont.*'])
+   .pipe(gulp.dest('public/fonts/'));
+});
+
+gulp.task('icons', function() {
+  gulp.src('./bower_components/font-awesome/css/font-awesome.css')
+    .pipe(rename('font-awesome.scss'))
+    .pipe(gulp.dest('./app/styles/'));
+});
+
 gulp.task('styles', function () {
   return gulp.src(paths.styles)
-    .pipe(sass({style: 'expand', errLogToConsole: true}))
+    .pipe(sass({style: 'expand', includePaths: require('node-bourbon').includePaths, errLogToConsole: true}))
+    .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
     .pipe(gulp.dest('./public/css'))
 })
 
@@ -155,8 +175,10 @@ gulp.task('build', [
   'html-template',
   'scripts',
   'styles',
+  'icons',
   'vendor-scripts',
   'vendor-styles',
+  'fonts',
   'vendor-images'
 ])
 

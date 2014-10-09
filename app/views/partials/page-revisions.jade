@@ -5,13 +5,6 @@
         img(src="/img/WW-Logo-Header%402x.png")
       a(href="" ng-click="showModal = !showModal")
         img(src="/img/WIKIWASH-Logo-Header%402x.png")
-
-    a.export-session(
-      href=""
-      ng-csv="sessionCsv()"
-      filename="wikiwash-session.csv") Export Session
-
-    .empty
     .search
       form(ng-submit="getNewPage()")
         input.bar(type="text" ng-model="pageName")
@@ -24,43 +17,48 @@
         input(type="checkbox" name="added" id="added" ng-model="showAdded")
         label(for="added") Added
 
-      a.prev-next(href="" ng-click="decNextEdit()") Prev
-      a.prev-next(href="" ng-click="incNextEdit()") Next
+    a.export-session(
+      href=""
+      ng-csv="sessionCsv()"
+      filename="wikiwash-session.csv") Export Session
 
-  .content-left
-    .collection(fixed-height offset="140")
-      .revisions(ng-repeat='revision in revisions track by $index'
-        ng-class="{ 'active-revision': currentRevId == revision.revid }"
-        class="{{$index == 0 ? 'wow fadeInDown' : ''}}")
+  .content-wrapper
+    .content-left
+      .collection(fixed-height offset="150")
+        .revisions(ng-repeat='revision in revisions track by $index'
+          ng-class="{ 'active-revision': currentRevId == revision.revid }"
+          class="{{$index == 0 ? 'wow fadeInDown' : ''}}")
 
-        .timestamp
-          p {{revision.timestamp | date:'shortTime'}}
-          p.date {{revision.timestamp | date:'mediumDate'}}
-        .user_comment
-          a(href="http://en.wikipedia.org/wiki/User:{{revision.user}}" target="_blank")
-            p.username {{revision.user}}
-          a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
-            p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}
-            p.comment(ng-if="revision.comment.length <= 0") Comment was not entered.
-        .data
-          p.added {{revision.added ? "+" + revision.added : ''}}
-          p.removed {{revision.removed ? "-" + revision.removed : ''}}
-    .footer
-      .top-stats
-        p {{revisions.length}} edits by {{totalUsers}} people since {{ firstEditDate | date: 'mediumDate'}}
-      .bottom-stats
-        .edits-per-user
-          p Edits per user
-          p.number {{editsPerUser}}
-        .time-between-edits
-          p Time between edits
-          p.number {{timeBetweenEdits}} Hours
+          .timestamp
+            p {{revision.timestamp | date:'shortTime'}}
+            p.date {{revision.timestamp | date:'mediumDate'}}
+          .user_comment
+            a(
+              href="https://en.wikipedia.org/wiki/Special:Contributions/{{revision.user}}"
+              target="_blank")
+              p.username {{revision.user}}
+            a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
+              p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}
+              p.comment(ng-if="revision.comment.length <= 0") Comment was not entered.
+          .data
+            p.added {{revision.added ? "+" + revision.added : ''}}
+            p.removed {{revision.removed ? "-" + revision.removed : ''}}
+      .footer
+        .top-stats
+          p {{revisions.length}} edits by {{totalUsers}} people since {{ firstEditDate | date: 'mediumDate'}}
+        .bottom-stats
+          .edits-per-user
+            p Avg edits/user
+            p.number {{editsPerUser}}
+          .time-between-edits
+            p Avg time between edits
+            p.number {{timeBetweenEdits}} Hours
 
-  .ww-loading(ng-show="loading")
-    img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")
-    img.animated-infinite.zoomOutLeft(src="/img/WIKIWASH-W2-Loading%402x.png")
+    .ww-loading(ng-show="loading")
+      img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")
+      img.animated-infinite.zoomOutLeft(src="/img/WIKIWASH-W2-Loading%402x.png")
 
-  .content-right(app-view-segment="1" fixed-height offset="60" ww-scroll)
+    .content-right(app-view-segment="1" ww-scroll)
 
 .about-popup#light(ng-show="showModal")
   .popup-header

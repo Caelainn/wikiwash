@@ -1,7 +1,18 @@
 /* ===============================global css================================= */
 
+@import "bourbon";
+@import "font-awesome";
+
 * {
   font-family: 'Source Sans Pro', sans-serif;
+}
+
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+html{
+  position: relative;
 }
 
 body {
@@ -20,7 +31,8 @@ body {
 
 /* ===============================splash page================================= */
 .wrapper-splash {
-  width: 1280px;
+  max-width: 940px;
+  padding: 0 20px;
   margin-left:auto;
   margin-right:auto;
   position: relative;
@@ -33,8 +45,7 @@ body {
 }
 
 .modo{
-  width: 500px;
-  height: 100px;
+  max-width: 500px;
   margin: 0px auto;
   text-align: center;
   padding-top: 50px;
@@ -43,24 +54,25 @@ body {
 .modo p{
   font-size: 24px;
   line-height: 34px;
-  color: #7C959B;
+  color: #5b6d70;
   font-weight: 300;
 }
 
 .search-splash {
-  width: 900px;
-  margin: 70px auto 0 auto;
+  width: 100%;
+  margin: 50px auto 0 auto;
   text-align: center;
 }
 
 .search-splash input.bar {
-  width: 900px;
+  width: 100%;
   height: 72px;
   text-align: center;
   font-size: 32px;
   font-weight: 300;
   border: 2px solid #CCD7DC;
   border-radius: 5px;
+  color: #5b6d70;
 }
 
 .search-splash input.button {
@@ -82,7 +94,7 @@ body {
 }
 .about a{
   text-decoration: none;
-  color: #9CAFB5;
+  color: #5b6d70;
   font-size: 14px;
   font-weight: 700;
 }
@@ -91,9 +103,34 @@ body {
   color: #7C959B;
 }
 
+.footer-splash{
+  text-align: center;
+  margin-top: 100px;
+  margin-bottom: 30px;
+  p{
+    font-size: 14px;
+    text-transform: uppercase;
+    color: #869da0;
+  }
+  a{
+    display: inline-block;
+    height: 40px;
+    position: relative;
+    padding: 0 20px;
+    img{
+      height: 100%;
+      width: auto;
+      &:hover{
+        opacity: .8;
+        transition: all 0.2s ease-in-out;
+      }
+    }
+  }
+}
+
 .trdmrk{
   text-align: center;
-  margin-top: 10px;
+  margin-top: 30px;
 
 }
 
@@ -102,37 +139,59 @@ body {
   margin-top: 10px;
   font-size: 14px;
   font-weight: 300;
-  color: #9CAFB5;
+  color: #FFFFFF;
+  padding-right: 30px;
 }
   /* ===============================splash about popup================================= */
+.overlay{
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  z-index: 15;
+}
 
 .about-popup {
   padding: 46px;
-  position: absolute;
+  position: fixed;
   top: 10%;
-  left: 30%;
+  right: 50%;
+  margin-right: -350px;
   width: 700px;
   height: 580px;
   background-color: #3F4E4F;
   opacity: 0.9;
   z-index:1002;
-  overflow: auto;
+  overflow: hidden;
+}
+
+.about-popup .scroll-container{
+  width: 700px;
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.about-popup .content, .about-popup .trdmrk {
+  padding-right: 75px;
 }
 
 .about-popup .popup-header{
   margin-bottom: 10px;
-  height: 77px;
+  padding-right: 105px;
+  display: block;
+  position: relative;
 }
 
 .about-popup .title{
   font-family: 'Roboto Slab', serif;
-  font-size: 32px;
-  line-height: 38px;
+  font-size: 26px;
+  line-height: 120%;
   font-weight: 700;
-  padding:20px;
+  padding-left: 20px;
+  padding-top: 20px;
   color: white;
-  float: left;
-  width: 500px;
+  display: inline-block;
 }
 
 .about-popup .close{
@@ -140,41 +199,60 @@ body {
 }
 .about-popup .close a{
   text-decoration: none;
-  font-size: 40px;
+  font-size: 26px;
   color: white;
-  float: right;
-  width: 100px;
+  position: absolute;
   font-family: sans-serif;
   font-weight: 100;
   text-align: right;
-  padding:13px;
+  padding-top: 20px;
 }
 .about-popup .close a:hover{
   text-decoration: underline;
-  font-size: 40px;
+  font-size: 26px;
   color: #DFE7EA;
 }
 
-.about-popup .content p {
-  font-size: 24px;
-  line-height: 34px;
+.about-popup .content p{
+  font-size: 18px;
+  line-height: 120%;
   font-weight: 300;
   color:white;
   padding-left: 20px;
-  padding-right: 60px;
+  padding-right: 30px;
+  padding-top: 20px
+}
+
+.about-popup .content a{
+  color:#00A7CE;
+}
+
+.about-popup .content ul{
+  font-size: 18px;
+  line-height: 120%;
+  font-weight: 300;
+  color:white;
+  padding-left: 60px;
+  padding-right: 30px;
 }
 
 .about-popup .images{
-  padding: 20px;
-}
-.about-popup .images img{
-  padding-right: 60px;
+  margin-top: 30px;
+  text-align: center;
+  a{
+    display: inline-block;
+    padding: 0 20px;
+    height: 40px;
+    img{
+      height: 100%;
+      width: auto;
+    }
+  }
 }
 /* ===============================Header================================= */
 
 .header {
   width: 100%;
-  display: table;
   background: #9CAFB5;
   text-align: center;
   height: 60px;
@@ -182,9 +260,10 @@ body {
 }
 
 .header .logo {
-  display: table-cell;
-  width: 230px;
+  display: inline-block;
   text-align: left;
+  vertical-align: middle;
+  float: left;
 }
 
 .logo img{
@@ -198,25 +277,26 @@ body {
 .header a.export-session {
   color: white;
   text-decoration: none;
-  display: table-cell;
-  width: 120px;
-  height: 30px;
+  display: inline-block;
+  float: right;
+  margin-right: 30px;
+  padding: 6px 20px;
   background-color: #7C959B;
   vertical-align: middle;
 }
 
 .header .empty{
-  display: table-cell;
+  display: inline-block;
   width: 100px;
 }
 
 .header .search {
-  display: table-cell;
-  width: 460px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .header .search input.bar {
-  width: 460px;
+  width: 400px;
 }
 
 .header .search input.send {
@@ -224,8 +304,8 @@ body {
 }
 
 .header .navigation{
-  padding-left: 20px;
-  display: table-cell;
+  padding-left: 30px;
+  display: inline-block;
   vertical-align: middle;
 }
 
@@ -235,7 +315,7 @@ body {
   font-size: 14px;
   font-weight: 700;
   float: left;
-  padding-top: 3px;
+  padding-top: 7px;
 }
 
 .header .navigation a {
@@ -283,13 +363,14 @@ body {
 /* ===============================main content================================= */
 
 .wrapper {
-  width: 1280px;
+  max-width: 1280px;
   background-color: #FFF;
   margin-left:auto;
   margin-right:auto;
   position: relative;
   border-bottom: 2px solid #CFCFCF;
   font-weight: 500;
+  margin-bottom: 30px
 }
 
 .wrapper:after {
@@ -297,11 +378,18 @@ body {
     display:block;
     clear: both;
 }
-  /* ===============================left content================================= */
+
+.content-wrapper{
+  overflow: hidden;
+  position: relative;
+}
+
+/* ===============================left content================================= */
 
   .content-left {
     float: left;
     width:350px;
+    height: 100%;
     background-color: #FAFAFA;
   }
 
@@ -315,7 +403,7 @@ body {
   }
 
   .collection{
-    overflow: scroll;
+    overflow-y: scroll;
     padding: 0;
   }
 
@@ -450,9 +538,8 @@ body {
   /* ===============================right content================================= */
 
   .content-right {
-    float: left;
-    width: 928px;
-    overflow: scroll;
+    margin-left: 350px;
+    width: 72%;
     padding:0;
   }
 
@@ -472,8 +559,7 @@ body {
   }
 
   div.wikidiff {
-    margin-left: 100px;
-    width: 730px;
+    margin: 0 50px;
   }
 
   div.wikidiff h1, h2, h3, .mw-headline {
@@ -632,4 +718,58 @@ body {
 .bounceInLeft {
     -webkit-animation-name: bounceInLeft;
     animation-name: bounceInLeft;
+}
+
+// Checkboxes
+input[type=checkbox], input[type=radio] {
+  display: none;
+  + label {
+    @include user-select(none);
+    @extend .fa-check;
+    cursor: pointer;
+    position: relative;
+    padding: 3px 0 3px 35px;
+    &:hover {
+      &:after {
+        border-color: #63797c;
+      }
+    }
+    //check icon
+    &:before {
+      @extend .fa;
+      transition: all 0.2s ease-in-out;
+      transform: scale(2);
+      position: absolute;
+      left: 5px;
+      top: 50%;
+      margin-top: -8px;
+      z-index: 2;
+      color: color("main-green");
+      opacity: 0;
+    }
+    //checkbox
+    &:after {
+      border: 1px solid #63797c;
+      transition: all 0.2s ease-in-out;
+      content: "";
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      left: 0;
+      top: 50%;
+      margin-top: -13px;
+      background: white;
+      z-index: 1;
+    }
+  }
+  //checked state
+  &:checked {
+    + label {
+      //check icon
+      &:before {
+        transform: scale(1.3);
+        opacity: 1;
+      }
+    }
+  }
 }

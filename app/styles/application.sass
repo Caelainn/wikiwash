@@ -140,7 +140,6 @@ body {
   font-size: 14px;
   font-weight: 300;
   color: #FFFFFF;
-  padding-right: 30px;
 }
   /* ===============================splash about popup================================= */
 .overlay{
@@ -163,22 +162,19 @@ body {
   background-color: #3F4E4F;
   opacity: 0.9;
   z-index:1002;
-  overflow: hidden;
-}
-
-.about-popup .scroll-container{
-  width: 700px;
-  height: 100%;
   overflow-y: scroll;
 }
 
+.about-popup .scroll-container{
+  width: 100%;
+  height: 100%;
+}
+
 .about-popup .content, .about-popup .trdmrk {
-  padding-right: 75px;
 }
 
 .about-popup .popup-header{
   margin-bottom: 10px;
-  padding-right: 105px;
   display: block;
   position: relative;
 }
@@ -219,7 +215,6 @@ body {
   font-weight: 300;
   color:white;
   padding-left: 20px;
-  padding-right: 30px;
   padding-top: 20px
 }
 
@@ -233,7 +228,6 @@ body {
   font-weight: 300;
   color:white;
   padding-left: 60px;
-  padding-right: 30px;
 }
 
 .about-popup .images{
@@ -284,7 +278,7 @@ body {
   background-color: #7C959B;
   vertical-align: middle;
 }
-  
+
 .header a.export-session.about-button {
   margin-right: 8px;
 }
@@ -371,7 +365,7 @@ body {
 /* ===============================main content================================= */
 
 .wrapper {
-  max-width: 1280px;
+  width: 1280px;
   background-color: #FFF;
   margin-left:auto;
   margin-right:auto;
@@ -547,8 +541,8 @@ body {
 
   .content-right {
     overflow-y: scroll;
-    margin-left: 350px;
-    width: 72%;
+    float: left;
+    width: 930px;
     padding:0;
   }
 

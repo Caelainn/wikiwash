@@ -66,7 +66,8 @@
 
     .content-right(app-view-segment="1" ww-scroll fixed-height offset="75")
 
-.about-popup#light(ng-show="showModal")
+.overlay(ng-show="showModal" ng-click="showModal = !showModal")
+.about-popup.light(ng-show="showModal")
   .scroll-container
     .popup-header
       .title

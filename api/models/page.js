@@ -35,9 +35,11 @@ var pageData = function (body, lastRevisionIds) {
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
 
+  var revs = queryResPage.revisions || []
+  
   return {
     title: queryResPage.title,
-    revisions: rmPreviousRevisions(queryResPage.revisions, lastRevisionIds)
+    revisions: rmPreviousRevisions(revs, lastRevisionIds)
   }
 };
 

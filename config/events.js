@@ -10,6 +10,7 @@ function emitPageData(pageName, pages, socket) {
   pages.show(pageName, function (pageData) {
     socket.emit('new revisions', pageData);
   });
+
   
   setTimeout(function () {
     emitPageData(pageName, pages, socket); 

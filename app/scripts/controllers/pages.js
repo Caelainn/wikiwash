@@ -95,7 +95,16 @@ angular.module('wikiwash').controller('PagesController', [
     });
 
     socketService.socket.on("new revisions", function (res) {
-      $scope.revisions = res.revisions.concat($scope.revisions);
+      var revs = res.revisions || [];
+
+      $scope.revisions = revs.concat($scope.revisions);
+      
+      if ($scope.revisions.length === 0) {
+        $scope.loading = false;
+        $scope.noResults = true;
+        return;
+      }
+
 
       // redirect to first revision
       if (!$routeParams.revId) {
@@ -104,6 +113,7 @@ angular.module('wikiwash').controller('PagesController', [
         var params = {page: $routeParams.page, revId: revId};
         $location.path($routeSegment.getSegmentUrl('p.revision', params));
       }
+
 
       updateStats();
     });

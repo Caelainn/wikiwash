@@ -5,6 +5,7 @@ var path = require('path')
   , sass = require('gulp-sass')
   , minifycss = require('gulp-minify-css')
   , uglify = require('gulp-uglify')
+  , autoprefixer = require('gulp-autoprefixer')
   , concat = require('gulp-concat')
   , rename = require('gulp-rename')
   , minifyHTML = require('gulp-minify-html')
@@ -12,7 +13,6 @@ var path = require('path')
   , jshint = require('gulp-jshint')
   , shell = require('gulp-shell')
   , order = require('gulp-order')
-  , autoprefixer = require('gulp-autoprefixer')
   , stylish = require('jshint-stylish')
   , _ = require('lodash')
 
@@ -180,46 +180,3 @@ gulp.task('build', [
 ])
 
 gulp.task('default', ['nodemon', 'build', 'watch'])
-
-
-gulp.task('seed', function () {
-  var seeds = require('./api/db/seeds')
-  seeds()
-})
-
-
-gulp.task('routes', function () {
-  var columnify = require('columnify')
-    , routes = []
-    , app = require('./server')
-
-  app._router.stack.forEach(function (route) {
-    if (route.route) {
-      if (route.route && route.route.methods) {
-        _.forEach(route.route.methods, function (enabled, verb) {
-          if (enabled) {
-            routes.push({verb: '\033[90m' + verb.toUpperCase() + '\t\t ', path: '\033[36m' + route.route.path + '\033[0m'})
-          }
-        })
-      }
-    }
-  })
-  console.log(columnify(routes, {columns: ['verb', 'path'] }))
-  process.exit()
-})
-
-gulp.task('test', shell.task([
-  'npm test'
-]))
-
-gulp.task('createRelease', shell.task([
-  'bin/release'
-]))
-
-gulp.task('release', function() {
-  runSequence(
-    'test',
-    ['api', 'build'],
-    'createRelease'
-  )
-})

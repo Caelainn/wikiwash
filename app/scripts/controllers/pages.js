@@ -56,9 +56,6 @@ angular.module('wikiwash').controller('PagesController', [
     $scope.$watch('loading', function () {
       if ($scope.loading) {
         $scope.revisionBody = "";
-        console.log("loading");
-      } else {
-        console.log("not loading");
       }
     });
 

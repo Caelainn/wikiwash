@@ -1,7 +1,7 @@
 var PagesController = require('../api/controllers/pages');
 var revisions = require('../api/controllers/revisions');
 
-var delay = 5000;
+var delay = 30000;
 
 function emitPageData(pageName, pages, socket) {
   if (!socket.connected || !pages.cycling)

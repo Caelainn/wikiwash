@@ -253,7 +253,6 @@ body {
 
 .header {
   width: 100%;
-  display: table;
   background: #9CAFB5;
   text-align: center;
   height: 60px;
@@ -261,9 +260,10 @@ body {
 }
 
 .header .logo {
-  display: table-cell;
-  width: 230px;
+  display: inline-block;
   text-align: left;
+  vertical-align: middle;
+  float: left;
 }
 
 .logo img{
@@ -277,25 +277,26 @@ body {
 .header a.export-session {
   color: white;
   text-decoration: none;
-  display: table-cell;
-  width: 120px;
-  height: 30px;
+  display: inline-block;
+  float: right;
+  margin-right: 30px;
+  padding: 6px 20px;
   background-color: #7C959B;
   vertical-align: middle;
 }
 
 .header .empty{
-  display: table-cell;
+  display: inline-block;
   width: 100px;
 }
 
 .header .search {
-  display: table-cell;
-  width: 460px;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 .header .search input.bar {
-  width: 460px;
+  width: 400px;
 }
 
 .header .search input.send {
@@ -303,8 +304,8 @@ body {
 }
 
 .header .navigation{
-  padding-left: 20px;
-  display: table-cell;
+  padding-left: 30px;
+  display: inline-block;
   vertical-align: middle;
 }
 
@@ -362,7 +363,7 @@ body {
 /* ===============================main content================================= */
 
 .wrapper {
-  width: 1280px;
+  max-width: 1280px;
   background-color: #FFF;
   margin-left:auto;
   margin-right:auto;
@@ -537,8 +538,8 @@ body {
   /* ===============================right content================================= */
 
   .content-right {
-    float: left;
-    width: 928px;
+    margin-left: 350px;
+    width: 72%;
     padding:0;
   }
 
@@ -558,8 +559,7 @@ body {
   }
 
   div.wikidiff {
-    margin-left: 100px;
-    width: 730px;
+    margin: 0 50px;
   }
 
   div.wikidiff h1, h2, h3, .mw-headline {

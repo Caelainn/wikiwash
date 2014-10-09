@@ -5,13 +5,6 @@
         img(src="/img/WW-Logo-Header%402x.png")
       a(href="" ng-click="showModal = !showModal")
         img(src="/img/WIKIWASH-Logo-Header%402x.png")
-
-    a.export-session(
-      href=""
-      ng-csv="sessionCsv()"
-      filename="wikiwash-session.csv") Export Session
-
-    .empty
     .search
       form(ng-submit="getNewPage()")
         input.bar(type="text" ng-model="pageName")
@@ -24,8 +17,10 @@
         input(type="checkbox" name="added" id="added" ng-model="showAdded")
         label(for="added") Added
 
-      a.prev-next(href="" ng-click="decNextEdit()") Prev
-      a.prev-next(href="" ng-click="incNextEdit()") Next
+    a.export-session(
+      href=""
+      ng-csv="sessionCsv()"
+      filename="wikiwash-session.csv") Export Session
 
   .content-wrapper
     .content-left
@@ -51,10 +46,10 @@
           p {{revisions.length}} edits by {{totalUsers}} people since {{ firstEditDate | date: 'mediumDate'}}
         .bottom-stats
           .edits-per-user
-            p Edits per user
+            p Avg edits/user
             p.number {{editsPerUser}}
           .time-between-edits
-            p Time between edits
+            p Avg time between edits
             p.number {{timeBetweenEdits}} Hours
 
     .ww-loading(ng-show="loading")

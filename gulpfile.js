@@ -75,7 +75,11 @@ gulp.task('html-template', ['jade-view'], function () {
     .pipe(minifyHTML({
       quotes: true
     }))
-    .pipe(templateCache('templatescache.js', { module: 'replanAppTemplatesCaches', standalone: true, root: './views/' }))
+    .pipe(templateCache('templatescache.js', {
+      module: 'replanAppTemplatesCaches',
+      standalone: true,
+      root: './views/'
+    }))
     .pipe(gulp.dest('public/js'))
 })
 
@@ -94,9 +98,8 @@ gulp.task('scripts', function () {
 
 // Fonts
 gulp.task('fonts', function() {
-    return gulp.src([
-                    'bower_components/font-awesome/fonts/fontawesome-webfont.*'])
-            .pipe(gulp.dest('public/fonts/'));
+  return gulp.src(['bower_components/font-awesome/fonts/fontawesome-webfont.*'])
+   .pipe(gulp.dest('public/fonts/'));
 });
 
 gulp.task('icons', function() {

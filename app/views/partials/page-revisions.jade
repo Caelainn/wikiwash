@@ -33,7 +33,9 @@
             p {{revision.timestamp | date:'shortTime'}}
             p.date {{revision.timestamp | date:'mediumDate'}}
           .user_comment
-            a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
+            a(
+              href="https://en.wikipedia.org/wiki/Special:Contributions/{{revision.user}}"
+              target="_blank")
               p.username {{revision.user}}
             a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
               p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}

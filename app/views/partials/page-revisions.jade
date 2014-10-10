@@ -1,4 +1,5 @@
 .wrapper
+
   .header
     .logo
       a(href="/")
@@ -24,9 +25,6 @@
         href=""
         ng-click="showModal = !showModal"
         ng-class="{active: showModal}") About
-
-
-
 
   .content-wrapper
     .content-left
@@ -69,28 +67,4 @@
     .content-right(app-view-segment="1" ww-scroll fixed-height offset="75")
 
 .overlay(ng-show="showModal" ng-click="showModal = !showModal")
-.about-popup.light(ng-show="showModal")
-  .scroll-container
-    .popup-header
-      .title
-        p Why Wikiwash?
-      .close
-        a(href="" ng-click="showModal = !showModal") X
-    .content
-      p <strong>WikiWash (Beta)</strong> is a free public tool that allows journalists, citizens and activists to uncover spin and bias on Wikipedia by tracking page edits in real time. The platform aims to make political and corporate spin on Wikipedia more visible and discoverable and promote accountability and transparency through crowdsourcing.
-      p Pick a Wikipedia article to explore, and use WikiWash to:
-      ul
-        li Track edits and see what’s being removed and added in real time
-        li Follow breaking stories through the lens of their Wikipedia edits
-        li Download the data so you can dive deeper
-      p WikiWash was created by a team of journalists from Metro News Canada in partnership with The Working Group. The idea was born at TechRaking Toronto, the conference for data in the newsroom hosted by the Centre for Investigative Reporting and Google Canada.
-      p The Beta version of WikiWash is a proof-of-concept prototype that explores how a tool like this might be used to uncover stories in Wikipedia. We’re excited to put it in your hands to see what emerges and where we might be able to take it next. Feel free to <a href="mailto:wikiwash@twg.ca">get in touch</a> and share your stories and ideas.
-      .images
-        a(href="http://metronews.ca/" target="_blank")
-          img.metro-logo(src="/img/metro-white.png")
-        a(href="http://twg.ca/" target="_blank")
-          img.metro-logo(src="/img/twg-white.png")
-        a(href="http://www.centerforinvestigativereporting.org/" target="_blank")
-          img.metro-logo(src="/img/cir-white.png")
-    .trdmrk
-      p © Wikiwash 2014
+include ./about-modal

@@ -18,8 +18,8 @@ module.exports = function(app, io) {
     });
   });
   
-  app.get('/faq', function (req, res) {
-    res.sendfile('faq.html', { root: root });
+  app.get('/docs', function (req, res) {
+    res.sendfile('docs.html', { root: root });
   });
 
   app.get('/', function (req, res) {

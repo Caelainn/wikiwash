@@ -5,16 +5,16 @@ html(lang="en")
   body(ng-app='wikiwash')
     include ./partials/analytics
 
-    .content
+    .content(ng-controller="DocsController")
       .wrapper
         .header
           .logo
-            a(href="/")
+            a(href="/" target="_self")
               img(src="/img/WIKIWASH-Logo-Header%402x.png")
           .navigation
             .search
-              form(ng-submit="getNewPage()")
-                input.bar(type="text" ng-model="pageName")
+              form(ng-submit="getPage()")
+                input.bar.wide(type="text" ng-model="pageName")
             p Show:
 
             a.export-session.about-button(
@@ -37,15 +37,18 @@ html(lang="en")
 
           p WikiWash will then retrieve the last 50 edits made to that Wikipedia page, and show them overlain on the page content itself. Removed text will be highlighted in red, and added text will be highlighted in green. 
           
-          .indented and honored actress. She began her career at age 1<span class="subtractions">5</span><span class="additions">4</span> after entering a beauty pageant in 19 <span class="subtractions">50</span><span class="additions">49</span>. Encouraged to enroll in acting lessons, Loren appeared in several bit parts and minor
+          .indented 
+            img(src="/img/faq/ww-edit-added-and-removed.jpg")
             
           p By default, both Removed and Added characters are shown. This illustrates the scope of the edit, but can be challenging to read to begin with. Up in the header, you’ll see two check-boxes: Removed and Added. Try toggling them on and off to get an idea of what was removed, and what was added.
           
-          .indented and honored actress. She began her career at age 1<span class="subtractions">5</span> after entering a beauty pageant in 19<span class="subtractions">50</span>. Encouraged to enroll in acting lessons, Loren appeared in several bit parts and minor
+          .indented 
+            img(src="/img/faq/ww-edit-removed.jpg")
 
           p Removed
 
-          .indented and honored actress. She began her career at age 1<span class="additions">4</span> after entering a beauty pageant in 19<span class="additions">49</span>. Encouraged to enroll in acting lessons, Loren appeared in several bit parts and minor
+          .indented 
+            img(src="/img/faq/ww-edit-added.jpg")
 
           p Added
 
@@ -56,10 +59,11 @@ html(lang="en")
           p If the characters exists in the same order in both versions of the page, it can’t tell that any edit was made. As an illustration, note the characters ‘m’, ‘a’, and ‘i’ below that are shared between both the deleted text and the added text.
           
           .indented
-          
-          img(src="/img/faq/formatting1.png")
-          img(src="/img/faq/formatting2.png")
-          img(src="/img/faq/formatting3.png")
+            img(src="/img/faq/formatting1.jpg")
+          .indented
+            img(src="/img/faq/formatting2.jpg")
+          .indented
+            img(src="/img/faq/formatting3.jpg")
           
           .spacer
 
@@ -102,7 +106,7 @@ html(lang="en")
           p.faq-title What’s with all the bots?
           .indented
             .image 
-              img(src="/img/faq/bots.png")
+              img(src="/img/faq/bots.jpg")
             .spacer
             p In the list of edits, you’ll see lots of bots. Sometimes these are fixing errors, sometimes they’re optimizing the page, and sometimes they can be malicious. Keep an eye on the Robots ...
 

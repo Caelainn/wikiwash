@@ -6,9 +6,9 @@ angular.module('wikiwash')
     templateUrl: '/views/directives/social-buttons.html',
     controller: function($scope, $location) {
       $scope.urls = {
-        facebook: "https://www.facebook.com/sharer/sharer.php?u=",
-        linkedin: "https://www.linkedin.com/shareArticle?mini=true&url=",
-        twitter: "https://twitter.com/home?status=" 
+        "facebook": "https://www.facebook.com/sharer/sharer.php?u=",
+        "linkedin": "https://www.linkedin.com/shareArticle?mini=true&url=",
+        "twitter": "https://twitter.com/home?status=" 
       };
 
       $scope.shareUrl = function(url) {

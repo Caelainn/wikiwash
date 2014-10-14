@@ -17,6 +17,10 @@ module.exports = function(app, io) {
       res.json(data);
     });
   });
+  
+  app.get('/faq', function (req, res) {
+    res.sendfile('faq.html', { root: root });
+  });
 
   app.get('/', function (req, res) {
     res.sendfile('index.html', { root: root });

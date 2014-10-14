@@ -76,11 +76,17 @@ html(lang="en")
           p In the list of Edits on the left, click the edit summary to show that edit on the page itself. The page will then scroll down to show you the first edit made on that page.
 
           p When you view an edit, red and green numbers will appear beside the edit summary. The red numbers tell you the number of characters removed in that edit, and the green numbers tell you the number of characters added. 
+          
+          .indented
+            img(src="/img/faq/num-additions-subtractions.png")
 
           .indented
             .italic Note: A single ‘Edit’, as defined by Wikipedia, can actually be a collections of additions and/or deletions by a single user, all clumped together. If the number of characters added/removed seems much larger than the first edit visible on the screen, try scrolling up and down to find other edits  
 
           p After you’ve been collecting these edits for a while, you can export them all as a .CSV file to analyze them further. 
+          
+          .indented
+            img(src="/img/faq/user-name.png")
 
           p In the list of Edits on the left, you can also click on the user’s name to visit their Wikipedia revision history page, to see what other edits they’ve been making. We’re hoping to bring this accountability listing directly into WikiWash in the near future, to make it easier to track a user’s edits across multiple pages.
 
@@ -115,10 +121,7 @@ html(lang="en")
           .indented If the difference between pages is HUGE, or if the previous version of a page was completely deleted and a whole new one added, then there won’t be any way to take the difference between the pages. This can happen on contentious breaking news when a large volume of malicious edits occur on a page, and the admins decide to roll back the page to an old version.
 
           p.faq-title My search results take a looooong time.. what gives?
-          .indented WikiWash Beta is optimized for clarity instead of speed. It relies on the WikiMedia API and the WikiMedia servers to return rendered versions of the edited pages. On big pages, this response can take a while. 
-
-          p.faq-title If there are multiple simultaneous users, we all have to queue up to wait for the WikiMedia API to handle our requests.
-          .indented If only we could gain direct access to the Wiki database ...
+          .indented WikiWash Beta is optimized for clarity instead of speed. It relies on the WikiMedia API and the WikiMedia servers to return rendered versions of the edited pages. On big pages, this response can take a while. If there are multiple simultaneous users, we all have to queue up to wait for the WikiMedia API to handle our requests. If only we could gain direct access to the Wiki database ...
 
           p.faq-title How can I see the full revision history?
           .indented Unfortunately, the WikiMedia API only allows us to return a finite number of results for each request. If only we could gain direct access to the Wiki database ...

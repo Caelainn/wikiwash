@@ -5,7 +5,7 @@
        \  /\  /    | | |   <  | |  \ V  V /  | (_| | \__ \ | | | |
         \/  \/     |_| |_|\_\ |_|   \_/\_/    \__,_| |___/ |_| |_|
                                                                    
-Track whitewashing on Wikipedia. A prototype. [wikiwash.twg.ca](http://wikiwash.twg.ca)
+Track whitewashing on Wikipedia. A prototype. [wikiwash.metronews.ca](http://wikiwash.metronews.ca)
 
 ## Develop
 

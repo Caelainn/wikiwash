@@ -37,6 +37,7 @@ var revisionDiffData = function (json, revHtml, prevHtml) {
     var diff = new gdiff();
 
     var diffParts = diff.diff_main(prevHtml, revHtml);
+    diff.diff_cleanupSemantic(diffParts);
     var editCount = 0;
     var totalAdded = 0;
     var totalRemoved = 0;

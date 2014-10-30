@@ -1,4 +1,6 @@
 var http = require('q-io/http');
+var _ = require('lodash');
+var WikipediaHelper = require('../helpers/WikipediaHelper');
 
 var endPoint = 'en.wikipedia.org';
 
@@ -36,7 +38,7 @@ var pageData = function (body, lastRevisionIds) {
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
 
   var revs = queryResPage.revisions || []
-  
+
   return {
     title: queryResPage.title,
     revisions: rmPreviousRevisions(revs, lastRevisionIds)
@@ -51,8 +53,21 @@ module.exports.findRevisions = function (pageName, lastRevisionIds, callback) {
   };
 
   http.request(options).then(function (response) {
-    response.body.read().then(function (body) {
-      callback(pageData(body, lastRevisionIds));
-    });
-  });
+    return response.body.read();
+  }).then(function (body) {
+    data = pageData(body, lastRevisionIds);
+    
+    if (WikipediaHelper.cacheActive) {
+      var revisionIDs = _.map(data.revisions, 'revid');
+      console.log("Pre-caching " + revisionIDs.length + " revisions of page '" + pageName + "'...");
+      WikipediaHelper.cacheRevisions(revisionIDs)
+        .then(function() {
+          console.log("Pre-cached " + revisionIDs.length + " revisions of page '" + pageName + "'.");
+        }).catch(function(err) {
+          console.log("Error caching revisions for page '" + pageName + "': ", err);
+        });
+    }
+
+    callback(data);
+  }).done();
 };

@@ -9,7 +9,7 @@ Track whitewashing on Wikipedia. Try out WikiWash at [wikiwash.metronews.ca](htt
 
 A project by [The Working Group](http://twg.ca), in collaboration with
 [the Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and 
-[Metro News](http://metronews.ca/), and made possible by [Google](http://google.com/).
+[Metro News](http://metronews.ca/), and made possible by [Google Canada](http://googlecanada.blogspot.ca/).
 
 ## Installation & Development
 
@@ -35,6 +35,11 @@ $ open http://localhost:3000/
 WikiWash has been developed on Mac OS X and deployed on Linux, but in theory,
 should work on any operating system. If you've tried running WikiWash on your own machine,
 feel free to edit this readme to update the above instructions.
+
+## Contributions
+
+See something that you'd like to change? We're all ears - feel free to [fork](https://github.com/twg/wikiwash/fork)
+WikiWash on Github and submit a pull request to merge changes back into the application.
 
 ## Deployment
 

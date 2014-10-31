@@ -5,7 +5,8 @@
   "main": "server.js",
   "author": "TWG",
   "scripts": {
-    "build": "./node_modules/.bin/gulp build"
+    "build": "./node_modules/.bin/gulp build",
+    "start": "./node_modules/.bin/gulp"
   },
   "dependencies": {
     "body-parser": "~1.0.0",

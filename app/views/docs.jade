@@ -27,15 +27,15 @@ html(lang="en")
 
           p The Beta version of WikiWash is a proof-of-concept prototype that allows journalists, citizens and activists to uncover spin and bias on Wikipedia by tracking page edits in real time. The platform aims to make political and corporate spin on Wikipedia more visible, and to promote transparency through crowdsourcing.
 
-          p WikiWash was created by a team of journalists from Metro News Canada in partnership with <a href="http://twg.ca">The Working Group</a>. The idea was born at TechRaking Toronto, the conference for data in the newsroom hosted by the Centre for Investigative Reporting, Google Canada and The Canadian Press.
+          p WikiWash was created by a team of journalists from Metro News Canada in partnership with <a target="_blank" href="http://twg.ca">The Working Group</a>. The idea was born at TechRaking Toronto, the conference for data in the newsroom hosted by the Centre for Investigative Reporting, Google Canada and The Canadian Press.
 
           h2 Using WikiWash:
 
-          p To get started, open <a href="https://en.wikipedia.org/wiki/Main_Page">Wikipedia</a> in a new tab, and find a page that you would like to ‘Wash’.
+          p To get started, open <a target="_blank" href="https://en.wikipedia.org/wiki/Main_Page">Wikipedia</a> in a new tab, and find a page that you would like to ‘Wash’.
 
           p Copy the URL from the Wikipedia page, and then paste it into the WikiWash search bar, and hit the ‘Wash’ button.
 
-          p WikiWash will then retrieve the last 50 edits made to that Wikipedia page, and show them overlain on the page content itself. Removed text will be highlighted in red, and added text will be highlighted in green. 
+          p WikiWash will then retrieve the last 50 edits made to that Wikipedia page, and show them overlaid on the page content itself. Removed text will be highlighted in red, and added text will be highlighted in green. 
           
           .indented 
             img(src="/img/faq/ww-edit-added-and-removed.jpg")
@@ -96,19 +96,19 @@ html(lang="en")
           h2 FAQ
 
           p.faq-title Who owns WikiWash?
-          .indented We all do. We’re open-sourcing the application, so that you can add to it or extend it and turn it into exactly the tool you need. 
+          .indented We all do. <a target="_blank" href="https://github.com/twg/wikiwash">WikiWash is open source</a>, so that you can add to it or extend it and turn it into exactly the tool you need. 
 
           p.faq-title Can I use WikiWash on my phone?
           .indented You can, but it won’t be easy. Being a prototype, WikiWash Beta is optimized for use on a desktop in a modern browser. 
 
           p.faq-title Er, something looks broken ..
-          .indented It likely is. Please <a href="mailto:wikiwash@twg.ca">drop us a line</a> or add a <a href="https://github.com/twg/wikiwash">Github issue</a>, and we’ll try and get it fixed asap!
+          .indented It likely is. Please <a target="_blank" href="mailto:wikiwash@twg.ca">drop us a line</a> or add a <a target="_blank" href="https://github.com/twg/wikiwash">Github issue</a>, and we’ll try and get it fixed asap!
 
           p.faq-title I have a great idea for a way to extend this app ..
-          .indented We’d love to hear it. Please <a href="mailto:wikiwash@twg.ca"> drop us a line </a>.
+          .indented If you're a developer, feel free to <a target="_blank" href="https://github.com/twg/wikiwash">fork the project on GitHub</a> and send us a pull request with new functionality. If you're not technically inclined, we’d  still love to hear your ideas - <a target="_blank" href="mailto:wikiwash@twg.ca"> drop us a line</a>.
 
           p.faq-title I discovered an amazing/terrifying/annoying/hidden bias - who should I tell?
-          .indented Us! We love to hear how WikiWash Beta is being used. Please <a href="mailto:wikiwash@twg.ca"> drop us a line </a>.
+          .indented Us! We love to hear how WikiWash Beta is being used. Please <a target="_blank" href="mailto:wikiwash@twg.ca"> drop us a line</a>.
 
           p.faq-title What’s with all the bots?
           .indented
@@ -133,16 +133,16 @@ html(lang="en")
           .indented Not quite yet. We’re hoping to bring this functionality into WikiWash in the future, though for now you can leave the tab open for that page, and any new edits to that page will be loaded in real time. 
 
           p.faq-title How does WikiWash work? 
-          .indented WikiWash polls Wikipedia's API for recent updates to a page, and sends them to the browser through an open websocket. To show revision differences, we request two fully rendered Wikipedia pages and find the diffs between them. It's the requirement to have the API send us two fully-rendered pages that causes the slowness that you see sometimes. We're working on this ... 
+          .indented WikiWash polls Wikipedia's API for recent updates to a page, and sends them to the browser through an open web socket. To show revision differences, we request two fully rendered Wikipedia pages and find the diffs between them. It's the requirement to have the API send us two fully-rendered pages that causes the slowness that you see sometimes. We're working on this ... 
 
           p.faq-title What technologies does WikiWash use?
-          .indented We’ve used include Node.js, Express.js, Socket.io and Angular.js to build WikiWash.
+          .indented We’ve used Node.js, Express.js, Socket.io and Angular.js to build WikiWash.
 
           p.faq-title Does WikiWash work in Internet Explorer 6, Netscape Navigator, AOLonline, or any other ridiculously outdated browser?
           .indented
             img(src="/img/faq/no.gif")
 
           p.faq-title I would love to sponsor you to continue building out this app ..
-          .indented And we’d love to talk to you. Please <a href="mailto:wikiwash@twg.ca">drop us a line</a>.
+          .indented And we’d love to talk to you. Please <a target="_blank" href="mailto:wikiwash@twg.ca">drop us a line</a>.
 
       include ./partials/about-modal

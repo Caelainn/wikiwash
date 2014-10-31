@@ -5,17 +5,19 @@
        \  /\  /    | | |   <  | |  \ V  V /  | (_| | \__ \ | | | |
         \/  \/     |_| |_|\_\ |_|   \_/\_/    \__,_| |___/ |_| |_|
                                                                    
-Track whitewashing on Wikipedia. A prototype. [wikiwash.metronews.ca](http://wikiwash.metronews.ca)
+Track whitewashing on Wikipedia. Try out WikiWash at [wikiwash.metronews.ca](http://wikiwash.metronews.ca).
 
-## Develop
+A project by [The Working Group](http://twg.ca), in collaboration with
+[the Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and 
+[Metro News](http://metronews.ca/), and made possible by [Google](http://google.com/).
+
+## Installation & Development
+
+On a Mac OS X machine:
 
 ```bash
-
-# install node
+# make sure you have node installed
 $ brew install node
-
-# install cli tools globally
-$ npm install -g gulp bower pm2
 
 # pull the code
 $ git clone git@github.com:twg/wikiwash.git
@@ -25,18 +27,26 @@ $ cd wikiwash
 $ npm install
 $ bower install
 
-# compile assets and launch the dev server
-$ gulp
+# launch the dev server
+$ npm start
 $ open http://localhost:3000/
 ```
 
-## Deploy
+WikiWash has been developed on Mac OS X and deployed on Linux, but in theory,
+should work on any operating system. If you've tried running WikiWash on your own machine,
+feel free to edit this readme to update the above instructions.
+
+## Deployment
+
+To deploy WikiWash to your own servers, you'll have to set up [PM2](https://github.com/Unitech/pm2)
+on your own servers and change [ecosystem.json](https://github.com/twg/wikiwash/blob/master/ecosystem.json)
+to point at your new server environments. Once that's done, deployment is as simple as:
 
 ```
-$ pm2 deploy production
+$ bin/pm2 deploy production
 ```
 
-## Documentation
+## Libraries
 
 #### HTTP server
 * [Node.js](http://nodejs.org) - Platform for building fast, scalable network applications

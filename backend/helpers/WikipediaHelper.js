@@ -2,7 +2,7 @@ var http = require('q-io/http');
 var Q = require('Q');
 var _ = require('lodash');
 var fs = require('fs');
-var log = require('../../config/log').createLoggerForFile(__filename);
+var log = require('../config/log').createLoggerForFile(__filename);
 var cache = require('../helpers/CacheHelper');
 
 var endPoint = 'en.wikipedia.org';
@@ -62,8 +62,10 @@ var fetchAndCacheRevisionID = function(revisionID) {
 
     data = getHTMLFromResponse(data);
 
+    var saveStart = +new Date();
     cache.set(revisionID, data).then(function() {
-      log.info("Saved revision " + revisionID + " to cache.");
+      var saveEnd = +new Date();
+      log.info("Saved revision " + revisionID + " to cache. (took " + (saveEnd - saveStart) + " msec)");
     }).done();
 
     return data;

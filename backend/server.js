@@ -13,12 +13,12 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 
-app.use(express.static(__dirname + '/public'));
-app.use("/app/assets", express.static(__dirname + "/app/assets"));
-app.use('/img', express.static(path.join(__dirname, 'app/assets', 'img')));
-app.use('/js', express.static(path.join(__dirname, 'public', 'js')));
-app.use('/css', express.static(path.join(__dirname, 'public', 'css')));
-app.use('/views', express.static(path.join(__dirname, 'public', 'views')));
+app.use(express.static(path.join(__dirname, '..', 'public')));
+app.use("/frontend/assets", express.static(path.join(__dirname, '..', 'frontend', 'assets')));
+app.use('/img', express.static(path.join(__dirname, '..', 'frontend', 'assets', 'img')));
+app.use('/js', express.static(path.join(__dirname, '..', 'public', 'js')));
+app.use('/css', express.static(path.join(__dirname, '..', 'public', 'css')));
+app.use('/views', express.static(path.join(__dirname, '..', 'public', 'views')));
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -27,11 +27,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(partials());
 
-app.set('views', config.root + '/public/views');
+app.set('views', path.join(__dirname, '..', 'public', 'views'));
 
 routes(app);
 events(io);
 
 http.listen(process.env.PORT || 3000, function(){
-  log.info('listening on *:' + (process.env.PORT || 3000));
+  log.info('WikiWash listening on *:' + (process.env.PORT || 3000));
 });

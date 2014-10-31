@@ -1,7 +1,7 @@
 {
   "apps" : [{
     "name"      : "server",
-    "script"    : "server.js",
+    "script"    : "backend/server.js",
     "env_staging": {
       "NODE_ENV": "staging",
       "PORT": "80"

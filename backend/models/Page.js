@@ -1,7 +1,7 @@
 var http = require('q-io/http');
 var _ = require('lodash');
 var WikipediaHelper = require('../helpers/WikipediaHelper');
-var log = require('../../config/log').createLoggerForFile(__filename);
+var log = require('../config/log').createLoggerForFile(__filename);
 
 var endPoint = 'en.wikipedia.org';
 

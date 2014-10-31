@@ -1,5 +1,5 @@
-var PagesController = require('../api/controllers/PagesController');
-var revisions = require('../api/controllers/RevisionsController');
+var PagesController = require('../controllers/PagesController');
+var revisions = require('../controllers/RevisionsController');
 var log = require('./log').createLoggerForFile(__filename);
 
 var delay = 30000;

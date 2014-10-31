@@ -52,11 +52,10 @@ var bowerImageDependencies = [
 ]
 
 var paths = {
-  scripts: ['app/scripts/**/*.js'],
-  styles: ['app/styles/**/*.sass'],
-  views: ['app/views/**/*'],
-  public: ['app/public/**/*'],
-  assets: 'api/assets'
+  scripts: ['frontend/scripts/**/*.js'],
+  styles: ['frontend/styles/**/*.sass'],
+  views: ['frontend/views/**/*'],
+  public: ['frontend/public/**/*'],
 }
 
 gulp.task('html-public', function () {
@@ -105,7 +104,7 @@ gulp.task('fonts', function() {
 gulp.task('icons', function() {
   gulp.src('./bower_components/font-awesome/css/font-awesome.css')
     .pipe(rename('font-awesome.scss'))
-    .pipe(gulp.dest('./app/styles/'));
+    .pipe(gulp.dest('./frontend/styles/'));
 });
 
 gulp.task('styles', function () {
@@ -149,21 +148,21 @@ gulp.task('watch', function () {
   gulp.watch(paths.styles, ['styles'])
 })
 
-gulp.task('api', function () {
-  gulp.src('./api/**/*.js')
+gulp.task('backend', function () {
+  gulp.src('./backend/**/*.js')
     .pipe(jshint())
 })
 
 gulp.task('nodemon', function () {
   nodemon({
-    script: 'server.js',
-    watch: 'api',
-    ignore: [ path.join(paths.assets, '**') ],
+    script: 'backend/server.js',
+    watch: 'backend',
+    ignore: [ ],
     ext: 'js',
     env: { 'NODE_ENV': 'development' },
     nodeArgs: ['--debug']
   })
-    .on('change', ['api'])
+    .on('change', ['backend'])
     .on('restart', function () {
       console.log('restarted!')
     })

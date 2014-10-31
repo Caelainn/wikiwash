@@ -1,4 +1,4 @@
-var log = require('../../config/log').createLoggerForFile(__filename);
+var log = require('../config/log').createLoggerForFile(__filename);
 var _ = require('lodash');
 
 var Page = require('../models/Page');

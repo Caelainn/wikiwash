@@ -1,4 +1,4 @@
-var log = require('../../config/log').createLoggerForFile(__filename);
+var log = require('../config/log').createLoggerForFile(__filename);
 var Revision = require('../models/Revision');
 
 module.exports.show = function (revisionId, callback) {

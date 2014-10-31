@@ -10,9 +10,9 @@
 var Q = require('Q');
 var _ = require('lodash');
 var path = require('path');
-var log = require('../../config/log').createLoggerForFile(__filename);
+var log = require('../config/log').createLoggerForFile(__filename);
 var fs = require('fs');
-var config = require('../../config/config');
+var config = require('../config/config');
 
 var folder;
 var cachePathIsAbsolute = config.cache.path.indexOf('/') === 0;
@@ -147,7 +147,11 @@ module.exports.pruneToSize = function(sizeLimitInBytes) {
       });
     }).then(function(result) {
       var endTime = +new Date();
-      log.info("Pruned " + result.deletedBytes + " bytes from cache. (took " + (endTime - startTime) + " msec)");
+      if (result.deletedBytes > 0) {
+        log.info("Pruned " + result.deletedBytes + " bytes from cache. (took " + (endTime - startTime) + " msec)");
+      } else {
+        log.info("Cache cleanup complete. (no-op) (took " + (endTime - startTime) + " msec)");
+      }
       return result;
     });
   });

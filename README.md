@@ -36,7 +36,10 @@ WikiWash has been developed on Mac OS X and deployed on Linux, but in theory,
 should work on any operating system. If you've tried running WikiWash on your own machine,
 feel free to edit this readme to update the above instructions.
 
-## Contributions
+## Issues & Contributions
+
+Found a problem with WikiWash? [Submit an issue](https://github.com/twg/wikiwash/issues/new) to
+let us know.
 
 See something that you'd like to change? We're all ears - feel free to [fork](https://github.com/twg/wikiwash/fork)
 WikiWash on Github and submit a pull request to merge changes back into the application.

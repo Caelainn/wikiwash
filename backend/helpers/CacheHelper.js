@@ -7,7 +7,7 @@
  *  files.
  */
 
-var Q = require('Q');
+var Q = require('q');
 var _ = require('lodash');
 var path = require('path');
 var log = require('../config/log').createLoggerForFile(__filename);

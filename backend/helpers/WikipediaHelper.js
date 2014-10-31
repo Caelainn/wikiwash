@@ -1,5 +1,5 @@
 var http = require('q-io/http');
-var Q = require('Q');
+var Q = require('q');
 var _ = require('lodash');
 var fs = require('fs');
 var log = require('../config/log').createLoggerForFile(__filename);

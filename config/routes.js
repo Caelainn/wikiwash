@@ -1,12 +1,11 @@
 var path = require('path');
-var csv = require('express-csv')
+var csv = require('express-csv');
 
 var root = path.join(__dirname, '..', 'public/views');
 
-var revisions = require('../api/controllers/revisions');
+var revisions = require('../api/controllers/RevisionsController');
 
 module.exports = function(app, io) {
-
   app.get('/api/revisions/:id', function(req, res) {
     var revisionId = req.params.id;
 

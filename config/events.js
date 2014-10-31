@@ -1,5 +1,6 @@
-var PagesController = require('../api/controllers/pages');
-var revisions = require('../api/controllers/revisions');
+var PagesController = require('../api/controllers/PagesController');
+var revisions = require('../api/controllers/RevisionsController');
+var log = require('./log').createLoggerForFile(__filename);
 
 var delay = 30000;
 
@@ -12,18 +13,18 @@ function emitPageData(pageName, pages, socket) {
   });
 
   
-  setTimeout(function () {
-    emitPageData(pageName, pages, socket); 
+  setTimeout(function() {
+    emitPageData(pageName, pages, socket);
   }, delay);
-};
+}
 
 module.exports = function(io) {
   io.on('connection', function(socket) {
-    console.log('a user connected');
+    log.info('a user connected');
     
     socket.on('cycle page data', function (params) {
       var pages = new PagesController();
-      emitPageData(params.page, pages, socket); 
+      emitPageData(params.page, pages, socket);
       
       socket.on('stop cycle', function () {
         pages.cycling = false;
@@ -31,7 +32,7 @@ module.exports = function(io) {
     });
     
     socket.on('disconnect', function () {
-      console.log("user disconnected");
+      log.info("user disconnected");
     });
 
   });

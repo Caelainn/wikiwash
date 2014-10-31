@@ -41,7 +41,7 @@ var revisionDiffData = function (revHtml, prevHtml) {
     });
     content = contentParts.join('');
   } catch (err) {
-    console.log(err);
+    log.error(err);
     content = 'Diff unavailable';
   }
 
@@ -66,7 +66,7 @@ module.exports.find = function (revisionIDs, callback) {
   }).then(function(data) {
     callback(data);
   }).catch(function(err) {
-    console.log(err);
+    log.error(err);
     callback({content: "An error occurred.", added: 0, removed: 0});
   });
 };

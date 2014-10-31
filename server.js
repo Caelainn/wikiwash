@@ -7,6 +7,8 @@ var config = require('./config/config');
 var routes = require('./config/routes');
 var events = require('./config/events');
 
+var log = require('./config/log').createLoggerForFile(__filename);
+
 var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
@@ -25,11 +27,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(partials());
 
-app.set('views', config.root + '/public/views')
+app.set('views', config.root + '/public/views');
 
 routes(app);
 events(io);
 
 http.listen(process.env.PORT || 3000, function(){
-  console.log('listening on *:' + (process.env.PORT || 3000));
+  log.info('listening on *:' + (process.env.PORT || 3000));
 });

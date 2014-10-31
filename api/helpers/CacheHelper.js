@@ -10,8 +10,9 @@
 var Q = require('Q');
 var _ = require('lodash');
 var path = require('path');
+var log = require('../../config/log').createLoggerForFile(__filename);
 var fs = require('fs');
-var config = require(path.join(__dirname, '..', '..', 'config', 'config'));
+var config = require('../../config/config');
 
 var folder;
 var cachePathIsAbsolute = config.cache.path.indexOf('/') === 0;
@@ -26,7 +27,7 @@ module.exports = {
 };
 
 if (!module.exports.isActive) {
-  console.log('Warning: cache folder missing. To enable caching, please mkdir ' + folder + ' and restart.');
+  log.warn('Cache folder missing. To enable caching, please mkdir ' + folder + ' and restart.');
 }
 
 /**
@@ -146,7 +147,7 @@ module.exports.pruneToSize = function(sizeLimitInBytes) {
       });
     }).then(function(result) {
       var endTime = +new Date();
-      console.log("Pruned " + result.deletedBytes + " bytes from cache. (took " + (endTime - startTime) + " msec)");
+      log.info("Pruned " + result.deletedBytes + " bytes from cache. (took " + (endTime - startTime) + " msec)");
       return result;
     });
   });

@@ -1,9 +1,9 @@
 var http = require('q-io/http');
 var Q = require('Q');
 var _ = require('lodash');
-var path = require('path');
 var fs = require('fs');
-var cache = require(path.join('..', 'helpers', 'CacheHelper'));
+var log = require('../../config/log').createLoggerForFile(__filename);
+var cache = require('../helpers/CacheHelper');
 
 var endPoint = 'en.wikipedia.org';
 
@@ -18,7 +18,7 @@ var getRevision = function (revisionId) {
     path: queryPath(revisionId)
   };
 
-  console.log("Making a " + options.method + " request to http://" + options.host + options.path);
+  log.info("Making a " + options.method + " request to http://" + options.host + options.path);
 
   var maxAttempts = 5;
   var pauseTime = 5000; //ms
@@ -31,7 +31,7 @@ var getRevision = function (revisionId) {
 
     return http.request(options).then(function(response) {
       if (response.status === 503) {
-        console.log("Received 503 from upstream. Pausing for " + pauseTime + " msec before retrying.");
+        log.warn("Received 503 from upstream. Pausing for " + pauseTime + " msec before retrying.");
         return Q.delay(pauseTime).then(function() {
           makeRequest(attemptNumber + 1);
         });
@@ -58,12 +58,12 @@ var fetchAndCacheRevisionID = function(revisionID) {
     //  Save our fetched result to the cache, but don't
     //  bother waiting for it to complete before continuing.
     var fetchEnd = +new Date();
-    console.log("Fetched revision " + revisionID + " from Wikipedia. (took " + (fetchEnd - fetchStart) + " msec)");
+    log.info("Fetched revision " + revisionID + " from Wikipedia. (took " + (fetchEnd - fetchStart) + " msec)");
 
     data = getHTMLFromResponse(data);
 
     cache.set(revisionID, data).then(function() {
-      console.log("Saved revision " + revisionID + " to cache.");
+      log.info("Saved revision " + revisionID + " to cache.");
     }).done();
 
     return data;
@@ -78,12 +78,12 @@ module.exports.getAndCacheRevisions = function(revisionIDs) {
   //  grab those from the cache instantly and wait on the
   //  slower data from Wikipedia itself.
   return Q.all(_.map(revisionIDs, function(revisionID, i) {
-    console.log("Fetching revision " + revisionID + " from cache...");
+    log.info("Fetching revision " + revisionID + " from cache...");
     var fetchStart = +new Date();
     return cache.get(revisionID).then(function(reply) {
       if (reply) {
         var fetchEnd = +new Date();
-        console.log("Found revision " + revisionID + " in cache. (took " + (fetchEnd - fetchStart) + " msec)");
+        log.info("Found revision " + revisionID + " in cache. (took " + (fetchEnd - fetchStart) + " msec)");
         return reply;
       } else {
         return fetchAndCacheRevisionID(revisionID);

@@ -15,18 +15,24 @@ DefaultCharacterCode = 0xE000;
 
 function HTMLDiffProcessor() {
     this.tagToCharacterMap = {};
+    this.characterToTagMap = {};
     this.currentCharacterCode = DefaultCharacterCode;
 }
 
 HTMLDiffProcessor.prototype.getCharForTag = function(tag) {
   if (!(tag in this.tagToCharacterMap)) {
-    this.tagToCharacterMap[tag] = String.fromCharCode(this.currentCharacterCode++);
+    var character = String.fromCharCode(this.currentCharacterCode++);
+    this.tagToCharacterMap[tag] = character;
+    this.characterToTagMap[character] = tag;
+    return character;
+  } else {
+    return this.tagToCharacterMap[tag];
   }
-  return this.tagToCharacterMap[tag];
 };
 
 HTMLDiffProcessor.prototype.reset = function() {
   this.tagToCharacterMap = {};
+  this.characterToTagMap = {};
   this.currentCharacterCode = DefaultCharacterCode;
 };
 
@@ -35,11 +41,22 @@ HTMLDiffProcessor.prototype.plainTextFromHTML = function(html) {
 };
 
 HTMLDiffProcessor.prototype.htmlFromPlainText = function(plain) {
-  for (var tag in this.tagToCharacterMap) {
-    plain = plain.replace(RegExp(this.tagToCharacterMap[tag], 'g'), tag);
+  var output = [];
+
+  for (var i = 0; i < plain.length; i++) {
+    if (plain.charCodeAt(i) >= DefaultCharacterCode) {
+      var tag = this.characterToTagMap[plain[i]];
+      if (tag) {
+        output.push(tag);
+      } else {
+        output.push(plain[i]);
+      }
+    } else {
+      output.push(plain[i]);
+    }
   }
 
-  return plain;
+  return output.join('');
 };
 
 module.exports = HTMLDiffProcessor;

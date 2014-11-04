@@ -1,48 +1,8 @@
 var _ = require('lodash');
 var gdiff = require('googlediff');
-var htmlparser = require("htmlparser2");
 var log = require('../config/log').createLoggerForFile(__filename);
 var HTMLDiffProcessor = require('../helpers/HTMLDiffProcessor');
-
-var getOpeningTagName = function(tag) {
-  var tagName = null;
-  
-  var parser = new htmlparser.Parser({
-      onopentag: function(_tagName) {
-        tagName = _tagName;
-      }
-  });
-  parser.write(tag);
-  parser.end();
-
-  return tagName;
-};
-
-var getClosingTagName = function(tag) {
-  var regex = new RegExp("\\</([a-zA-Z+]).*?\\>", "g");
-  var match;
-  while ((match = regex.exec(tag)) !== null) {
-    // javascript RegExp has a bug when the match has length 0
-    if (match.index === regex.lastIndex) {
-      ++regex.lastIndex;
-    }
-    return match[1];
-  }
-};
-
-function Difference(part) {
-  this.isAddition = part[0] === 1;
-  this.isDeletion = part[0] === -1;
-  this.content = part[1];
-
-  var openingTagName = getOpeningTagName(this.content);
-  this.isOpeningTag = !!openingTagName;
-
-  var closingTagName = getClosingTagName(this.content);
-  this.isClosingTag = !!closingTagName;
-
-  this.tagName = openingTagName || closingTagName;
-}
+var Difference = require('../helpers/Difference');
 
 function DiffFormatter(revHtml, prevHtml) {
   //  Remove end comments
@@ -83,9 +43,11 @@ var getDiffParts = function(revHtml, prevHtml) {
   return diffParts;
 };
 
-DiffFormatter.prototype.findClosingTagIndexWithName = function(name, startIndex) {
-  for (closingTagIndex = startIndex + 1; closingTagIndex < this.diffParts.length; closingTagIndex++) {
-    if (this.diffParts[closingTagIndex].isClosingTag && this.diffParts[closingTagIndex].tagName === name) {
+DiffFormatter.prototype.findEndIndexOfTagNamed = function(name, startIndex) {
+  for (closingTagIndex = startIndex; closingTagIndex < this.diffParts.length; closingTagIndex++) {
+    var tag = this.diffParts[closingTagIndex];
+
+    if (tag.tagName === name && tag.isClosingTag) {
       return closingTagIndex;
     }
   }
@@ -108,13 +70,33 @@ var getNewContentString = function(parts) {
 };
 
 DiffFormatter.prototype.processChangeInOpenTag = function(openTagIndex, closingTagIndex) {
-  //  If there is no corresponding change in close tag, then this tag itself must have
-  //  been modified. Let's find the corresponding changed tag, which should immediately
-  //  follow this tag.
   var oldOpenTag = this.diffParts[openTagIndex];
-  var newOpenTag = this.diffParts[openTagIndex + 1];
+  var newOpenTagIndex = openTagIndex + 1;
+  var newOpenTag;
+
+  for (; newOpenTagIndex < closingTagIndex - 1; newOpenTagIndex++) {
+    var candidateNewOpenTag = this.diffParts[newOpenTagIndex];
+    if (oldOpenTag.tagName === candidateNewOpenTag.tagName &&
+        candidateNewOpenTag.isOpeningTag &&
+        candidateNewOpenTag.isAddition) {
+      newOpenTag = candidateNewOpenTag;
+      break;
+    }
+  }
+
+  if (!newOpenTag) {
+    //  If we can't find the tag that is to replace this tag, treat this like
+    //  an entirely new tag has been added.
+    return this.processTagAdditionOrDeletion(openTagIndex, closingTagIndex);
+  }
+
   var closingTag = this.diffParts[closingTagIndex];
-  var partsWithinTag = this.diffParts.slice(openTagIndex + 1, closingTagIndex);
+  var partsWithinTag = this.diffParts.slice(newOpenTagIndex + 1, closingTagIndex);
+
+  //  Take all of the parts between the old opening tag and
+  //  the new opening tag and add those to the partsWithinTag array.
+  var partsBetweenOldAndNewTags = this.diffParts.slice(openTagIndex + 1, newOpenTagIndex);
+  partsWithinTag.splice.apply(partsWithinTag, [0, 0].concat(partsBetweenOldAndNewTags));
 
   var oldContent = getOldContentString(partsWithinTag);
   var newContent = getNewContentString(partsWithinTag);
@@ -142,11 +124,16 @@ DiffFormatter.prototype.wrapInSubtractionSpan = function(html) {
 };
 
 DiffFormatter.prototype.wrapInSpan = function(klass, html) {
-  return (
+  if (html.trim() === "") {
+    return "";
+  }
+
+  var output = (
     '<span class="ww-edit ' + klass + '" id="edit-' + (this.editCount++) + '">' +
     ((html.indexOf("<") === 0) ? (" " + html + " ") : html) +
     '</span>'
   );
+  return output;
 };
 
 DiffFormatter.prototype.processTagAdditionOrDeletion = function(openTagIndex, closingTagIndex) {
@@ -155,7 +142,7 @@ DiffFormatter.prototype.processTagAdditionOrDeletion = function(openTagIndex, cl
 
   var openingTag = this.diffParts[openTagIndex];
   var closingTag = this.diffParts[closingTagIndex];
-  var partsWithinTag = this.diffParts.slice(openTagIndex, closingTagIndex);
+  var partsWithinTag = this.diffParts.slice(openTagIndex + 1, closingTagIndex);
 
   var oldContent = getOldContentString(partsWithinTag);
   var newContent = getNewContentString(partsWithinTag);
@@ -185,20 +172,28 @@ DiffFormatter.prototype.process = function() {
       var difference = this.diffParts[i];
 
       if (difference.isAddition || difference.isDeletion) {
-        if (difference.isOpeningTag) {
-          var closingTagIndex = this.findClosingTagIndexWithName(difference.tagName, i);
+        if (difference.isOpeningTag && !difference.isClosingTag) {
+          var closingTagIndex = this.findEndIndexOfTagNamed(difference.tagName, i);
 
           if (closingTagIndex !== -1) {
-            var closingTag = this.diffParts[closingTagIndex];
-
-            if (closingTag.isAddition || closingTag.isDeletion) {
-              this.processTagAdditionOrDeletion(i, closingTagIndex);
-            } else {
+            if (closingTagIndex === i) {
+              //  Deal with self-closing tags
               this.processChangeInOpenTag(i, closingTagIndex);
-            }
+            } else {
+              var closingTag = this.diffParts[closingTagIndex];
 
-            i += closingTagIndex - i;
-            continue;
+              if (closingTag.isAddition === difference.isAddition &&
+                  closingTag.isDeletion === difference.isDeletion) {
+                this.processTagAdditionOrDeletion(i, closingTagIndex);
+              } else {
+                this.processChangeInOpenTag(i, closingTagIndex);
+              }
+
+              i += (closingTagIndex - i) - 1;
+              continue;
+            }
+          } else {
+            log.warn("Could not find closing tag for:", JSON.stringify(difference));
           }
         }
 

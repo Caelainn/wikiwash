@@ -6,11 +6,13 @@
   "author": "TWG",
   "scripts": {
     "build": "./node_modules/.bin/gulp build",
-    "start": "./node_modules/.bin/gulp | ./node_modules/.bin/bunyan"
+    "start": "./node_modules/.bin/gulp | ./node_modules/.bin/bunyan",
+    "test": "./node_modules/.bin/mocha backend/test/*.js"
   },
   "dependencies": {
     "body-parser": "~1.0.0",
     "bunyan": "^1.2.1",
+    "chai": "^1.9.2",
     "event-stream": "^3.1.5",
     "express": "~4.4.5",
     "express-csv": "^0.6.0",
@@ -18,10 +20,10 @@
     "fixmyjs": "^0.13.6",
     "googlediff": "^0.1.0",
     "htmldiff": "0.0.4",
-    "htmlparser2": "^3.8.0",
     "jade": "^1.4.0",
     "jscs": "^1.7.3",
     "lodash": "^2.4.1",
+    "mocha": "^2.0.1",
     "q": "^1.0.1",
     "q-io": "^1.11.3",
     "socket.io": "1.1.0"

@@ -4,6 +4,8 @@ angular.module('wikiwash')
       link: function(scope, element, attr) {
         var prevEdit = null;
 
+        var scrollBuffer = 100;
+
         scope.$watch('nextEdit', function (current, last) {
           var edit = $('#edit-' + current);
           
@@ -24,7 +26,7 @@ angular.module('wikiwash')
 
             setTimeout(function () {
               element.animate({
-                scrollTop: edit.offset().top - element.offset().top + element.scrollTop()
+                scrollTop: (edit.offset().top - element.offset().top + element.scrollTop() - scrollBuffer)
               });
             }, 500);
           }

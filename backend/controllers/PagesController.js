@@ -9,8 +9,6 @@ function PagesController() {
 }
 
 PagesController.prototype.show = function (pageName, callback) {
-  log.info("TOTAL REVISIONS", pageName, "==>", this.currentRevisionIds.length);
-
   var _this = this;
   Page.findRevisions(pageName, this.currentRevisionIds, function (pageData) {
 

@@ -18,6 +18,7 @@
     "fixmyjs": "^0.13.6",
     "googlediff": "^0.1.0",
     "htmldiff": "0.0.4",
+    "htmlparser2": "^3.8.0",
     "jade": "^1.4.0",
     "jscs": "^1.7.3",
     "lodash": "^2.4.1",

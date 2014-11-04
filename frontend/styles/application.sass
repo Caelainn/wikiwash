@@ -272,12 +272,12 @@ span.light {
 }
 
 .faq-content span.additions {
-  display: inline-block;
+  display: inline;
   background-color: #B8E9D2;
 }
 
 .faq-content span.subtractions {
-  display: inline-block;
+  display: inline;
   background-color: #F1BCBC;
 }
 
@@ -647,6 +647,15 @@ span.light {
   div.wikidiff span.subtractions {
     display: inline-block;
     background-color: #F1BCBC;
+  }
+
+  div.wikidiff {
+    p, td, a {
+      span.additions,
+      span.subtractions {
+        display: inline;
+      }
+    }
   }
 
   table.metadata.plainlinks.ambox.ambox-content.ambox-multiple_issues.compact-ambox {

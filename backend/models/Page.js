@@ -60,13 +60,15 @@ module.exports.findRevisions = function (pageName, lastRevisionIds, callback) {
     
     if (WikipediaHelper.cacheActive) {
       var revisionIDs = _.map(data.revisions, 'revid');
-      log.info("Pre-caching " + revisionIDs.length + " revisions of page '" + pageName + "'...");
-      WikipediaHelper.cacheRevisions(revisionIDs)
-        .then(function() {
-          log.info("Pre-cached " + revisionIDs.length + " revisions of page '" + pageName + "'.");
-        }).catch(function(err) {
-          log.warn("Error caching revisions for page '" + pageName + "': ", err);
-        });
+      if (revisionIDs.length) {
+        log.info("Pre-caching " + revisionIDs.length + " revisions of page '" + pageName + "'...");
+        WikipediaHelper.cacheRevisions(revisionIDs)
+          .then(function() {
+            log.info("Pre-cached " + revisionIDs.length + " revisions of page '" + pageName + "'.");
+          }).catch(function(err) {
+            log.warn("Error caching revisions for page '" + pageName + "': ", err);
+          });
+      }
     }
 
     callback(data);

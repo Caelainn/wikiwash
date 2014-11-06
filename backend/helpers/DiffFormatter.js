@@ -2,7 +2,7 @@ var _ = require('lodash');
 var gdiff = require('googlediff');
 var log = require('../config/log').createLoggerForFile(__filename);
 var HTMLDiffProcessor = require('../helpers/HTMLDiffProcessor');
-var Difference = require('../helpers/Difference');
+var DiffSegment = require('../models/DiffSegment');
 
 function DiffFormatter(revHtml, prevHtml) {
   //  Remove end comments
@@ -32,7 +32,7 @@ var getDiffParts = function(revHtml, prevHtml) {
       var htmlTags = htmlChunk.split(/(<.*?>)/g);
       var newParts = _(htmlTags)
         .filter()
-        .map(function(subpart) { return new Difference([part[0], subpart]); })
+        .map(function(subpart) { return new DiffSegment([part[0], subpart]); })
         .value();
       return acc.concat(newParts);
     }, []);
@@ -93,16 +93,16 @@ DiffFormatter.prototype.processChangeInOpenTag = function(openTagIndex, closingT
   var closingTag = this.diffParts[closingTagIndex];
   var partsWithinTag = this.diffParts.slice(newOpenTagIndex + 1, closingTagIndex);
 
-  //  Take all of the parts between the old opening tag and
-  //  the new opening tag and add those to the partsWithinTag array.
   var partsBetweenOldAndNewTags = this.diffParts.slice(openTagIndex + 1, newOpenTagIndex);
-  partsWithinTag.splice.apply(partsWithinTag, [0, 0].concat(partsBetweenOldAndNewTags));
 
   var oldContent = getOldContentString(partsWithinTag);
   var newContent = getNewContentString(partsWithinTag);
 
-  this.pushSubtraction(oldOpenTag.content + oldContent + closingTag.content);
-  this.pushAddition(newOpenTag.content + newContent + closingTag.content);
+  var oldPreContent = getOldContentString(partsBetweenOldAndNewTags);
+  var newPreContent = getNewContentString(partsBetweenOldAndNewTags);
+
+  this.pushSubtraction(oldPreContent + oldOpenTag.content + oldContent + closingTag.content);
+  this.pushAddition(newPreContent + newOpenTag.content + newContent + closingTag.content);
 };
 
 DiffFormatter.prototype.pushAddition = function(html) {
@@ -133,6 +133,7 @@ DiffFormatter.prototype.wrapInSpan = function(klass, html) {
     ((html.indexOf("<") === 0) ? (" " + html + " ") : html) +
     '</span>'
   );
+
   return output;
 };
 
@@ -189,7 +190,7 @@ DiffFormatter.prototype.process = function() {
                 this.processChangeInOpenTag(i, closingTagIndex);
               }
 
-              i += (closingTagIndex - i) - 1;
+              i = closingTagIndex;
               continue;
             }
           } else {

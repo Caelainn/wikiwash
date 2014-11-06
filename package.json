@@ -7,7 +7,7 @@
   "scripts": {
     "build": "./node_modules/.bin/gulp build",
     "start": "./node_modules/.bin/gulp | ./node_modules/.bin/bunyan",
-    "test": "./node_modules/.bin/mocha backend/test/*.js"
+    "test": "NODE_ENV=test ./node_modules/.bin/mocha backend/test/*.js"
   },
   "dependencies": {
     "body-parser": "~1.0.0",

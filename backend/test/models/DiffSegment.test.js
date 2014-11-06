@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var DiffSegment = require('../models/DiffSegment.js');
+var DiffSegment = require('../../models/DiffSegment.js');
 
 describe('DiffSegment', function(done) {
   describe('constructor', function() {

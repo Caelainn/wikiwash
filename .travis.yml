@@ -5,18 +5,13 @@ node_js:
 before_install:
   - "export NODE_ENV=test"
 
-cache:
-  directories:
-    - node_modules
-    - bower_components
-
 branches:
   only:
     - master
 
 script:
   - npm test
-  - bin/istanbul cover ./bin/_mocha --report lcovonly -- backend/test/*.js && cat ./coverage/lcov.info | bin/coveralls && rm -rf ./coverage
+  - bin/istanbul cover --root backend bin/_mocha --report lcovonly -- backend/test/* && cat ./coverage/lcov.info | bin/coveralls && rm -rf ./coverage
 
 notifications:
   email:

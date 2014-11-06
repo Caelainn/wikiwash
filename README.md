@@ -11,6 +11,9 @@ A project by [The Working Group](http://twg.ca), in collaboration with
 [the Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and 
 [Metro News](http://metronews.ca/), and made possible by [Google Canada](http://googlecanada.blogspot.ca/).
 
+[![Build Status](https://travis-ci.org/twg/wikiwash.svg)](https://travis-ci.org/twg/wikiwash)
+
+
 ## Installation & Development
 
 On a Mac OS X machine:

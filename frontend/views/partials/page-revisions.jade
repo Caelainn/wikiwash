@@ -15,9 +15,20 @@
           .user_comment
             a(
               href="https://en.wikipedia.org/wiki/Special:Contributions/{{revision.user}}"
-              target="_blank")
+              target="_blank"
+              title="View previous contributions"
+            )
               p.username {{revision.user}}
-            a(href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}")
+            span(ng-if="revision.geo")
+              a.geo(
+                target="_blank"
+                href="https://www.google.com/maps/search/{{revision.geo}}/"
+                title="View in Google Maps"
+              ) {{revision.geo}}
+            a(
+              href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}"
+              title="View revision"
+            )
               p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}
               p.comment(ng-if="revision.comment.length <= 0") Comment was not entered.
           .data

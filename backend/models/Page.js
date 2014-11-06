@@ -1,6 +1,8 @@
 var http = require('q-io/http');
 var _ = require('lodash');
 var WikipediaHelper = require('../helpers/WikipediaHelper');
+var geoip = require('geoip-lite');
+var country = require('country-code-lookup');
 var log = require('../config/log').createLoggerForFile(__filename);
 
 var endPoint = 'en.wikipedia.org';
@@ -38,12 +40,28 @@ var pageData = function (body, lastRevisionIds) {
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
 
-  var revs = queryResPage.revisions || []
+  var revs = queryResPage.revisions || [];
+  revs = rmPreviousRevisions(revs, lastRevisionIds);
+  revs = _.map(revs, function(rev) {
+    if ('anon' in rev) {
+      var geo = geoip.lookup(rev.user);
+      if (geo) {
+        var countryName = geo.country;
+        var countryInfo = country.byIso(countryName);
+        if (countryInfo) {
+          countryName = countryInfo.country;
+        }
+
+        rev.geo = _.compact([geo.city, geo.region, countryName]).join(', ');
+      }
+    }
+    return rev;
+  });
 
   return {
     title: queryResPage.title,
-    revisions: rmPreviousRevisions(revs, lastRevisionIds)
-  }
+    revisions: revs,
+  };
 };
 
 module.exports.findRevisions = function (pageName, lastRevisionIds, callback) {

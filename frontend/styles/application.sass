@@ -460,6 +460,7 @@ span.light {
     border-bottom: 1px solid #CFCFCF;
     padding: 20px;
     display: table;
+    position: relative;
   }
 
   .revisions:after {
@@ -482,6 +483,7 @@ span.light {
 
   .revisions a {
     text-decoration: none;
+    z-index: 2;
   }
 
   .revisions a p:hover {
@@ -492,6 +494,21 @@ span.light {
     word-break: break-word;
     color: #9CAFB5;
     font-size: 12px;
+  }
+
+  .revisions a.revision-link {
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .revisions > div {
+    z-index: 2;
+    position: relative;
   }
 
   div.timestamp {
@@ -647,7 +664,7 @@ span.light {
 
   div.wikidiff p {
     font-size: 16px;
-    padding: 24px 0;
+    padding: 24px 0 0;
     font-weight: 400;
     margin: 0;
   }

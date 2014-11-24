@@ -8,7 +8,10 @@
         .revisions(ng-repeat='revision in revisions track by $index'
           ng-class="{ 'active-revision': currentRevId == revision.revid }"
           class="{{$index == 0 ? 'wow fadeInDown' : ''}}")
-
+          a.revision-link(
+            href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}"
+            title="View revision"
+          )
           .timestamp
             p {{revision.timestamp | date:'shortTime'}}
             p.date {{revision.timestamp | date:'mediumDate'}}

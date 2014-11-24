@@ -3,7 +3,10 @@ var Q = require('q');
 var _ = require('lodash');
 var fs = require('fs');
 var log = require('../config/log').createLoggerForFile(__filename);
-var cache = require('../helpers/CacheHelper');
+var config = require('../config/config');
+
+var cache = require('till')(config.cache.host, config.cache.port);
+var cacheSuffix = ".html";
 
 var endPoint = 'en.wikipedia.org';
 
@@ -63,7 +66,7 @@ var fetchAndCacheRevisionID = function(revisionID) {
     data = getHTMLFromResponse(data);
 
     var saveStart = +new Date();
-    cache.set(revisionID, data).then(function() {
+    cache.set(revisionID + cacheSuffix, data).then(function() {
       var saveEnd = +new Date();
       log.info("Saved revision " + revisionID + " to cache. (took " + (saveEnd - saveStart) + " msec)");
     }).done();
@@ -72,7 +75,6 @@ var fetchAndCacheRevisionID = function(revisionID) {
   });
 };
 
-module.exports.cacheActive = cache.isActive;
 
 module.exports.getAndCacheRevisions = function(revisionIDs) {
   //  Simultaneously fetch all of the revisions separately.
@@ -82,7 +84,7 @@ module.exports.getAndCacheRevisions = function(revisionIDs) {
   return Q.all(_.map(revisionIDs, function(revisionID, i) {
     log.info("Fetching revision " + revisionID + " from cache...");
     var fetchStart = +new Date();
-    return cache.get(revisionID).then(function(reply) {
+    return cache.get(revisionID + cacheSuffix).then(function(reply) {
       if (reply) {
         var fetchEnd = +new Date();
         log.info("Found revision " + revisionID + " in cache. (took " + (fetchEnd - fetchStart) + " msec)");
@@ -99,25 +101,25 @@ module.exports.cacheRevisions = function(revisionIDs) {
   //  This way, if any of the revisions are cached, we can
   //  grab those from the cache instantly and wait on the
   //  slower data from Wikipedia itself.
-  return cache.prune().then(function() {
-    return Q.all(_.map(revisionIDs, function(revisionID, i) {
-      return cache.exists(revisionID).then(function(exists) {
-        if (!exists) {
-          //  Stagger our Wikipedia fetches to avoid any rate limiting.
-          //  After the first 2 fetches, delay each subsequent fetch.
+  return Q.all(_.map(revisionIDs, function(revisionID, i) {
+    return cache.exists(revisionID + cacheSuffix).then(function(exists) {
+      if (!exists) {
+        //  Stagger our Wikipedia fetches to avoid any rate limiting.
+        //  After the first 2 fetches, delay each subsequent fetch.
 
-          if (i > 2) {
-            var delayBetweenFetches = 3000;
-            return Q.delay((i - 2) * delayBetweenFetches).then(function() {
-              return fetchAndCacheRevisionID(revisionID);
-            });
-          } else {
+        if (i > 2) {
+          var delayBetweenFetches = 3000;
+          return Q.delay((i - 2) * delayBetweenFetches).then(function() {
             return fetchAndCacheRevisionID(revisionID);
-          }
+          });
+        } else {
+          return fetchAndCacheRevisionID(revisionID);
         }
-      });
-    }));
-  }).then(function() {
-    cache.prune();
-  });
+      }
+    });
+  }));
+};
+
+module.exports.cacheIsActive = function() {
+  return cache.isActive();
 };

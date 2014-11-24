@@ -56,6 +56,11 @@ to point at your new server environments. Once that's done, deployment is as sim
 $ bin/pm2 deploy production
 ```
 
+Note that WikiWash integrates well with [Till](https://github.com/psobot/till), a cache server
+that helps speed up page requests from Wikipedia. Setting up a Till server is not required,
+but will make WikiWash noticeably faster for frequently-accessed pages. (An example configuration file
+for Till is included at `example/till.config.example.json`.)
+
 ## Libraries
 
 #### HTTP server
@@ -65,8 +70,11 @@ $ bin/pm2 deploy production
 #### HTML preprocessors
 * [jade](http://jade-lang.com) - HTML Template Engine
 
-#### Front-end framework
+#### Front-end frameworks
 * [AngularJS](https://angularjs.org/) - JS framework
+
+#### Cache Servers
+* [Till](https://github.com/psobot/till) - local files/S3 cache server
 
 #### Package management, build system
 * [npm](https://npmjs.org) - Node Packaged Modules

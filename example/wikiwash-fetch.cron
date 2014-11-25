@@ -1,0 +1,1 @@
+0 * * * * deploy /bin/bash -l -c "cd /home/deploy/wikiwash/current && /usr/local/bin/node scripts/FetchTopArticles.js"

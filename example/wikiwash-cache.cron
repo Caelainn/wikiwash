@@ -1,0 +1,1 @@
+0 0,6,12,18 * * * deploy /bin/bash -l -c "cd /home/deploy/wikiwash/current && /usr/local/bin/node scripts/PreCacheTopArticles.js"

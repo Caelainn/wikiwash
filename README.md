@@ -61,6 +61,11 @@ that helps speed up page requests from Wikipedia. Setting up a Till server is no
 but will make WikiWash noticeably faster for frequently-accessed pages. (An example configuration file
 for Till is included at `example/till.config.example.json`.)
 
+WikiWash also includes two example cronjobs (`wikiwash-fetch.cron` and `wikiwash-cache.cron`) that
+can run in the background to speed up WikiWash and to display the most-read Wikipedia articles from
+the last hour. Note that these cronjobs call scripts in the `scripts` folder, and do download large
+amounts of data from Wikimedia's dump server.
+
 ## Libraries
 
 #### HTTP server

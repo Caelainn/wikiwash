@@ -131,7 +131,7 @@ module.exports.preemptivelyCache = function(revisionIDs) {
     if (isActive) {
       var cacheQueueBeingProcessed = (cacheQueue.length > 0);
       cacheQueue.push.apply(cacheQueue, revisionIDs);
-      cacheQueue = cacheQueue.slice(cacheQueueLimit);
+      cacheQueue = cacheQueue.slice(0, cacheQueueLimit);
 
       if (!cacheQueueBeingProcessed) {
         processCacheQueue();

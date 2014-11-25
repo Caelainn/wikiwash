@@ -1,9 +1,10 @@
 var path = require('path');
-var csv = require('express-csv');
+var csv  = require('express-csv');
 
 var root = path.join(__dirname, '..', '..', 'public', 'views');
 
 var revisions = require('../controllers/RevisionsController');
+var suggestions = require('../controllers/SuggestionsController');
 
 module.exports = function(app, io) {
   app.get('/api/revisions/:id', function(req, res) {
@@ -13,6 +14,13 @@ module.exports = function(app, io) {
       revisionId = [revisionId, req.query.diff];
 
     revisions.show(revisionId, function (data) {
+      res.json(data);
+    });
+  });
+
+
+  app.get('/api/suggestions', function(req, res) {
+    suggestions.index(function(data) {
       res.json(data);
     });
   });

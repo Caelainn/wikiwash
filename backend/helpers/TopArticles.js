@@ -10,7 +10,7 @@ var ignore = [
   'index.php', 'index.html', '/', 'Main_Page',
 ];
 var url_prefix = "http://dumps.wikimedia.org/other/pagecounts-raw/";
-var limit = 200;
+var limit = 15;
 
 var compressedRequest = function(options) {
   var req = request(options);
@@ -94,6 +94,8 @@ function fetchArticleStats(time) {
 
   return deferred.promise;
 }
+
+fetchArticleStats.topArticlesFilename = "topArticles.json";
 
 module.exports = fetchArticleStats;
 

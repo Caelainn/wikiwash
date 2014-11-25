@@ -9,7 +9,12 @@ angular.module('wikiwash').config(['$routeProvider', '$routeSegmentProvider', '$
       .when('/:page/:revId', 'p.revision')
       .segment('s', {
         templateUrl: '/views/partials/search.html',
-        controller: 'HomeController'
+        controller: 'HomeController',
+        resolve: {
+          suggestions: ['api', function(api) {
+            return api.getSearchSuggestions();
+          }],
+        },
       })
       .segment('p', {
         templateUrl: '/views/partials/page-revisions.html',

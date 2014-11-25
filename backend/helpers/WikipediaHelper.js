@@ -111,6 +111,8 @@ var processCacheQueue = function() {
             cacheQueue.shift();
             processCacheQueue();
           });
+        }).catch(function(err) {
+          log.error("Could not cache revision " + revisionID + ": " + err.toString());
         });
       } else {
         cacheQueue.shift();

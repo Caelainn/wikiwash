@@ -96,30 +96,44 @@ module.exports.getAndCacheRevisions = function(revisionIDs) {
   }));
 };
 
-module.exports.cacheRevisions = function(revisionIDs) {
+
+var cacheQueue = [];
+
+var processCacheQueue = function() {
+  var revisionID = cacheQueue[0];
+  if (revisionID) {
+    cache.exists(revisionID + cacheSuffix).then(function(exists) {
+      if (!exists) {
+        log.info("Preemptive cache queue has " + (cacheQueue.length + 1) + " revisions left. Caching...");
+        return fetchAndCacheRevisionID(revisionID).then(function() {
+          Q.delay(1000).then(function() {
+            cacheQueue.shift();
+            processCacheQueue();
+          });
+        });
+      } else {
+        cacheQueue.shift();
+        processCacheQueue();
+      }
+    }).done();
+  } else {
+    log.info("Preemptive cache queue is empty. Stopping fetch.");
+  }
+};
+
+module.exports.preemptivelyCache = function(revisionIDs) {
   //  Simultaneously fetch all of the revisions separately.
   //  This way, if any of the revisions are cached, we can
   //  grab those from the cache instantly and wait on the
   //  slower data from Wikipedia itself.
-  return Q.all(_.map(revisionIDs, function(revisionID, i) {
-    return cache.exists(revisionID + cacheSuffix).then(function(exists) {
-      if (!exists) {
-        //  Stagger our Wikipedia fetches to avoid any rate limiting.
-        //  After the first 2 fetches, delay each subsequent fetch.
+  cache.isActive().then(function(isActive) {
+    if (isActive) {
+      var cacheQueueBeingProcessed = (cacheQueue.length > 0);
+      cacheQueue.push.apply(cacheQueue, revisionIDs);
 
-        if (i > 2) {
-          var delayBetweenFetches = 3000;
-          return Q.delay((i - 2) * delayBetweenFetches).then(function() {
-            return fetchAndCacheRevisionID(revisionID);
-          });
-        } else {
-          return fetchAndCacheRevisionID(revisionID);
-        }
+      if (!cacheQueueBeingProcessed) {
+        processCacheQueue();
       }
-    });
-  }));
-};
-
-module.exports.cacheIsActive = function() {
-  return cache.isActive();
+    }
+  }).done();
 };

@@ -76,20 +76,7 @@ module.exports.findRevisions = function (pageName, lastRevisionIds, callback) {
   }).then(function (body) {
     data = pageData(body, lastRevisionIds);
     
-    WikipediaHelper.cacheIsActive().then(function(active) {
-      if (active) {
-        var revisionIDs = _.map(data.revisions, 'revid');
-        if (revisionIDs.length) {
-          log.info("Pre-caching " + revisionIDs.length + " revisions of page '" + pageName + "'...");
-          WikipediaHelper.cacheRevisions(revisionIDs)
-            .then(function() {
-              log.info("Pre-cached " + revisionIDs.length + " revisions of page '" + pageName + "'.");
-            }).catch(function(err) {
-              log.warn("Error caching revisions for page '" + pageName + "': ", err);
-            });
-        }
-      }
-    }).done();
+    WikipediaHelper.preemptivelyCache(_.map(data.revisions, 'revid'));
 
     callback(data);
   }).done();

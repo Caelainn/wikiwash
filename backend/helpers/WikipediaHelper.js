@@ -98,6 +98,7 @@ module.exports.getAndCacheRevisions = function(revisionIDs) {
 
 
 var cacheQueue = [];
+var cacheQueueLimit = 1000;
 
 var processCacheQueue = function() {
   var revisionID = cacheQueue[0];
@@ -130,6 +131,7 @@ module.exports.preemptivelyCache = function(revisionIDs) {
     if (isActive) {
       var cacheQueueBeingProcessed = (cacheQueue.length > 0);
       cacheQueue.push.apply(cacheQueue, revisionIDs);
+      cacheQueue = cacheQueue.slice(cacheQueueLimit);
 
       if (!cacheQueueBeingProcessed) {
         processCacheQueue();

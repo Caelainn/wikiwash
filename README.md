@@ -1,17 +1,17 @@
-    __          __  _   _      _                            _     
-    \ \        / / (_) | |    (_)                          | |    
-     \ \  /\  / /   _  | | __  _  __      __   __ _   ___  | |__  
-      \ \/  \/ /   | | | |/ / | | \ \ /\ / /  / _` | / __| | '_ \ 
+    __          __  _   _      _                            _
+    \ \        / / (_) | |    (_)                          | |
+     \ \  /\  / /   _  | | __  _  __      __   __ _   ___  | |__
+      \ \/  \/ /   | | | |/ / | | \ \ /\ / /  / _` | / __| | '_ \
        \  /\  /    | | |   <  | |  \ V  V /  | (_| | \__ \ | | | |
         \/  \/     |_| |_|\_\ |_|   \_/\_/    \__,_| |___/ |_| |_|
-                                                                   
+
 Track whitewashing on Wikipedia. Try out WikiWash at [wikiwash.metronews.ca](http://wikiwash.metronews.ca).
 
 A project by [The Working Group](http://twg.ca), in collaboration with
-[the Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and 
+[the Center for Investigative Reporting](http://www.centerforinvestigativereporting.org/) and
 [Metro News](http://metronews.ca/), and made possible by [Google Canada](http://googlecanada.blogspot.ca/).
 
-[![Build Status](https://travis-ci.org/twg/wikiwash.svg)](https://travis-ci.org/twg/wikiwash) [![Coverage Status](https://img.shields.io/coveralls/twg/wikiwash.svg)](https://coveralls.io/r/twg/wikiwash)
+[![Build Status](https://img.shields.io/travis/twg/wikiwash.svg?style=flat)](https://travis-ci.org/twg/wikiwash) [![Coverage Status](https://img.shields.io/coveralls/twg/wikiwash.svg?style=flat)](https://coveralls.io/r/twg/wikiwash) [![Code Climate](https://img.shields.io/codeclimate/github/twg/wikiwash.svg?style=flat)](https://codeclimate.com/github/twg/wikiwash)
 
 ## Installation & Development
 

@@ -31,7 +31,17 @@ var parseLine = function(line) {
   }
 };
 
+//  See: http://en.wikipedia.org/wiki/Wikipedia:Wikipedia_records#Article_with_longest_title
+//
+//  This will change over time, but if we exclude the longest wiki page name
+//  from showing up on the homepage, that's not a big deal.
+var longestPlausiblePageName = 217;
+
 var isRealPage = function(pageName) {
+  if (pageName.length > longestPlausiblePageName) {
+    return false;
+  }
+
   for (var i = 0; i < ignore.length; i++) {
     if (pageName.indexOf(ignore[i]) === 0) {
       return false;

@@ -51,51 +51,41 @@ var isRealPage = function(pageName) {
   return true;
 };
 
-function fetchArticleStats(time) {
+//  After trying this many HEAD requests, the findLatestDumpFile
+//  method should return an error.
+var maxDumpFileSearchDepth = 10;
+
+function findLatestDumpFile(time, depth) {
   if (!time) {
-    time = moment.utc().subtract(1, 'hour');
+    time = moment.utc();
+  }
+
+  if (!depth) {
+    depth = 1;
   }
 
   var folders = time.format("YYYY") + "/" + time.format("YYYY-MM") + "/";
   var filename = "pagecounts-" + time.format("YYYYMMDD-HH") + "0000.gz";
-
-  var options = {url: url_prefix + folders + filename};
-  var req = compressedRequest(options);
+  var url = url_prefix + folders + filename;
+  var req = request.head({url: url});
 
   var deferred = Q.defer();
-
-  var histogram = {};
-
-  var lineCache = "";
-  req.on('data', function(data) {
-    var lines = (lineCache + data.toString()).split("\n");
-    lineCache = lines[lines.length - 1];
-
-    for (var i = 0; i < lines.length - 1; i++) {
-      var parsed = parseLine(lines[i]);
-      if (parsed) {
-        if (parsed.language === "en" && isRealPage(parsed.page)) {
-          if (!(parsed.page in histogram)) {
-            histogram[parsed.page] = 0;
-          }
-          histogram[parsed.page] += parsed.requestCount;
-        }
+  req.on('response', function(response) {
+    if (response.statusCode === 200) {
+      deferred.resolve(url);
+    } else {
+      //  Recurse.
+      depth++;
+      if (depth > maxDumpFileSearchDepth) {
+        deferred.reject("Could not find a suitable dump file after " + depth + " attempts.");
+      } else {
+        findLatestDumpFile(time.subtract(1, 'hour'), depth + 1).then(function(url) {
+          deferred.resolve(url);
+        }).fail(function(err) {
+          deferred.reject(err);
+        });
       }
     }
-  });
-
-  req.on('end', function() {
-    var sorted = [];
-    for (var page in histogram) {
-      sorted.push([page, histogram[page]]);
-    }
-
-    sorted.sort(function(a, b) {
-      return a[1] - b[1];
-    });
-
-    sorted.reverse();
-    deferred.resolve(sorted.slice(0, limit));
   });
 
   req.on('error', function(err) {
@@ -103,6 +93,55 @@ function fetchArticleStats(time) {
   });
 
   return deferred.promise;
+}
+
+function fetchArticleStats(time) {
+  return findLatestDumpFile(time).then(function(url) {
+    var options = {url: url};
+    var req = compressedRequest(options);
+
+    var deferred = Q.defer();
+
+    var histogram = {};
+
+    var lineCache = "";
+    req.on('data', function(data) {
+      var lines = (lineCache + data.toString()).split("\n");
+      lineCache = lines[lines.length - 1];
+
+      for (var i = 0; i < lines.length - 1; i++) {
+        var parsed = parseLine(lines[i]);
+        if (parsed) {
+          if (parsed.language === "en" && isRealPage(parsed.page)) {
+            if (!(parsed.page in histogram)) {
+              histogram[parsed.page] = 0;
+            }
+            histogram[parsed.page] += parsed.requestCount;
+          }
+        }
+      }
+    });
+
+    req.on('end', function() {
+      var sorted = [];
+      for (var page in histogram) {
+        sorted.push([page, histogram[page]]);
+      }
+
+      sorted.sort(function(a, b) {
+        return a[1] - b[1];
+      });
+
+      sorted.reverse();
+      deferred.resolve(sorted.slice(0, limit));
+    });
+
+    req.on('error', function(err) {
+      deferred.reject(err);
+    });
+
+    return deferred.promise;
+  });
 }
 
 fetchArticleStats.topArticlesFilename = "topArticles.json";

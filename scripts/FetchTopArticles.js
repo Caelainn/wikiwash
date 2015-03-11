@@ -7,6 +7,7 @@ var targetPath = path.join(__dirname, '..', 'data', fetchArticleStats.topArticle
 
 fetchArticleStats().then(function(data) {
   var json = JSON.stringify(data, null, 2);
+  
   fs.writeFile(targetPath, json, function(err) {
     if (err) {
       throw err;

@@ -9,7 +9,7 @@ function DiffFormatter(revHtml, prevHtml) {
   this.revHtml  = revHtml;
   this.prevHtml = prevHtml;
 
-  this.contentParts = [];
+  this.contentParts = [ ];
   this.totalAdded = 0;
   this.totalRemoved = 0;
   this.editCount = 0;
@@ -26,6 +26,7 @@ var getDiffParts = function(revHtml, prevHtml) {
   diff.diff_cleanupSemantic(diffParts);
 
   var beforeFilter = +new Date();
+
   diffParts = _(diffParts)
     .reduce(function(acc, part) {
       var htmlChunk = convert.htmlFromPlainText(part[1]);
@@ -38,6 +39,7 @@ var getDiffParts = function(revHtml, prevHtml) {
     }, []);
 
   var afterFilter = +new Date();
+
   log.info("Filtering", diffParts.length, "differences took", (afterFilter - beforeFilter), "msec.");
 
   return diffParts;
@@ -76,6 +78,7 @@ DiffFormatter.prototype.processChangeInOpenTag = function(openTagIndex, closingT
 
   for (; newOpenTagIndex < closingTagIndex - 1; newOpenTagIndex++) {
     var candidateNewOpenTag = this.diffParts[newOpenTagIndex];
+
     if (oldOpenTag.tagName === candidateNewOpenTag.tagName &&
         candidateNewOpenTag.isOpeningTag &&
         candidateNewOpenTag.isAddition) {
@@ -138,8 +141,8 @@ DiffFormatter.prototype.wrapInSpan = function(klass, html) {
 };
 
 DiffFormatter.prototype.processTagAdditionOrDeletion = function(openTagIndex, closingTagIndex) {
-  var tagAdded   = this.diffParts[openTagIndex].isAddition,
-      tagRemoved = this.diffParts[openTagIndex].isDeletion;
+  var tagAdded = this.diffParts[openTagIndex].isAddition;
+  var tagRemoved = this.diffParts[openTagIndex].isDeletion;
 
   var openingTag = this.diffParts[openTagIndex];
   var closingTag = this.diffParts[closingTagIndex];
@@ -152,9 +155,11 @@ DiffFormatter.prototype.processTagAdditionOrDeletion = function(openTagIndex, cl
     if (oldContent) {
       this.pushSubtraction(oldContent);
     }
+
     this.pushAddition(openingTag.content + newContent + closingTag.content);
   } else {
     this.pushSubtraction(openingTag.content + oldContent + closingTag.content);
+
     if (newContent) {
       this.pushAddition(newContent);
     }
@@ -162,13 +167,14 @@ DiffFormatter.prototype.processTagAdditionOrDeletion = function(openTagIndex, cl
 };
 
 DiffFormatter.prototype.process = function() {
-  var revHtml  = this.revHtml.split("\n\n<!--")[0];
+  var revHtml = this.revHtml.split("\n\n<!--")[0];
   var prevHtml = this.prevHtml.split("\n\n<!--")[0];
 
   try {
     this.diffParts = getDiffParts(revHtml, prevHtml);
 
     var startTime = +new Date();
+
     for (var i = 0; i < this.diffParts.length; i++) {
       var difference = this.diffParts[i];
 
@@ -191,6 +197,7 @@ DiffFormatter.prototype.process = function() {
               }
 
               i = closingTagIndex;
+
               continue;
             }
           } else {
@@ -207,20 +214,24 @@ DiffFormatter.prototype.process = function() {
         this.contentParts.push(difference.content);
       }
     }
+
     var endTime = +new Date();
+
     log.info("Formatted diff into HTML in " + (endTime - startTime) + " msec.");
   } catch (err) {
     log.error(err);
-    this.contentParts = ['Diff unavailable'];
+    
+    this.contentParts = [ 'Diff unavailable' ];
   }
 };
 
 DiffFormatter.prototype.generateDiff = function() {
   this.process();
+
   return {
-    content:   this.contentParts.join(""),
-    added:     this.totalAdded,
-    removed:   this.totalRemoved,
+    content: this.contentParts.join(""),
+    added: this.totalAdded,
+    removed: this.totalRemoved,
     editCount: this.editCount,
   };
 };

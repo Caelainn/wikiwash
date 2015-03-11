@@ -1,16 +1,16 @@
-var getOpeningTagName = function(tag) {
+function getOpeningTagName(tag) {
   if (tag.indexOf("<") === 0 && tag.indexOf("</") === -1) {
     return tag.split(" ")[0].replace('<', '').replace('>', '');
   }
 };
 
-var getClosingTagName = function(tag) {
+function getClosingTagName(tag) {
   if (tag.indexOf("</") === 0) {
     return tag.split(" ")[0].replace('</', '').replace('>', '');
   }
 };
 
-var getSelfClosingTagName = function(tag) {
+function getSelfClosingTagName(tag) {
   if (tag.indexOf("/>") === (tag.length - 2)) {
     return tag.split(" ")[0].replace('<', '').replace('/>', '');
   }
@@ -37,8 +37,14 @@ function Difference(part) {
 
 Difference.prototype.toString = function() {
   var prefix = " ";
-  if (this.isAddition) prefix = "+";
-  if (this.isDeletion) prefix = "-";
+
+  if (this.isAddition) {
+    prefix = "+";
+  }
+  else if (this.isDeletion) {
+    prefix = "-";
+  }
+  
   return prefix + " " + this.content;
 };
 

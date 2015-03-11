@@ -21,9 +21,9 @@ var queryPath = function (pageName) {
 
 // there is an api option to return revisions starting at a given id:
 // *rvstartid* but it seems to be broken.
-var rmPreviousRevisions = function (current, lastRevisionIds) {
-  var newRevisions = current.filter(function (revision) {
-    var lastContainedInCurrent = lastRevisionIds.some(function (lastId) {
+var rmPreviousRevisions = function(current, lastRevisionIds) {
+  var newRevisions = current.filter(function(revision) {
+    var lastContainedInCurrent = lastRevisionIds.some(function(lastId) {
       return lastId === revision.revid;
     });
 
@@ -33,51 +33,60 @@ var rmPreviousRevisions = function (current, lastRevisionIds) {
   return newRevisions;
 };
 
-var pageData = function (body, lastRevisionIds) {
+var pageData = function(body, lastRevisionIds) {
   // only one page returned
 
   var json = JSON.parse(body);
   var queryResPages = json['query']['pages'];
   var queryResPage = queryResPages[Object.keys(queryResPages)[0]];
 
-  var revs = queryResPage.revisions || [];
-  revs = rmPreviousRevisions(revs, lastRevisionIds);
-  revs = _.map(revs, function(rev) {
+  var revs = rmPreviousRevisions(
+    queryResPage.revisions || [ ], lastRevisionIds
+  ).map(function(rev) {
     if ('anon' in rev) {
       var geo = geoip.lookup(rev.user);
+
       if (geo) {
         var countryName = geo.country;
         var countryInfo = country.byIso(countryName);
+
         if (countryInfo) {
           countryName = countryInfo.country;
         }
 
-        rev.geo = _.compact([geo.city, geo.region, countryName]).join(', ');
+        rev.geo = _.compact([ geo.city, geo.region, countryName ]).join(', ');
       }
     }
+
     return rev;
   });
 
   return {
     title: queryResPage.title,
-    revisions: revs,
+    revisions: revs
   };
 };
 
-module.exports.findRevisions = function (pageName, lastRevisionIds, callback) {
+function findRevisions(pageName, lastRevisionIds, callback) {
   var options = {
     method: 'GET',
     host: endPoint,
     path: queryPath(pageName)
   };
 
-  http.request(options).then(function (response) {
+  http.request(options).then(function(response) {
     return response.body.read();
-  }).then(function (body) {
+  }).then(function(body) {
     data = pageData(body, lastRevisionIds);
     
-    WikipediaHelper.preemptivelyCache(_.map(data.revisions, 'revid'));
+    WikipediaHelper.preemptivelyCache(
+      data.revisions.map(function(e) { return e.revid; })
+    );
 
-    callback(data);
+    callback(undefined, data);
   }).done();
+};
+
+module.exports = {
+  findRevisions: findRevisions
 };

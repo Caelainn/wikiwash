@@ -8,27 +8,31 @@ var TopArticles = require('../helpers/TopArticles');
 //  reference a single JSON blob of the most recent Wiki articles.
 var suggestionsFilename = path.join(__dirname, '..', '..', 'data', TopArticles.topArticlesFilename);
 
-var suggestionsCache = [];
+var suggestionsCache = [ ];
 var suggestionsLastMtime = 0;
 
-module.exports.index = function (callback) {
+module.exports.index = function(callback) {
   fs.stat(suggestionsFilename, function(err, stats) {
     if (err) {
       log.warn("Could not load suggestion data: " + err.toString());
-      callback(suggestionsCache);
+
+      callback(err);
     } else {
       if (stats.mtime !== suggestionsLastMtime) {
         fs.readFile(suggestionsFilename, function(err, data) {
           if (err) {
             log.warn("Could not read suggestion data: " + err.toString());
+            
+            callback(err);
           } else {
             suggestionsLastMtime = stats.mtime;
             suggestionsCache = JSON.parse(data.toString());
+
+            callback(undefined, suggestionsCache);
           }
-          callback(suggestionsCache);
         });
       } else {
-        callback(suggestionsCache);
+        callback(undefined, suggestionsCache);
       }
     }
   });

@@ -4,22 +4,24 @@ var _ = require('lodash');
 var Page = require('../models/Page');
 
 function PagesController() {
-  this.currentRevisionIds = [];
+  this.currentRevisionIds = [ ];
   this.cycling = true;
 }
 
-PagesController.prototype.show = function (pageName, callback) {
+PagesController.prototype.show = function(pageName, callback) {
   var _this = this;
-  Page.findRevisions(pageName, this.currentRevisionIds, function (pageData) {
 
+  Page.findRevisions(pageName, this.currentRevisionIds, function(err, pageData) {
     if (pageData.revisions.length) {
-      var ids = pageData.revisions.map(function (revision) {
+      var ids = pageData.revisions.map(function(revision) {
         return revision.revid;
       });
+
       _this.currentRevisionIds = _this.currentRevisionIds.concat(ids);
-      callback(pageData);
+
+      callback(undefined, pageData);
     } else {
-      callback({});
+      callback(undefined, { });
     }
   });
 };

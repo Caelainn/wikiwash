@@ -1,8 +1,8 @@
-var request = require('request'),
-  zlib      = require('zlib'),
-  fs        = require('fs'),
-  moment    = require('moment'),
-  Q         = require('q');
+var request = require('request');
+var zlib = require('zlib');
+var fs = require('fs');
+var moment = require('moment');
+var Q = require('q');
 
 var ignore = [
   'Portal:', 'File:', 'Special:', 'Wikipedia:',
@@ -14,11 +14,13 @@ var limit = 15;
 
 var compressedRequest = function(options) {
   var req = request(options);
+
   return req.pipe(zlib.createGunzip());
 };
 
 var parseLine = function(line) {
   var parts = line.split(' ');
+
   if (parts.length === 4) {
     return {
       language: parts[0],
@@ -97,25 +99,28 @@ function findLatestDumpFile(time, depth) {
 
 function fetchArticleStats(time) {
   return findLatestDumpFile(time).then(function(url) {
-    var options = {url: url};
+    var options = { url: url };
     var req = compressedRequest(options);
 
     var deferred = Q.defer();
 
-    var histogram = {};
+    var histogram = { };
 
     var lineCache = "";
+
     req.on('data', function(data) {
       var lines = (lineCache + data.toString()).split("\n");
       lineCache = lines[lines.length - 1];
 
       for (var i = 0; i < lines.length - 1; i++) {
         var parsed = parseLine(lines[i]);
+
         if (parsed) {
           if (parsed.language === "en" && isRealPage(parsed.page)) {
             if (!(parsed.page in histogram)) {
               histogram[parsed.page] = 0;
             }
+
             histogram[parsed.page] += parsed.requestCount;
           }
         }
@@ -123,9 +128,10 @@ function fetchArticleStats(time) {
     });
 
     req.on('end', function() {
-      var sorted = [];
+      var sorted = [ ];
+
       for (var page in histogram) {
-        sorted.push([page, histogram[page]]);
+        sorted.push([ page, histogram[page] ]);
       }
 
       sorted.sort(function(a, b) {

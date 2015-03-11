@@ -14,16 +14,18 @@
 DefaultCharacterCode = 0xE000;
 
 function HTMLDiffProcessor() {
-    this.tagToCharacterMap = {};
-    this.characterToTagMap = {};
-    this.currentCharacterCode = DefaultCharacterCode;
+  this.tagToCharacterMap = {};
+  this.characterToTagMap = {};
+  this.currentCharacterCode = DefaultCharacterCode;
 }
 
 HTMLDiffProcessor.prototype.getCharForTag = function(tag) {
   if (!(tag in this.tagToCharacterMap)) {
     var character = String.fromCharCode(this.currentCharacterCode++);
+
     this.tagToCharacterMap[tag] = character;
     this.characterToTagMap[character] = tag;
+
     return character;
   } else {
     return this.tagToCharacterMap[tag];
@@ -31,8 +33,8 @@ HTMLDiffProcessor.prototype.getCharForTag = function(tag) {
 };
 
 HTMLDiffProcessor.prototype.reset = function() {
-  this.tagToCharacterMap = {};
-  this.characterToTagMap = {};
+  this.tagToCharacterMap = { };
+  this.characterToTagMap = { };
   this.currentCharacterCode = DefaultCharacterCode;
 };
 
@@ -41,7 +43,7 @@ HTMLDiffProcessor.prototype.plainTextFromHTML = function(html) {
 };
 
 HTMLDiffProcessor.prototype.htmlFromPlainText = function(plain) {
-  var output = [];
+  var output = [ ];
 
   for (var i = 0; i < plain.length; i++) {
     if (plain.charCodeAt(i) >= DefaultCharacterCode) {

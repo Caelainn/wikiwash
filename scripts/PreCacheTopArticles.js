@@ -1,11 +1,11 @@
-var Q    = require('q'),
-    fs   = require('fs'),
-    path = require('path'),
-    _    = require('lodash');
+var Q = require('q');
+var fs = require('fs');
+var path = require('path');
+var _ = require('lodash');
 
-var log         = require('../backend/config/log').createLoggerForFile(__filename);
-var TopArticles = require('../backend/helpers/TopArticles.js');
-var Page        = require('../backend/models/Page');
+var log = require('../backend/config/log').createLoggerForFile(__filename);
+var TopArticles = require('../backend/helpers/TopArticles');
+var Page = require('../backend/models/Page');
 
 var targetPath = path.join(__dirname, '..', 'data', TopArticles.topArticlesFilename);
 
@@ -13,13 +13,18 @@ var processArticleEntries = function(data) {
   log.info("Fetched " + data.length + " top articles from the past hour.");
   var funcs = _.map(data, function(element) {
     var page = element[0];
+
     return function() {
       var deferred = Q.defer();
+
       log.info("Fetching revision list for page " + page + "...");
-      Page.findRevisions(page, [], function() {
+      
+      Page.findRevisions(page, [ ], function() {
         log.info("Fetched revision list for page " + page + ".");
+
         deferred.resolve();
       });
+
       return deferred.promise;
     };
   });
@@ -38,6 +43,7 @@ try {
     TopArticles().then(processArticleEntries).done();
   } else {
     var file = fs.readFileSync(targetPath, {encoding: 'utf-8'});
+
     processArticleEntries(JSON.parse(file)).done();
   }
 } catch (e) {

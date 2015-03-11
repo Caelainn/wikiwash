@@ -1,8 +1,9 @@
 {
   "name": "WikiWash",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "description": "Track whitewashing on Wikipedia.",
-  "main": "server.js",
+  "repository": "git@github.com:twg/wikiwash.git",
+  "main": "backend/server.js",
   "author": "TWG",
   "scripts": {
     "build": "bin/gulp build",

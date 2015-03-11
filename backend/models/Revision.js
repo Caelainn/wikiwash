@@ -24,6 +24,8 @@ module.exports.find = function (revisionIDs, callback) {
       };
     }
   }).then(function(data) {
+    data.content = PageProcessor.process(data.content);
+
     callback(undefined, data);
   }).catch(function(err) {
     log.error(err);

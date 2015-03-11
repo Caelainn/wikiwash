@@ -19,24 +19,24 @@ angular.module('wikiwash').controller('PagesController', [
     _,
     pageParser) {
 
-    var updateStats = function () {
-      var users = _.keys(_.groupBy($scope.revisions, function (revision) {
+    var updateStats = function() {
+      var users = _.keys(_.groupBy($scope.revisions, function(revision) {
         return revision.user;
       }));
 
       $scope.totalUsers = users.length;
-      $scope.editsPerUser = Math.round(10*($scope.revisions.length / users.length))/10;
+      $scope.editsPerUser = Math.round(10 * ($scope.revisions.length / users.length)) / 10;
 
       var end = new Date($scope.revisions[0].timestamp);
       var start = new Date(_.last($scope.revisions).timestamp);
 
       var diffHours = (((end - start) / 1000) / 3600);
 
-      $scope.timeBetweenEdits = Math.round(10*(diffHours / $scope.revisions.length))/10;
+      $scope.timeBetweenEdits = Math.round(10 * (diffHours / $scope.revisions.length)) / 10;
       $scope.firstEditDate = _.last($scope.revisions).timestamp;
     };
 
-    $scope.revisions = [];
+    $scope.revisions = [ ];
     $scope.loading = true;
     $scope.revisionBody = "";
     $scope.pageName = locationParams.getPage();
@@ -53,7 +53,7 @@ angular.module('wikiwash').controller('PagesController', [
     socketService.socket.emit('cycle page data', {page: $scope.pageName});
     socketService.cycling = true;
 
-    $scope.$watch('loading', function () {
+    $scope.$watch('loading', function() {
       if ($scope.loading) {
         $scope.revisionBody = "";
       }
@@ -87,14 +87,14 @@ angular.module('wikiwash').controller('PagesController', [
       $scope.loading = true;
     });
 
-    $scope.$watch('revisions', function (revisions) {
+    $scope.$watch('revisions', function(revisions) {
       // This is not permanent, will fix soon
       if (revisions.length > 50) {
         new WOW().init();
       }
     });
 
-    socketService.socket.on("new revisions", function (res) {
+    socketService.socket.on("new revisions", function(res) {
       var revs = res.revisions || [];
 
       $scope.revisions = revs.concat($scope.revisions);
@@ -118,7 +118,7 @@ angular.module('wikiwash').controller('PagesController', [
       updateStats();
     });
 
-    $scope.$watch('showRemoved', function () {
+    $scope.$watch('showRemoved', function() {
       if ($scope.showRemoved) {
         $('.subtractions').css('display', 'inline');
       } else {
@@ -126,7 +126,7 @@ angular.module('wikiwash').controller('PagesController', [
       }
     });
 
-    $scope.$watch('showAdded', function () {
+    $scope.$watch('showAdded', function() {
       if ($scope.showAdded) {
         $('.additions').css('display', 'inline');
       } else {
@@ -134,7 +134,7 @@ angular.module('wikiwash').controller('PagesController', [
       }
     });
 
-    $scope.getNewPage = function () {
+    $scope.getNewPage = function() {
       socketService.socket.emit('stop cycle');
 
       var params = {page: pageParser.getPageName($scope.pageName)};
@@ -142,24 +142,24 @@ angular.module('wikiwash').controller('PagesController', [
       $routeSegment.chain[0].reload();
     };
 
-    $scope.incNextEdit = function () {
+    $scope.incNextEdit = function() {
       if ($scope.nextEdit < $scope.editCount - 1) {
         $scope.nextEdit++;
       }
     };
 
-    $scope.decNextEdit = function () {
+    $scope.decNextEdit = function() {
       if ($scope.nextEdit > 0) {
         $scope.nextEdit--;
       }
     };
 
-    $scope.sessionCsv = function () {
+    $scope.sessionCsv = function() {
       var csv = [
         ['Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Comment']
       ];
 
-      $scope.revisions.forEach(function (rev) {
+      $scope.revisions.forEach(function(rev) {
         csv.push([
           rev.revid,
           rev.user,

@@ -1,7 +1,7 @@
 angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 'socketService', 'pageParser', 'suggestions',
   function($scope, $location, socketService, pageParser, suggestions) {
     $scope.pageName = '';
-    $scope.revisions = [];
+    $scope.revisions = [ ];
 
     var urlEscapeCodeRegex = /[^0-9a-zA-Z]/g;
     $scope.suggestions = _.map(suggestions.data, function(suggestion) {
@@ -20,5 +20,4 @@ angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 
       socketService.cycling = false;
     }
   }
-
 ]);

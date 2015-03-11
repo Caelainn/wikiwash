@@ -1,5 +1,6 @@
 var _ = require('lodash');
 var gdiff = require('googlediff');
+
 var log = require('../config/log').createLoggerForFile(__filename);
 var HTMLDiffProcessor = require('../helpers/HTMLDiffProcessor');
 var DiffSegment = require('../models/DiffSegment');

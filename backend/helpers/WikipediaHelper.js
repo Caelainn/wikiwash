@@ -2,6 +2,7 @@ var http = require('q-io/http');
 var Q = require('q');
 var _ = require('lodash');
 var fs = require('fs');
+
 var log = require('../config/log').createLoggerForFile(__filename);
 var config = require('../config/config');
 
@@ -14,7 +15,7 @@ function queryPath(revisionId) {
   return "/w/api.php?action=parse&format=json&maxlag=5&oldid=" + revisionId;
 }
 
- function getRevision(revisionId) {
+function getRevision(revisionId) {
   var options = {
     method: 'GET',
     host: endPoint,
@@ -50,13 +51,13 @@ function queryPath(revisionId) {
   };
 
   return makeRequest();
-};
+}
 
-var getHTMLFromResponse = function(json) {
-  return JSON.parse(json)['parse']['text']['*'];
-};
+function getHTMLFromResponse(json) {
+  return JSON.parse(json).parse.text['*'];
+}
 
-var fetchAndCacheRevisionID = function(revisionID) {
+function fetchAndCacheRevisionID(revisionID) {
   var fetchStart = +new Date();
 
   return getRevision(revisionID).then(function(data) {
@@ -76,9 +77,9 @@ var fetchAndCacheRevisionID = function(revisionID) {
 
     return data;
   });
-};
+}
 
-module.exports.getAndCacheRevisions = function(revisionIDs) {
+function getAndCacheRevisions(revisionIDs) {
   //  Simultaneously fetch all of the revisions separately.
   //  This way, if any of the revisions are cached, we can
   //  grab those from the cache instantly and wait on the
@@ -98,12 +99,12 @@ module.exports.getAndCacheRevisions = function(revisionIDs) {
       }
     });
   }));
-};
+}
 
 var cacheQueue = [ ];
 var cacheQueueLimit = 1000;
 
-var processCacheQueue = function() {
+function processCacheQueue() {
   var revisionID = cacheQueue[0];
 
   if (revisionID) {
@@ -126,9 +127,9 @@ var processCacheQueue = function() {
   } else {
     log.info("Preemptive cache queue is empty. Stopping fetch.");
   }
-};
+}
 
-module.exports.preemptivelyCache = function(revisionIDs) {
+function preemptivelyCache(revisionIDs) {
   //  Simultaneously fetch all of the revisions separately.
   //  This way, if any of the revisions are cached, we can
   //  grab those from the cache instantly and wait on the
@@ -145,4 +146,9 @@ module.exports.preemptivelyCache = function(revisionIDs) {
       }
     }
   }).done();
+}
+
+module.exports = {
+  preemptivelyCache: preemptivelyCache,
+  getAndCacheRevisions: getAndCacheRevisions
 };

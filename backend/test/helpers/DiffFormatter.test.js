@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var DiffFormatter = require('../../helpers/DiffFormatter.js');
+var DiffFormatter = require('../../helpers/DiffFormatter');
 
 //  For tests, remove unnecessary whitespace from HTML.
 var normalizeHTML = function(html) {
@@ -16,6 +16,7 @@ describe('DiffFormatter', function(done) {
       expect(f).to.have.property('totalRemoved', 0);
     });
   });
+
   describe('diff generation', function() {
     it('should create a diff for plain text', function() {
       var a = "Hello World";

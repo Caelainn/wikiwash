@@ -1,5 +1,5 @@
 var expect = require('chai').expect;
-var HTMLDiffProcessor = require('../../helpers/HTMLDiffProcessor.js');
+var HTMLDiffProcessor = require('../../helpers/HTMLDiffProcessor');
 
 describe('HTMLDiffProcessor', function(done) {
   describe('constructor', function() {

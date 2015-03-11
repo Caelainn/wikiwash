@@ -1,4 +1,9 @@
-angular.module('wikiwash').controller('HomeController', ['$scope', '$location', 'socketService', 'pageParser', 'suggestions',
+angular.module('wikiwash').controller('HomeController', [
+  '$scope',
+  '$location',
+  'socketService',
+  'pageParser',
+  'suggestions',
   function($scope, $location, socketService, pageParser, suggestions) {
     $scope.pageName = '';
     $scope.revisions = [ ];

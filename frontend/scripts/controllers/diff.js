@@ -1,4 +1,8 @@
-angular.module('wikiwash').controller('DiffController', ['$scope', '$sce', '_', 'revision',
+angular.module('wikiwash').controller('DiffController', [
+  '$scope',
+  '$sce',
+  '_',
+  'revision',
   function($scope, $sce, _, revision) {
     $scope.$parent.loading = false;
     $scope.$parent.revisionBody = $sce.trustAsHtml(revision.data.content); 

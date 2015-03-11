@@ -16,5 +16,4 @@ angular.module('wikiwash').factory('locationParams', ['$location', function($loc
       }
     }
   };
-
 }]);

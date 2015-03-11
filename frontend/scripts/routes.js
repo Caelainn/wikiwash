@@ -1,6 +1,8 @@
-angular.module('wikiwash').config(['$routeProvider', '$routeSegmentProvider', '$locationProvider',
+angular.module('wikiwash').config([
+  '$routeProvider',
+  '$routeSegmentProvider',
+  '$locationProvider',
   function($routeProvider, $routeSegmentProvider, $locationProvider) {
-
     $locationProvider.html5Mode(true).hashPrefix('!');
 
     $routeSegmentProvider
@@ -25,9 +27,13 @@ angular.module('wikiwash').config(['$routeProvider', '$routeSegmentProvider', '$
           templateUrl: '/views/partials/revision.html',
           controller: 'DiffController',
           resolve: {
-            revision: ['$route', 'api', function($route, api) {
-              return api.getRevision($route.current.params.revId);
-            }]
+            revision: [
+              '$route',
+              'api',
+              function($route, api) {
+                return api.getRevision($route.current.params.revId);
+              }
+            ]
           },
           resolveFailed: {
             templateUrl: 'templates/error.html',
@@ -36,4 +42,3 @@ angular.module('wikiwash').config(['$routeProvider', '$routeSegmentProvider', '$
         });
   }
 ]);
-

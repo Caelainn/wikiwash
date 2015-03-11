@@ -1,6 +1,9 @@
-angular.module('wikiwash').factory('socketService', ['socketFactory', function(socketFactory) {
-  return {
-    socket: socketFactory(),
-    cycling: false
-  };
-}]);
+angular.module('wikiwash').factory('socketService', [
+  'socketFactory',
+  function(socketFactory) {
+    return {
+      socket: socketFactory(),
+      cycling: false
+    };
+  }
+]);

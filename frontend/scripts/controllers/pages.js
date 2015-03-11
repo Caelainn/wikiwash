@@ -61,7 +61,6 @@ angular.module('wikiwash').controller('PagesController', [
 
     $scope.$on('$routeChangeSuccess', function(next, current) {
       if ($routeParams.revId) {
-
         // want to allow clicking relative links to other wikipedia pages
         // links look like: '/wiki/thing'
         // edge case is the page for "wiki"
@@ -70,7 +69,7 @@ angular.module('wikiwash').controller('PagesController', [
           if (!parseInt($routeParams.revId.split('-')[0])) {
             socketService.socket.emit('stop cycle');
             $routeParams.page = $routeParams.revId;
-            $location.path($routeParams.revId);
+            $location.path($routeParams.revId).replace();
             $routeSegment.chain[0].reload();
             return;
           }
@@ -78,8 +77,9 @@ angular.module('wikiwash').controller('PagesController', [
 
         $scope.currentRevId = locationParams.getCurrentRevId();
 
-        if ($routeSegment.chain.length > 1)
+        if ($routeSegment.chain.length > 1) {
           $routeSegment.chain[1].reload();
+        }
       }
     });
 
@@ -95,7 +95,7 @@ angular.module('wikiwash').controller('PagesController', [
     });
 
     socketService.socket.on("new revisions", function(res) {
-      var revs = res.revisions || [];
+      var revs = res.revisions || [ ];
 
       $scope.revisions = revs.concat($scope.revisions);
       
@@ -105,15 +105,13 @@ angular.module('wikiwash').controller('PagesController', [
         return;
       }
 
-
       // redirect to first revision
       if (!$routeParams.revId) {
         $scope.revisions = res.revisions;
         var revId = $scope.revisions[0].revid + "-" + $scope.revisions[0].parentid;
         var params = {page: $routeParams.page, revId: revId};
-        $location.path($routeSegment.getSegmentUrl('p.revision', params));
+        $location.path($routeSegment.getSegmentUrl('p.revision', params)).replace();
       }
-
 
       updateStats();
     });
@@ -137,8 +135,11 @@ angular.module('wikiwash').controller('PagesController', [
     $scope.getNewPage = function() {
       socketService.socket.emit('stop cycle');
 
-      var params = {page: pageParser.getPageName($scope.pageName)};
-      $location.path($routeSegment.getSegmentUrl('p', params));
+      var params = {
+        page: pageParser.getPageName($scope.pageName)
+      };
+
+      $location.path($routeSegment.getSegmentUrl('p', params)).replace();
       $routeSegment.chain[0].reload();
     };
 
@@ -156,7 +157,7 @@ angular.module('wikiwash').controller('PagesController', [
 
     $scope.sessionCsv = function() {
       var csv = [
-        ['Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Comment']
+        [ 'Revision ID', 'User', 'Minor', 'Timestamp', 'Size', 'Comment' ]
       ];
 
       $scope.revisions.forEach(function(rev) {
@@ -172,6 +173,5 @@ angular.module('wikiwash').controller('PagesController', [
 
       return csv;
     };
-
   }
 ]);

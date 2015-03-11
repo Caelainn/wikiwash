@@ -13,7 +13,7 @@ angular.module('wikiwash').config([
         templateUrl: '/views/partials/search.html',
         controller: 'HomeController',
         resolve: {
-          suggestions: ['api', function(api) {
+          suggestions: [ 'api', function(api) {
             return api.getSearchSuggestions();
           }],
         },

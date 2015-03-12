@@ -13,13 +13,5 @@
     .added
       input(type="checkbox" name="added" id="added" ng-model="showAdded")
       label(for="added") Added
-
-    a.export-session(
-      href=""
-      ng-csv="sessionCsv()"
-      filename="wikiwash-session.csv") Export Session
-
-    a.export-session.about-button(
-      href=""
-      ng-click="showModal = !showModal"
-      ng-class="{active: showModal}") About
+    a.button.about-button(href="",ng-click="showModal=!showModal",ng-class="{active: showModal}").
+      About

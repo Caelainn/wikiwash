@@ -4,6 +4,8 @@
 
   .content-wrapper
     .content-left
+      a.export-history(href="", ng-csv="sessionCsv()", filename="wikiwash-session.csv").
+        Download history as CSV
       .collection(fixed-height offset="150")
         .revisions(ng-repeat='revision in revisions track by $index'
           ng-class="{ 'active-revision': currentRevId == revision.revid }"

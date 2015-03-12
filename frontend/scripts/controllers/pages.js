@@ -39,10 +39,10 @@ angular.module('wikiwash').controller('PagesController', [
     $scope.revisions = [ ];
     $scope.loading = true;
     $scope.revisionBody = "";
-    $scope.pageName = locationParams.getPage();
+    $scope.pageName = decodeURIComponent(locationParams.getPage()).replace(/_/g, ' ');
     $scope.showAdded = true;
     $scope.showRemoved = true;
-    $scope.pageTitle = $scope.pageName.split("_").join(" ");
+    $scope.pageTitle = $scope.pageName;
     $scope.currentRevId = locationParams.getCurrentRevId();
     $scope.editsPerUser = 0;
     $scope.totalUsers = 0;
@@ -50,7 +50,9 @@ angular.module('wikiwash').controller('PagesController', [
     $scope.timeBetweenEdits = 0;
     $scope.nextEdit = 0;
 
-    socketService.socket.emit('cycle page data', {page: $scope.pageName});
+    socketService.socket.emit('cycle page data', {
+      page: locationParams.getPage()
+    });
     socketService.cycling = true;
 
     $scope.$watch('loading', function() {

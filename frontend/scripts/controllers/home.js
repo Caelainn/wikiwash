@@ -9,10 +9,12 @@ angular.module('wikiwash').controller('HomeController', [
     $scope.revisions = [ ];
 
     var urlEscapeCodeRegex = /[^0-9a-zA-Z]/g;
+
     $scope.suggestions = _.map(suggestions.data, function(suggestion) {
       return {
         url: suggestion[0],
-        title: decodeURIComponent(suggestion[0].replace(/_/g, ' ')),
+        title: suggestion[0].replace(/_/g, ' ')
+        // title: decodeURIComponent(suggestion[0].replace(/_/g, ' '))
       };
     });
 

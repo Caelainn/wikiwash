@@ -28,5 +28,4 @@ angular.module('wikiwash').factory('api', ['$http', function($http) {
       return getRequestPromise("/api/suggestions");
     },
   };
-
 }]);

@@ -552,11 +552,13 @@ a.export-history:hover {
     }
 
     .navigation {
-      padding-top: 8px;
+      box-sizing: border-box;
+      padding: 8px 0 0 12px;
+      width: 100%;
     }
 
     .search input.bar {
-      width: 150px;
+      width: 130px;
     }
   }
 
@@ -599,6 +601,10 @@ a.export-history:hover {
     li.last {
       border-right: none;
     }
+  }
+
+  a.export-history {
+    display: none;
   }
 
   .content-wrapper {

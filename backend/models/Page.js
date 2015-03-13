@@ -16,7 +16,7 @@ var queryPath = function (pageName) {
          "format=json&" +
          "rvprop=ids|user|userid|comment|timestamp|flags|size&" +
          "rvlimit=" + revisionRequestLimit + "&" +
-         "titles=" + pageName
+         "titles=" + encodeURIComponent(pageName)
 }
 
 // there is an api option to return revisions starting at a given id:

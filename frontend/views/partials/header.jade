@@ -5,8 +5,8 @@
   .navigation
     .search
       form(ng-submit="getNewPage()")
+        span.show_label Show:
         input.bar(type="text" ng-model="pageName")
-    p Show:
     .removed
       input(type="checkbox" name="removed" id="removed" ng-model="showRemoved")
       label(for="removed") Removed
@@ -15,3 +15,11 @@
       label(for="added") Added
     a.button.about-button(href="",ng-click="showModal=!showModal",ng-class="{active: showModal}").
       About
+.content_tabs
+  ul.tabs
+    li
+      a(href='#', ng-click="showHistory()",ng-class="{active: tab=='history'}").
+        History
+    li.last
+      a(href='#', ng-click="showArticle()",ng-class="{active: tab=='article'}").
+        Article

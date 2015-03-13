@@ -49,6 +49,7 @@ angular.module('wikiwash').controller('PagesController', [
     $scope.editCount = 0;
     $scope.timeBetweenEdits = 0;
     $scope.nextEdit = 0;
+    $scope.tab = 'history';
 
     socketService.socket.emit('cycle page data', {
       page: locationParams.getPage()
@@ -175,5 +176,20 @@ angular.module('wikiwash').controller('PagesController', [
 
       return csv;
     };
+
+    $scope.showRevision = function(args) {
+      args.page = encodeURIComponent(args.page);
+
+      $scope.tab = 'article';
+      $location.path($routeSegment.getSegmentUrl('p.revision', args));
+    }
+
+    $scope.showHistory = function() {
+      $scope.tab = 'history';
+    }
+
+    $scope.showArticle = function() {
+      $scope.tab = 'article';
+    }
   }
 ]);

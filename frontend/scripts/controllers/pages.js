@@ -185,14 +185,14 @@ angular.module('wikiwash').controller('PagesController', [
 
       $scope.tab = 'article';
       $location.path($routeSegment.getSegmentUrl('p.revision', args));
-    }
+    };
 
     $scope.showHistory = function() {
       $scope.tab = 'history';
-    }
+    };
 
     $scope.showArticle = function() {
       $scope.tab = 'article';
-    }
+    };
   }
 ]);

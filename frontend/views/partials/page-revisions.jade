@@ -4,14 +4,13 @@
 
   .content-wrapper
     .content-left(ng-class="{active: tab=='history'}")
-      a.export-history(href="", ng-csv="sessionCsv()", filename="wikiwash-session.csv").
+      a.export-history(href="", ng-csv="sessionCsv()", filename="{{csv_filename}}").
         Download history as CSV
       .collection(fixed-height offset="150")
         .revisions(ng-repeat='revision in revisions track by $index'
           ng-class="{ 'active-revision': currentRevId == revision.revid }"
           class="{{$index == 0 ? 'wow fadeInDown' : ''}}")
           a.revision-link(
-            href="{{ 'p.revision' | routeSegmentUrl: {} }}"
             ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })"
             title="View revision"
           )
@@ -32,7 +31,7 @@
                 title="View in Google Maps"
               ) {{revision.geo}}
             a(
-              href="{{ 'p.revision' | routeSegmentUrl: {page: pageName, revId: revision.revid + '-' + revision.parentid} }}"
+              href="{{ 'p.revision' | routeSegmentUrl: { page: pageName, revId: revision.revid + '-' + revision.parentid } }}"
               title="View revision"
             )
               p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}

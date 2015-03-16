@@ -50,6 +50,7 @@ angular.module('wikiwash').controller('PagesController', [
     $scope.timeBetweenEdits = 0;
     $scope.nextEdit = 0;
     $scope.tab = 'history';
+    $scope.csv_filename = $scope.pageName.replace(/ /g, '_').replace(/[^\w]/g, '') + '.csv';
 
     socketService.socket.emit('cycle page data', {
       page: locationParams.getPage()
@@ -63,6 +64,7 @@ angular.module('wikiwash').controller('PagesController', [
     });
 
     $scope.$on('$routeChangeSuccess', function(next, current) {
+
       if ($routeParams.revId) {
         // want to allow clicking relative links to other wikipedia pages
         // links look like: '/wiki/thing'

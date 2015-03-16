@@ -91,6 +91,7 @@ gulp.task('scripts', function () {
     ]))
     .pipe(jshint())
     .pipe(jshint.reporter(stylish))
+    .pipe(uglify({mangle: false}))
     .pipe(concat('application.js'))
     .pipe(gulp.dest('./public/js'))
 })
@@ -111,6 +112,7 @@ gulp.task('styles', function () {
   return gulp.src(paths.styles)
     .pipe(sass({style: 'expand', includePaths: require('node-bourbon').includePaths, errLogToConsole: true}))
     .pipe(autoprefixer('last 2 version', 'safari 5', 'ie 8', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'))
+    .pipe(minifycss({keepBreaks:true}))
     .pipe(gulp.dest('./public/css'))
 })
 
@@ -118,6 +120,7 @@ gulp.task('styles', function () {
 gulp.task('vendor-styles', function () {
   return gulp.src(bowerCssDependencies)
     .pipe(sass({style: 'expand', errLogToConsole: true}))
+    .pipe(minifycss({keepBreaks:true}))
     .pipe(concat('vendor.css'))
     .pipe(gulp.dest('./public/css'))
 })
@@ -134,7 +137,6 @@ gulp.task('vendor-images', function () {
   return gulp.src(bowerImageDependencies)
     .pipe(gulp.dest('./public/css'))
 })
-
 
 gulp.task('clean', function () {
   return gulp.src(['public', 'build'], { read: false })
@@ -159,7 +161,9 @@ gulp.task('nodemon', function () {
     watch: 'backend',
     ignore: [ ],
     ext: 'js',
-    env: { 'NODE_ENV': 'development' },
+    env: {
+      NODE_ENV: 'development'
+    },
     nodeArgs: ['--debug']
   })
     .on('change', ['backend'])

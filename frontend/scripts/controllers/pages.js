@@ -87,7 +87,7 @@ angular.module('wikiwash').controller('PagesController',
       }
     });
 
-    $scope.$on('$routeChangeStart', function(event) {
+    $scope.$on('$routeChangeStart', function(event, next, prev) {
       if (JSON.stringify(next.pathParams) == JSON.stringify(prev.pathParams) && $location.hash()) {
         $anchorScroll();
       }

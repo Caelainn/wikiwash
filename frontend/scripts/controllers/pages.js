@@ -5,6 +5,7 @@ angular.module('wikiwash').controller('PagesController',
     $routeParams,
     $routeSegment,
     $http,
+    $anchorScroll,
     locationParams,
     socketService,
     _,
@@ -56,7 +57,11 @@ angular.module('wikiwash').controller('PagesController',
       }
     });
 
-    $scope.$on('$routeChangeSuccess', function(next, current) {
+    $scope.$on('$routeChangeSuccess', function(event, next, prev) {
+      if (JSON.stringify(next.pathParams) == JSON.stringify(prev.pathParams)) {
+        return;
+      }
+
       if ($routeParams.revId) {
         // want to allow clicking relative links to other wikipedia pages
         // links look like: '/wiki/thing'
@@ -65,9 +70,11 @@ angular.module('wikiwash').controller('PagesController',
         if ($routeParams.page == 'wiki') {
           if (!parseInt($routeParams.revId.split('-')[0])) {
             socketService.socket.emit('stop cycle');
+
             $routeParams.page = $routeParams.revId;
             $location.path($routeParams.revId).replace();
             $routeSegment.chain[0].reload();
+
             return;
           }
         }
@@ -80,8 +87,13 @@ angular.module('wikiwash').controller('PagesController',
       }
     });
 
-    $scope.$on('$routeChangeStart', function(next, current) {
-      $scope.loading = true;
+    $scope.$on('$routeChangeStart', function(event) {
+      if (JSON.stringify(next.pathParams) == JSON.stringify(prev.pathParams) && $location.hash()) {
+        $anchorScroll();
+      }
+      else {
+        $scope.loading = true;
+      }
     });
 
     $scope.$watch('revisions', function(revisions) {

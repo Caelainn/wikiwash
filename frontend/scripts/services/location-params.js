@@ -1,5 +1,4 @@
-angular.module('wikiwash').factory('locationParams', [
-  '$location',
+angular.module('wikiwash').factory('locationParams',
   function($location) {
     return {
       getCurrentRevId: function() {
@@ -18,4 +17,4 @@ angular.module('wikiwash').factory('locationParams', [
       }
     };
   }
-]);
+);

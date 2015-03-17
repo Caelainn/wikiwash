@@ -1,9 +1,4 @@
-angular.module('wikiwash').controller('HomeController', [
-  '$scope',
-  '$location',
-  'socketService',
-  'pageParser',
-  'suggestions',
+angular.module('wikiwash').controller('HomeController',
   function($scope, $location, socketService, pageParser, suggestions) {
     $scope.pageName = '';
     $scope.revisions = [ ];
@@ -14,7 +9,6 @@ angular.module('wikiwash').controller('HomeController', [
       return {
         url: suggestion[0],
         title: suggestion[0].replace(/_/g, ' ')
-        // title: decodeURIComponent(suggestion[0].replace(/_/g, ' '))
       };
     });
 
@@ -27,4 +21,4 @@ angular.module('wikiwash').controller('HomeController', [
       socketService.cycling = false;
     }
   }
-]);
+);

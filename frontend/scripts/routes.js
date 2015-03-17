@@ -1,7 +1,4 @@
-angular.module('wikiwash').config([
-  '$routeProvider',
-  '$routeSegmentProvider',
-  '$locationProvider',
+angular.module('wikiwash').config(
   function($routeProvider, $routeSegmentProvider, $locationProvider) {
     $locationProvider.html5Mode(true).hashPrefix('!');
 
@@ -41,4 +38,4 @@ angular.module('wikiwash').config([
           }
         });
   }
-]);
+);

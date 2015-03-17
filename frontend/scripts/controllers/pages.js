@@ -1,13 +1,4 @@
-angular.module('wikiwash').controller('PagesController', [
-  '$scope',
-  '$location',
-  '$routeParams',
-  '$routeSegment',
-  '$http',
-  'locationParams',
-  'socketService',
-  '_',
-  'pageParser',
+angular.module('wikiwash').controller('PagesController',
   function(
     $scope,
     $location,
@@ -195,4 +186,4 @@ angular.module('wikiwash').controller('PagesController', [
       $scope.tab = 'article';
     };
   }
-]);
+);

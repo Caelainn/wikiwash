@@ -105,8 +105,13 @@ angular.module('wikiwash').controller('PagesController',
       // redirect to first revision
       if (!$routeParams.revId) {
         $scope.revisions = res.revisions;
+
         var revId = $scope.revisions[0].revid + "-" + $scope.revisions[0].parentid;
-        var params = {page: $routeParams.page, revId: revId};
+        var params = {
+          page: $routeParams.page,
+          revId: revId
+        };
+
         $location.path($routeSegment.getSegmentUrl('p.revision', params)).replace();
       }
 

@@ -1,13 +1,12 @@
-angular.module('wikiwash').factory('api', ['$http', function($http) {
+angular.module('wikiwash').factory('api', function($http) {
   function getRequestPromise(url) {
     return $http({
       method: 'GET',
       url: url,
-    }).
-    success(function (data, status, headers, config) {
+    }).success(function(data, status, headers, config) {
       return data;
-    }).
-    error(function (data, status, headers, config) {
+    })
+    .error(function (data, status, headers, config) {
       return "ERROR: " + status;
     });
   }
@@ -18,14 +17,15 @@ angular.module('wikiwash').factory('api', ['$http', function($http) {
 
       var url = "/api/revisions/" + revIds[0];
 
-      if (revIds.length > 1 && revIds[1] !== '0')
+      if (revIds.length > 1 && revIds[1] !== '0') {
         url = url + "?diff=" + revIds[1];
+      }
       
       return getRequestPromise(url);
     },
 
     getSearchSuggestions: function() {
       return getRequestPromise("/api/suggestions");
-    },
+    }
   };
-}]);
+});

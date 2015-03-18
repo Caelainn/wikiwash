@@ -50,13 +50,13 @@
             p Avg time between edits
             p.number {{timeBetweenEdits}} Hours
 
-    .ww-loading(ng-show="loading")
-      img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")
-      img.animated-infinite.zoomOutLeft(src="/img/WIKIWASH-W2-Loading%402x.png")
-
     .content-right(ng-show="noResults", ng-class="{active: tab=='article'}")
       .wikidiff.mw-headline Looks like there is no Wikipedia page for this query. Try finding the page on Wikipedia and pasting the URL into the search bar. 
+
     .content-right(app-view-segment="1", ww-scroll, fixed-height, offset="75", ng-class="{active: tab=='article'}")
+      .ww-loading(ng-show="loading")
+        img.animated-infinite.zoomOutRight(src="/img/WIKIWASH-W1-Loading.png")
+        img.animated-infinite.zoomOutLeft(src="/img/WIKIWASH-W2-Loading%402x.png")
 
 .overlay(ng-show="showModal" ng-click="showModal = !showModal")
 

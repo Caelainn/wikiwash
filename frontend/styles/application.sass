@@ -940,10 +940,29 @@ div.data p.removed {
   position: absolute;
   top: 40%;
   left: 45%;
+  z-index: 1000;
+  @media (max-width: 600px){
+    position: fixed;
+    left: 50%;
+  }
 }
 
 .ww-loading img {
   width: 250px;
+  @media (max-width: 600px){
+    position: absolute;
+  }
+}
+
+@media (max-width: 600px){
+  .ww-loading{
+    .zoomOutRight{
+      right: -50px;
+    }
+    .zoomOutLeft{
+      left: -50px;
+    }
+  }
 }
 
 // == Wikinizer ============================================================

@@ -641,6 +641,7 @@ a.export-history:hover {
     right: 0;
     bottom: 0;
     width: auto;
+    height: auto !important;
   }
 }
 
@@ -681,8 +682,6 @@ a.export-history:hover {
   }
 
   .footer {
-    position: fixed;
-    z-index: 100;
   }
 
   ul.tabs {
@@ -741,6 +740,7 @@ a.export-history:hover {
   .content-right {
     width: 100%;
     display: none;
+    overflow: hidden;
   }
 
   .content-right.active {
@@ -770,6 +770,10 @@ a.export-history:hover {
 .collection {
   overflow-y: scroll;
   padding: 0;
+  @media (max-width: 630px){
+    overflow: auto;
+    height: auto !important;
+  }
 }
 
 .revisions {

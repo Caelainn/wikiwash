@@ -7,20 +7,20 @@ html(lang="en")
 
     .content(ng-controller="DocsController")
       .wrapper
-        .header
-          .logo
-            a(href="/" target="_self")
-              img(src="/img/WIKIWASH-Logo-Header%402x.png")
-          .navigation
-            p Show:
-            .search
-              form(ng-submit="getPage()")
-                input.bar.wide(type="text" ng-model="pageName")
 
-            a.export-session.about-button(
-              href=""
-              ng-click="showModal = !showModal"
-              ng-class="{active: showModal}") About
+        .article-spacer--small
+        .article-header
+          .header
+            .logo
+              a(href="/", target="_self")
+                img(src="/img/WIKIWASH-Logo-Header%402x.png")
+            .navigation
+              .search
+                form(ng-submit="getPage()")
+                  span.show_label Show:
+                  input.bar(type="text" ng-model="pageName")
+              a.button.about-button(href="",ng-click="showModal=!showModal",ng-class="{active: showModal}").
+                About
 
         .faq-content
           h1 WikiWash 101

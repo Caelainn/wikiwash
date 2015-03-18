@@ -22,6 +22,10 @@ body {
   overflow: hidden;
 }
 
+html, body{
+  min-height: 100%;
+}
+
 .clearfix:after {
    content: ".";
    visibility: hidden;
@@ -122,6 +126,7 @@ span.light {
   border-radius: 5px;
   color: #5b6d70;
   padding: 12px;
+  -webkit-appearance: none;
   @media (max-width: 600px) {
     font-size: 22px;
     width: 100%;
@@ -250,7 +255,7 @@ span.light {
 
 .about-popup {
   padding: 46px;
-  position: fixed;
+  position: absolute;
   top: 10%;
   right: 50%;
   margin-right: -350px;
@@ -259,7 +264,22 @@ span.light {
   background-color: #3F4E4F;
   opacity: 0.9;
   z-index:1002;
-  overflow-y: scroll;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  @media (max-width: 700px){
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    right: 0;
+    top: 0;
+    padding: 20px;
+    p, .title{
+      padding-left: 0 !important;
+    }
+    ul{
+      padding-left: 30px !important;
+    }
+  }
 }
 
 .about-popup .scroll-container {
@@ -289,12 +309,16 @@ span.light {
 
 .about-popup .close {
   opacity: 1;
+  @media (max-width: 700px){
+    position: fixed;
+    top: 20px;
+    right: 25px;
+  }
 }
 .about-popup .close a {
   text-decoration: none;
   font-size: 26px;
   color: white;
-  position: absolute;
   font-family: sans-serif;
   font-weight: 100;
   text-align: right;

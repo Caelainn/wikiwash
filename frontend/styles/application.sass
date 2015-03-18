@@ -1262,3 +1262,13 @@ input[type=checkbox], input[type=radio] {
     }
   } 
 }
+
+// prevent sticky mobile headers in landscape views
+@media (max-height: 350px){
+  .article-spacer, .article-spacer--small{
+    display: none;
+  }
+  .article-header{
+    position: static;
+  }
+}

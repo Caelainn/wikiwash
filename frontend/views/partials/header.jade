@@ -1,25 +1,27 @@
-.header
-  .logo
-    a(href="/")
-      img(src="/img/WIKIWASH-Logo-Header%402x.png")
-  .navigation
-    .search
-      form(ng-submit="getNewPage()")
-        span.show_label Show:
-        input.bar(type="text" ng-model="pageName")
-    .removed
-      input(type="checkbox" name="removed" id="removed" ng-model="showRemoved")
-      label(for="removed") Removed
-    .added
-      input(type="checkbox" name="added" id="added" ng-model="showAdded")
-      label(for="added") Added
-    a.button.about-button(href="",ng-click="showModal=!showModal",ng-class="{active: showModal}").
-      About
-.content_tabs
-  ul.tabs
-    li
-      a(href='#', ng-click="showHistory()",ng-class="{active: tab=='history'}").
-        History
-    li.last
-      a(href='#', ng-click="showArticle()",ng-class="{active: tab=='article'}").
-        Article
+.article-spacer
+.article-header
+  .header
+    .logo
+      a(href="/")
+        img(src="/img/WIKIWASH-Logo-Header%402x.png")
+    .navigation
+      .search
+        form(ng-submit="getNewPage()")
+          span.show_label Show:
+          input.bar(type="text" ng-model="pageName")
+      .removed
+        input(type="checkbox" name="removed" id="removed" ng-model="showRemoved")
+        label(for="removed") Removed
+      .added
+        input(type="checkbox" name="added" id="added" ng-model="showAdded")
+        label(for="added") Added
+      a.button.about-button(href="",ng-click="showModal=!showModal",ng-class="{active: showModal}").
+        About
+  .content_tabs
+    ul.tabs
+      li
+        a(href='#', ng-click="showHistory()",ng-class="{active: tab=='history'}").
+          History
+      li.last
+        a(href='#', ng-click="showArticle()",ng-class="{active: tab=='article'}").
+          Article

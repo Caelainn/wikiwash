@@ -18,7 +18,7 @@ angular.module('wikiwash')
 
       $scope.openTarget = function(url) {
         return url.match(/^https?:/) ? '_blank' : '';
-      }
+      };
     }
   };
 });

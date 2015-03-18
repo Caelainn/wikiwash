@@ -50,19 +50,51 @@ span.light {
   margin-left:auto;
   margin-right:auto;
   position: relative;
+  @media (max-width: 600px){
+    padding: 0 15px;
+  }
 }
 
 .logo-splash {
-  margin: 40px 0 0;
+  float: left;
   width: 45%;
-  text-align: center;
+  img{
+    max-width: 100%;
+    margin: 0 auto;
+    display: block;
+  }
+  @media (max-width: 600px) {
+    display: block;
+    width: 100%;
+    float: none;
+    margin-bottom: 15px;
+  }
 }
 
-.modo {
+.modo{
+  float: left;
   width: 55%;
-  margin: 0px auto;
-  text-align: left;
-  float: right;
+  @media (max-width: 600px) {
+    display: block;
+    width: 100%;
+    float: none;
+    text-align: center;
+    .about{
+      text-align: center;
+    }
+  }
+  @media (max-width: 400px) {
+    p{
+      display: inline;
+      font-size: 18px !important;
+      line-height: 25px !important;
+    }
+  }
+}
+
+.search-header{
+  @extend .clearfix;  
+  margin-top: 40px;
 }
 
 .modo p {
@@ -76,17 +108,24 @@ span.light {
   width: 100%;
   margin: 50px auto 0 auto;
   text-align: center;
+  @media (max-width: 600px){
+    margin-top: 20px;
+  }
 }
 
 .search-splash input.bar {
   width: 75%;
-  height: 72px;
   text-align: center;
   font-size: 32px;
   font-weight: 300;
   border: 2px solid #CCD7DC;
   border-radius: 5px;
   color: #5b6d70;
+  padding: 12px;
+  @media (max-width: 600px) {
+    font-size: 22px;
+    width: 100%;
+  }
 }
 
 .search-splash input.button {
@@ -100,6 +139,9 @@ span.light {
   font-size: 22px;
   font-weight: 400;
   color: white;
+  @media (max-width: 600px) {
+    display: none;
+  }
 }
 
 .search-suggestions {
@@ -169,6 +211,14 @@ span.light {
       &:hover {
         opacity: .8;
         transition: all 0.2s ease-in-out;
+      }
+    }
+    @media (max-width: 600px){
+      height: auto;
+      padding: 0 10px 15px 10px;
+      img{
+        width: 50px;
+        height: auto;
       }
     }
   }

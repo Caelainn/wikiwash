@@ -19,7 +19,6 @@ body {
   background: url('/img/Design-BG.png');
   background-size: 100%;
   background-repeat: repeat-y;
-  overflow: hidden;
 }
 
 html, body{
@@ -369,6 +368,15 @@ span.light {
   
 .faq-content {
   padding: 30px 100px;
+  @media (max-width: 600px){
+    padding: 20px;
+    .indented{
+      margin-left: 0 !important;
+    }
+  }
+  img{
+    max-width: 100%;
+  }
 }
 
 .faq-content .faq-title {
@@ -479,6 +487,20 @@ a.export-history:hover {
   padding-left: 30px;
   display: inline-block;
   vertical-align: middle;
+  float: right;
+  p{
+    width: 50px;
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    float: left;
+    padding-top: 7px;
+  }
+  @media (max-width: 1000px){
+    p, .search{
+      display: none;
+    }
+  }
 }
 
 .header .navigation span.show_label {
@@ -488,6 +510,29 @@ a.export-history:hover {
   font-weight: 700;
   float: left;
   padding-top: 7px;
+}
+
+.header a.export-session:hover {
+  background-color: #63797C;
+}
+
+.header a.export-session {
+  color: white;
+  text-decoration: none;
+  display: inline-block;
+  margin-right: 10px;
+  padding: 6px 20px;
+  background-color: #7C959B;
+  vertical-align: middle;
+}
+
+.header a.export-session.about-button {
+  margin-right: 15px;
+  vertical-align: middle;
+}
+
+.header a.export-session.about-button.active {
+  background-color: #63797C;
 }
 
 .header .navigation a {
@@ -543,7 +588,6 @@ a.export-history:hover {
   position: relative;
   border-bottom: 2px solid #CFCFCF;
   font-weight: 500;
-  margin-bottom: 30px
 }
 
 .wrapper:after {

@@ -1132,6 +1132,36 @@ input[type=checkbox], input[type=radio] {
   }
 }
 
+.header-searchField{
+  margin-left: 10px;
+  input{
+    padding: 8px;
+    -webkit-appearance: none;
+    border: 0;
+    &:focus{
+      outline: 2px solid #00A7CE;
+    }
+  }
+}
+
+.header-checkbox{
+  padding: 5px 10px;
+  margin-left: 10px;
+  label{
+    color: #63797C;
+    font-weight: normal;
+    &:before{
+      color: #63797C;
+    }
+  }
+  &.checkbox--removed{
+    background: #F0BCBD;
+  }  
+  &.checkbox--added{
+    background: #B9E9D2;
+  }
+}
+
 .header-inner{
   float: right;
 }
@@ -1140,9 +1170,39 @@ input[type=checkbox], input[type=radio] {
   display: none;
 }
 
-@media (max-width: 600px){
+.header-about{
+  color: white;
+  text-decoration: none;
+  font-size: 14px;
+  background: #7D959B;
+  padding: 8px 10px;
+  &:hover{
+    color: white;
+    text-decoration: none;
+    background: #63797C;
+  }
+}
+
+@media (max-width: 640px){
+  .header-wrapper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 999;
+  }
+
+  .header-spacer{
+    height: 74px;
+  }
+
   .header-searchToggle{
     display: inline-block;
+    color: white;
+    margin-left: 10px;
+    cursor: pointer;
+    &:hover{
+      color: #2D6594;
+    }
   }
 
   .header-search{
@@ -1154,12 +1214,24 @@ input[type=checkbox], input[type=radio] {
     }
   }
 
+  .header-searchField{
+    margin-left: 0;
+  }
+
   .header{
     display: block;
     &.is-searching{
       .header-search{
         display: block;
       }
+    }
+  }
+
+  .header-about{
+    background: transparent;
+    &:hover{
+      background: transparent;
+      color: #2F6692;
     }
   }
 }
@@ -1174,8 +1246,31 @@ input[type=checkbox], input[type=radio] {
   }
   .header-checkbox{
     display: block;
+    margin-left: 0;
     &.checkbox--removed{
       margin-bottom: 8px;
     }
+  }
+}
+
+@media (min-width: 401px) and (max-width: 640px){
+  .header-searchField{
+    display: table-cell;
+    width: 100%;
+    input{
+      width: 100%;
+    }
+  }
+  .header-checkbox{
+    display: table-cell;
+  }
+}
+
+@media (max-height: 380px) and (max-width: 640px){
+  .header-wrapper{
+    position: static;
+  }
+  .header-spacer{
+    display: none;
   }
 }

@@ -883,8 +883,9 @@ div.data {
   width: 65px;
   pointer-events: none;
   @media (max-width: 600px){
-    width: auto;
-    text-align: right;
+    p{
+      text-align: right !important;
+    }
   }
 }
 
@@ -900,6 +901,29 @@ div.data p.removed {
   font-size: 14px;
   font-weight: 700;
   text-align: center;
+}
+
+@media (max-width: 360px){
+  .revisions{
+    .timestamp, .user_comment, .data{
+      display: block;
+      width: 100%;
+    }
+    .timestamp{
+      margin-bottom: 10px;
+    }
+    .user_comment{
+      margin-bottom: 7px;
+    }
+    .data p{
+      display: inline;
+      width: auto;
+      text-align: left;
+      &:after{
+        content: ' ';
+      }
+    }
+  }
 }
 
 .active-revision {

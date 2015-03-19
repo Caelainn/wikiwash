@@ -444,19 +444,27 @@ a.about-button.active {
   background-color: #63797C;
 }
 
-a.export-history {
-  display: block;
-  padding: 4px 0px;
-  color: #7C959B;
-  text-transform: uppercase;
+.export-history {
+  padding: 8px 5px;
   text-align: center;
-  font-size: 12px;
-}
-
-a.export-history:hover {
-  text-decoration: none;
-  color: #FFFFFF;
-  background-color: #7C959B;
+  font-size: 14px;
+  span{
+    display: inline-block;
+    margin-right: 5px;
+    font-weight: 600;
+  }
+  a{
+    display: inline-block;
+    color: #7C959B;
+    font-size: 12px;
+    &:hover{
+      text-decoration: none;
+      color: #00A7CE;
+    }
+  }
+  @media (max-width: 630px){
+    display: none;
+  }
 }
 
 .header .empty {
@@ -718,10 +726,6 @@ a.export-history:hover {
     }
   }
 
-  a.export-history {
-    display: none;
-  }
-
   .content-wrapper {
     width: 100%;
   }
@@ -878,6 +882,10 @@ div.user_comment a.geo:hover {
 div.data {
   width: 65px;
   pointer-events: none;
+  @media (max-width: 600px){
+    width: auto;
+    text-align: right;
+  }
 }
 
 div.data p.added {

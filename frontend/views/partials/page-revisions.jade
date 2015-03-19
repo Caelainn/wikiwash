@@ -4,9 +4,14 @@
 
   .content-wrapper
     .content-left(ng-class="{active: tab=='history'}")
-      a.export-history(href="", ng-csv="sessionCsv()", filename="{{csv_filename}}").
-        Download history as CSV
+
+      .export-history
+        span Real-time Edits
+        a(href="", ng-csv="sessionCsv()", filename="{{csv_filename}}").
+          (download history as CSV)
+
       .collection(fixed-height offset="150")
+        
         .revisions(ng-repeat='revision in revisions track by $index'
           ng-class="{ 'active-revision': currentRevId == revision.revid }"
           class="{{$index == 0 ? 'wow fadeInDown' : ''}}")

@@ -10,8 +10,9 @@
         span.light= " | "
         a(href="" ng-click="showModal = !showModal") WHAT IS WIKIWASH?
   .search-splash
-    input.button(type='submit' value='WASH' ng-click='submit()')
-    input.bar(type="text" placeholder="Paste a Wikipedia URL to wash" ng-model='pageName' ng-keyup="$event.keyCode == 13 && submit()")
+    form(ng-submit="search()")
+      input.button(type='submit' value='WASH' ng-click='submit()')
+      input.bar(type="search" placeholder="Paste a Wikipedia URL to wash" ng-model='pageName' ng-keyup="$event.keyCode == 13 && submit()")
   .search-suggestions(ng-if='suggestions.length > 0')
     p Not sure which article to wash? Try looking at Wikipedia's most-read articles from the last hour:
     ul

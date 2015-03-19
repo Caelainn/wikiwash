@@ -118,7 +118,7 @@ span.light {
 
 .search-splash input.bar {
   width: 75%;
-  text-align: center;
+  text-align: left;
   font-size: 32px;
   font-weight: 300;
   border: 2px solid #CCD7DC;
@@ -127,8 +127,12 @@ span.light {
   padding: 12px;
   -webkit-appearance: none;
   @media (max-width: 600px) {
-    font-size: 22px;
+    font-size: 20px;
     width: 100%;
+  }
+  &:focus{
+    border: 2px solid #00A7CE;
+    outline: 0;
   }
 }
 

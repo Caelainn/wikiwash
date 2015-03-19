@@ -8,7 +8,7 @@ angular.module('wikiwash')
         },
         link: function (scope, element) {
           var resizeHandler = function() {
-            element.height($window.innerHeight - scope.offset - 20);
+            element.height($window.innerHeight - scope.offset - 28);
           };
 
           angular.element($window).bind('resize', resizeHandler);

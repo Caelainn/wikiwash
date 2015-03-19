@@ -31,4 +31,7 @@
         a(href="http://google.com/" target="_blank")
           img.metro-logo(src="/img/logo-google-white.png")
     .trdmrk
-      p © Wikiwash 2014
+      p © Wikiwash <span id="year"></span> 
+      script(type="text/javascript").
+        var year = new Date().getFullYear();
+        document.getElementById('year').innerHTML = year;

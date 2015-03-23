@@ -39,8 +39,8 @@
               href="{{ 'p.revision' | routeSegmentUrl: { page: pageName, revId: revision.revid + '-' + revision.parentid } }}"
               title="View revision"
             )
-              p.comment(ng-if="revision.comment.length > 0") {{revision.comment}}
-              p.comment(ng-if="revision.comment.length <= 0") Comment was not entered.
+              p.comment(ng-if="revision.comment.length > 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })") {{revision.comment}}
+              p.comment(ng-if="revision.comment.length <= 0", ng-click="showRevision({ page: pageName, revId: revision.revid + '-' + revision.parentid })") Comment was not entered.
           .data
             p.added {{revision.added ? "+" + revision.added : ''}}
             p.removed {{revision.removed ? "-" + revision.removed : ''}}
